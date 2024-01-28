@@ -1,0 +1,386 @@
+openapi: 3.0.1
+
+info:
+  description: |
+    This is a sample server Petstore server.
+    You can find out more about Swagger at
+    [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
+    For this sample, you can use the api key `special-key` to test the authorization filters.
+
+    # Introduction
+    This API is documented in **OpenAPI format** and is based on
+    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
+    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
+    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/main/docs/redoc-vendor-extensions.md).
+
+    # OpenAPI Specification
+    This API is documented in **OpenAPI format** and is based on
+    [Petstore sample](http://petstore.swagger.io/) provided by [swagger.io](http://swagger.io) team.
+    It was **extended** to illustrate features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+    tool and [ReDoc](https://github.com/Redocly/redoc) documentation. In addition to standard
+    OpenAPI syntax we use a few [vendor extensions](https://github.com/Redocly/redoc/blob/main/docs/redoc-vendor-extensions.md).
+
+    # Cross-Origin Resource Sharing
+    This API features Cross-Origin Resource Sharing (CORS) implemented in compliance with  [W3C spec](https://www.w3.org/TR/cors/).
+    And that allows cross-domain communication from the browser.
+    All responses have a wildcard same-origin which makes them completely public and accessible to everyone, including any code on any site.
+
+    # Authentication
+
+    Petstore offers two forms of authentication:
+      - API Key
+      - OAuth2
+    OAuth2 - an open protocol to allow secure authorization in a simple
+    and standard method from web, mobile and desktop applications.
+
+    <!-- ReDoc-Inject: <security-definitions> -->
+
+  title: Anboto Trading API
+  version: "2.0"
+  contact:
+    name: API Support
+    email: apiteam@anboto.xyz
+    url: https://anboto.xyz
+  x-logo:
+    url: 'https://redocly.github.io/redoc/petstore-logo.png'
+    altText: Petstore logo
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+paths:
+  /api/trading/v1/order/cancel:
+    post:
+      summary: Cancels the parent order
+      description: This will send a cancellation request into the OMS and set the
+        order to pending cancel. For the finalized state call /order?orderId=xxx
+      operationId: cancelOrder
+      parameters:
+      - name: ABTO-API
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-SIGN
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-TS
+        in: header
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CancelParentOrderRequest'
+        required: true
+      responses:
+        "400":
+          description: "Bad request, invalid order data"
+        "201":
+          description: Cancellation request processed and in progress.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderSummaryResponse'
+  /api/trading/v1/order/cancel/batch:
+    post:
+      summary: Cancels all of the parent orders specified in the batch request
+      description: This will send the cancellations into the OMS and set the status
+        of all orders to pending cancel. For the finalized state call /order?orderId=xxx
+      operationId: cancelBatchOrder
+      parameters:
+      - name: ABTO-API
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-SIGN
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-TS
+        in: header
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCancelParentOrdersRequest'
+        required: true
+      responses:
+        "400":
+          description: "Bad request, invalid order data"
+        "201":
+          description: Cancellation request processed and in progress.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderSummaryResponse'
+  /api/trading/v1/order/create:
+    post:
+      summary: Create a new order
+      description: Process a new order request and return order response
+      operationId: createOrder
+      parameters:
+      - name: ABTO-API
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-SIGN
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-TS
+        in: header
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateParentOrderRequest'
+        required: true
+      responses:
+        "400":
+          description: "Bad request, invalid order data"
+        "201":
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderSummaryResponse'
+  /api/trading/v1/order/create/batch:
+    post:
+      summary: Create a batch of new orders.
+      description: "Process a set of new order request and return the batch order\
+        \ response, the orders are not linked during execution and this endpoint is\
+        \ for convenience only"
+      operationId: createBatchOrders
+      parameters:
+      - name: ABTO-API
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-SIGN
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ABTO-TS
+        in: header
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchCreateParentOrdersRequest'
+        required: true
+      responses:
+        "400":
+          description: "Bad request, invalid order data"
+        "201":
+          description: Order processed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderListResponse'
+components:
+  schemas:
+    AssetClass:
+      type: string
+      enum:
+      - UNDEFINED
+      - SPOT
+      - FUTURE
+      - OPTION
+    BatchCancelParentOrdersRequest:
+      required:
+      - orders
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/CancelParentOrderRequest'
+    BatchCreateParentOrdersRequest:
+      required:
+      - allOrNone
+      - orders
+      type: object
+      properties:
+        orders:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateParentOrderRequest'
+        allOrNone:
+          type: boolean
+    CancelParentOrderRequest:
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+          nullable: true
+        clientOrderId:
+          type: string
+          nullable: true
+    ClipSizeType:
+      type: string
+      enum:
+      - ABSOLUTE
+      - PERCENTAGE
+      - AUTOMATIC
+    CreateParentOrderRequest:
+      required:
+      - assetClass
+      - exchange
+      - quantity
+      - side
+      - strategy
+      - symbol
+      type: object
+      properties:
+        clientOrderId:
+          type: string
+          nullable: true
+        exchange:
+          $ref: '#/components/schemas/Exchange'
+        subaccount:
+          type: string
+          nullable: true
+        symbol:
+          type: string
+        assetClass:
+          $ref: '#/components/schemas/AssetClass'
+        side:
+          $ref: '#/components/schemas/Side'
+        quantity:
+          type: number
+        strategy:
+          $ref: '#/components/schemas/Strategy'
+        limitPrice:
+          type: number
+          nullable: true
+        startTime:
+          type: string
+          format: date-time
+          nullable: true
+        endTime:
+          type: string
+          format: date-time
+          nullable: true
+        clipSizeType:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ClipSizeType'
+        clipSizeVal:
+          type: number
+          nullable: true
+        params:
+          type: string
+          nullable: true
+    ErrorCode:
+      type: string
+      enum:
+      - OTHER
+      - QUANTITY_EXCEED
+      - AUTHENTICATION_ERROR
+      - INSUFFICIENT_FUNDS
+      - RATE_LIMIT_EXCEEDED
+      - DDOS_PROTECTION
+      - EXCHANGE_NOT_AVAILABLE
+      - NETWORK_ERROR
+      - INVALID_ORDER
+      - EXCHANGE_ERROR
+      - EMS_INSTANCES_DOWN
+      - SLIPPAGE_EXCEEDED
+      - EXPIRY_REACHED
+      - MAX_FEE_PER_GAS_IS_TOO_LOW
+      - PARENT_ORDER_WAS_TERMINATED
+      - MAX_PRIORITY_FEE_PER_GAS_IS_TOO_LOW
+    Exchange:
+      type: string
+      enum:
+      - BINANCE
+      - BYBIT
+    OrderListResponse:
+      required:
+      - responses
+      type: object
+      properties:
+        responses:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderSummaryResponse'
+    OrderStatusEnum:
+      type: string
+      enum:
+      - PENDING_NEW
+      - ACCEPTED
+      - REJECTED
+      - PARTIALLY_FILLED
+      - FILLED
+      - PENDING_CANCEL
+      - CANCELLED
+      - PENDING_PAUSE
+      - PAUSED
+      - PENDING_UNPAUSE
+      - EXPIRED
+    OrderSummaryResponse:
+      required:
+      - createdAt
+      - status
+      type: object
+      properties:
+        orderId:
+          type: integer
+          format: int64
+          nullable: true
+        clientOrderId:
+          type: string
+          nullable: true
+        status:
+          $ref: '#/components/schemas/OrderStatusEnum'
+        createdAt:
+          type: string
+          format: date-time
+        message:
+          type: string
+          nullable: true
+        errorCode:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/ErrorCode'
+    Side:
+      type: string
+      enum:
+      - BUY
+      - SELL
+      - SHORT_SELL
+    Strategy:
+      type: string
+      enum:
+      - TWAP
+      - VWAP
+      - ICEBERG
+      - ORDER
+      - LIMIT
+      - STOP_LOSS
+      - DROP_COPY
