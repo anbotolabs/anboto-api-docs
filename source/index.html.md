@@ -27,6 +27,203 @@ Anboto Trading API <BR><BR> <B>Authentication</B><BR>Please visit Anboto's websi
 
 <h1 id="anboto-trading-api-rest-api">Rest API</h1>
 
+## getOrders
+
+<a id="opIdgetOrders"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /api/v2/trading/order/byId?orderIds=string&clientOrderIds=string \
+  -H 'Accept: application/json'
+
+```
+
+```http
+GET /api/v2/trading/order/byId?orderIds=string&clientOrderIds=string HTTP/1.1
+
+Accept: application/json
+
+```
+
+```javascript
+
+const headers = {
+  'Accept':'application/json'
+};
+
+fetch('/api/v2/trading/order/byId?orderIds=string&clientOrderIds=string',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```ruby
+require 'rest-client'
+require 'json'
+
+headers = {
+  'Accept' => 'application/json'
+}
+
+result = RestClient.get '/api/v2/trading/order/byId',
+  params: {
+  'orderIds' => 'array[string]',
+'clientOrderIds' => 'array[string]'
+}, headers: headers
+
+p JSON.parse(result)
+
+```
+
+```python
+import requests
+headers = {
+  'Accept': 'application/json'
+}
+
+r = requests.get('/api/v2/trading/order/byId', params={
+  'orderIds': [
+  "string"
+],  'clientOrderIds': [
+  "string"
+]
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Accept' => 'application/json',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v2/trading/order/byId', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```java
+URL obj = new URL("/api/v2/trading/order/byId?orderIds=string&clientOrderIds=string");
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod("GET");
+int responseCode = con.getResponseCode();
+BufferedReader in = new BufferedReader(
+    new InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = new StringBuffer();
+while ((inputLine = in.readLine()) != null) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Accept": []string{"application/json"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v2/trading/order/byId", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /api/v2/trading/order/byId`
+
+*Returns the order details for all matching orders*
+
+Both the orderIds and clientOrderIds parameters will be used in the lookup
+
+<h3 id="getorders-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|orderIds|query|array[string]|true|none|
+|clientOrderIds|query|array[string]|true|none|
+
+> Example responses
+
+> 200 Response
+
+```json
+{
+  "orders": [
+    {
+      "orderId": 0,
+      "clientOrderId": "string",
+      "symbol": "string",
+      "exchange": "BINANCE",
+      "status": "PENDING_NEW",
+      "filledQuantity": 0,
+      "leavesQuantity": 0,
+      "side": "BUY",
+      "lastQuantity": 0,
+      "lastPrice": 0,
+      "averagePrice": 0
+    }
+  ]
+}
+```
+
+<h3 id="getorders-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The list of matching orders.|[OrderDetailsList](#schemaorderdetailslist)|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
+
 ## cancelOrder
 
 <a id="opIdcancelOrder"></a>
@@ -893,21 +1090,21 @@ To perform this operation, you must be authenticated by means of one of the foll
 ApiKeyAuth
 </aside>
 
-## getOrders
+## findOrders
 
-<a id="opIdgetOrders"></a>
+<a id="opIdfindOrders"></a>
 
 > Code samples
 
 ```shell
 # You can also use wget
-curl -X GET /api/v2/trading/order/find?orderIds=string&clientOrderIds=string \
+curl -X GET /api/v2/trading/order/find?startMs=0&endMs=0&limit=0 \
   -H 'Accept: application/json'
 
 ```
 
 ```http
-GET /api/v2/trading/order/find?orderIds=string&clientOrderIds=string HTTP/1.1
+GET /api/v2/trading/order/find?startMs=0&endMs=0&limit=0 HTTP/1.1
 
 Accept: application/json
 
@@ -919,7 +1116,7 @@ const headers = {
   'Accept':'application/json'
 };
 
-fetch('/api/v2/trading/order/find?orderIds=string&clientOrderIds=string',
+fetch('/api/v2/trading/order/find?startMs=0&endMs=0&limit=0',
 {
   method: 'GET',
 
@@ -943,8 +1140,9 @@ headers = {
 
 result = RestClient.get '/api/v2/trading/order/find',
   params: {
-  'orderIds' => 'array[string]',
-'clientOrderIds' => 'array[string]'
+  'startMs' => 'integer(int64)',
+'endMs' => 'integer(int64)',
+'limit' => 'integer(int64)'
 }, headers: headers
 
 p JSON.parse(result)
@@ -958,11 +1156,7 @@ headers = {
 }
 
 r = requests.get('/api/v2/trading/order/find', params={
-  'orderIds': [
-  "string"
-],  'clientOrderIds': [
-  "string"
-]
+  'startMs': '0',  'endMs': '0',  'limit': '0'
 }, headers = headers)
 
 print(r.json())
@@ -1001,7 +1195,7 @@ try {
 ```
 
 ```java
-URL obj = new URL("/api/v2/trading/order/find?orderIds=string&clientOrderIds=string");
+URL obj = new URL("/api/v2/trading/order/find?startMs=0&endMs=0&limit=0");
 HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 con.setRequestMethod("GET");
 int responseCode = con.getResponseCode();
@@ -1048,12 +1242,13 @@ func main() {
 
 Both the orderIds and clientOrderIds parameters will be used in the lookup
 
-<h3 id="getorders-parameters">Parameters</h3>
+<h3 id="findorders-parameters">Parameters</h3>
 
 |Name|In|Type|Required|Description|
 |---|---|---|---|---|
-|orderIds|query|array[string]|true|none|
-|clientOrderIds|query|array[string]|true|none|
+|startMs|query|integer(int64)|true|none|
+|endMs|query|integer(int64)|true|none|
+|limit|query|integer(int64)|true|none|
 
 > Example responses
 
@@ -1079,200 +1274,11 @@ Both the orderIds and clientOrderIds parameters will be used in the lookup
 }
 ```
 
-<h3 id="getorders-responses">Responses</h3>
+<h3 id="findorders-responses">Responses</h3>
 
 |Status|Meaning|Description|Schema|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The list of matching orders.|[OrderDetailsList](#schemaorderdetailslist)|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-ApiKeyAuth
-</aside>
-
-## getOrder
-
-<a id="opIdgetOrder"></a>
-
-> Code samples
-
-```shell
-# You can also use wget
-curl -X GET /api/v2/trading/order/id?orderId=string&clientOrderId=string \
-  -H 'Accept: application/json'
-
-```
-
-```http
-GET /api/v2/trading/order/id?orderId=string&clientOrderId=string HTTP/1.1
-
-Accept: application/json
-
-```
-
-```javascript
-
-const headers = {
-  'Accept':'application/json'
-};
-
-fetch('/api/v2/trading/order/id?orderId=string&clientOrderId=string',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-```ruby
-require 'rest-client'
-require 'json'
-
-headers = {
-  'Accept' => 'application/json'
-}
-
-result = RestClient.get '/api/v2/trading/order/id',
-  params: {
-  'orderId' => 'string',
-'clientOrderId' => 'string'
-}, headers: headers
-
-p JSON.parse(result)
-
-```
-
-```python
-import requests
-headers = {
-  'Accept': 'application/json'
-}
-
-r = requests.get('/api/v2/trading/order/id', params={
-  'orderId': 'string',  'clientOrderId': 'string'
-}, headers = headers)
-
-print(r.json())
-
-```
-
-```php
-<?php
-
-require 'vendor/autoload.php';
-
-$headers = array(
-    'Accept' => 'application/json',
-);
-
-$client = new \GuzzleHttp\Client();
-
-// Define array of request body.
-$request_body = array();
-
-try {
-    $response = $client->request('GET','/api/v2/trading/order/id', array(
-        'headers' => $headers,
-        'json' => $request_body,
-       )
-    );
-    print_r($response->getBody()->getContents());
- }
- catch (\GuzzleHttp\Exception\BadResponseException $e) {
-    // handle exception or api errors.
-    print_r($e->getMessage());
- }
-
- // ...
-
-```
-
-```java
-URL obj = new URL("/api/v2/trading/order/id?orderId=string&clientOrderId=string");
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod("GET");
-int responseCode = con.getResponseCode();
-BufferedReader in = new BufferedReader(
-    new InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = new StringBuffer();
-while ((inputLine = in.readLine()) != null) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-```
-
-```go
-package main
-
-import (
-       "bytes"
-       "net/http"
-)
-
-func main() {
-
-    headers := map[string][]string{
-        "Accept": []string{"application/json"},
-    }
-
-    data := bytes.NewBuffer([]byte{jsonReq})
-    req, err := http.NewRequest("GET", "/api/v2/trading/order/id", data)
-    req.Header = headers
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    // ...
-}
-
-```
-
-`GET /api/v2/trading/order/id`
-
-*Returns the order details*
-
-Only one of orderId or clientOrderId should be provided.
-
-<h3 id="getorder-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|orderId|query|string|true|none|
-|clientOrderId|query|string|true|none|
-
-> Example responses
-
-> 200 Response
-
-```json
-{
-  "orderId": 0,
-  "clientOrderId": "string",
-  "symbol": "string",
-  "exchange": "BINANCE",
-  "status": "PENDING_NEW",
-  "filledQuantity": 0,
-  "leavesQuantity": 0,
-  "side": "BUY",
-  "lastQuantity": 0,
-  "lastPrice": 0,
-  "averagePrice": 0
-}
-```
-
-<h3 id="getorder-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|The list of matching orders.|[OrderDetails](#schemaorderdetails)|
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
