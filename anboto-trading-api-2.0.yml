@@ -24,7 +24,8 @@ info:
     \ and then use the HMAC_SHA256 (for system generated keys) or RSA_SHA256 algorithm\
     \ to sign the string in step 1.<BR>3. Convert the signed value to a hex string\
     \ (HMAC_SHA256) / base64 (RSA_SHA256) to obtain the sign parameter.<BR>4. Append\
-    \ the sign parameter to request header, and send the HTTP request."
+    \ the sign parameter to request header, and send the HTTP request. <BR><BR>Examples\
+    \ can be found here: <a href=\"https://github.com/anbotolabs/examples\">https://github.com/anbotolabs/examples</a> "
   version: "2.0"
 paths:
   /api/v2/trading/order/byId:
