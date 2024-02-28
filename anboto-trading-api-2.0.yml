@@ -221,16 +221,6 @@ paths:
                 $ref: '#/components/schemas/OrderDetailsList'
       security:
       - ApiKeyAuth: []
-  /status:
-    get:
-      operationId: home
-      responses:
-        "200":
-          description: home 200 response
-          content:
-            application/json:
-              schema:
-                type: string
   /status/ping:
     get:
       operationId: status
