@@ -2138,7 +2138,9 @@ None
 <a id="tocsapierrorcode"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"OTHER"</span><span class="w">
 
-</span></code></pre></div><h3 id='properties'>Properties</h3>
+</span></code></pre></div>
+<p>The error code used to describe why an order was rejected.</p>
+<h3 id='properties'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2153,7 +2155,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The error code used to describe why an order was rejected.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values'>Enumerated Values</h4>
@@ -2260,7 +2262,7 @@ None
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"SPOT"</span><span class="w">
 
 </span></code></pre></div>
-<p>An asset category for the API so that we do not need to expose AssetClass to the API users</p>
+<p>The Asset category of the order.</p>
 <h3 id='properties-2'>Properties</h3>
 <table><thead>
 <tr>
@@ -2276,7 +2278,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>An asset category for the API so that we do not need to expose AssetClass to the API users</td>
+<td>The Asset category of the order.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-2'>Enumerated Values</h4>
@@ -2334,7 +2336,7 @@ None
 <td>[<a href="#schemacancelparentorderrequest">CancelParentOrderRequest</a>]</td>
 <td>true</td>
 <td>none</td>
-<td>[Used for cancelling a parent order]</td>
+<td>The list of parent cancellation requests</td>
 </tr>
 </tbody></table>
 
@@ -2368,14 +2370,14 @@ None
 <td>integer(int64)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The Anboto generated order id</td>
 </tr>
 <tr>
 <td>clientOrderId</td>
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The client provided order id</td>
 </tr>
 </tbody></table>
 
@@ -2389,7 +2391,9 @@ None
 <a id="tocsclipsizetype"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"ABSOLUTE"</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-5'>Properties</h3>
+</span></code></pre></div>
+<p>The clip size for the child orders. The default is AUTOMATIC</p>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2404,7 +2408,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The clip size for the child orders. The default is AUTOMATIC</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-3'>Enumerated Values</h4>
@@ -2556,98 +2560,98 @@ None
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>A custom string to identify the order, e.g. ABC-12345^12-10-23</td>
 </tr>
 <tr>
 <td>exchange</td>
 <td><a href="#schemaexchange">Exchange</a></td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The execution exchange, e.g. BINANCE</td>
 </tr>
 <tr>
 <td>subaccount</td>
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The sub-account under which to trade the order</td>
 </tr>
 <tr>
 <td>symbol</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The symbol using Anboto symbology, e.g. BTC/USDT</td>
 </tr>
 <tr>
 <td>assetCategory</td>
 <td><a href="#schemaassetcategory">AssetCategory</a></td>
 <td>true</td>
 <td>none</td>
-<td>An asset category for the API so that we do not need to expose AssetClass to the API users</td>
+<td>The Asset category of the order.</td>
 </tr>
 <tr>
 <td>side</td>
 <td><a href="#schemaside">Side</a></td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The side of the book to trade.</td>
 </tr>
 <tr>
 <td>quantity</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The quantity to trade as a exchange trade-able decimal value, e.g. 0.015</td>
 </tr>
 <tr>
 <td>strategy</td>
 <td><a href="#schemaexecutionstrategy">ExecutionStrategy</a></td>
 <td>true</td>
 <td>none</td>
-<td>An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users</td>
+<td>The execution strategy for the order.</td>
 </tr>
 <tr>
 <td>limitPrice</td>
 <td>number¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The exchange valid limit price for the order, e.g. 2205.10</td>
 </tr>
 <tr>
 <td>startTime</td>
 <td>string(date-time)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The start time in UTC (defaults to NOW), e.g. 2024-01-22T22:05:00Z</td>
 </tr>
 <tr>
 <td>endTime</td>
 <td>string(date-time)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The end time in UTC, defaults to 30 days time, this will be rejected if more than 60 days in the future, e.g. 2024-04-22T22:05:00Z</td>
 </tr>
 <tr>
 <td>clipSizeType</td>
 <td><a href="#schemaclipsizetype">ClipSizeType</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The clip size for the child orders. The default is AUTOMATIC</td>
 </tr>
 <tr>
 <td>clipSizeVal</td>
 <td>number¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The clip size value, required if the type is ABSOLUTE or PERCENTAGE, e.g 0.01</td>
 </tr>
 <tr>
 <td>params</td>
 <td><a href="#schemaorderparams">OrderParams</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The advanced order parameters to modify the execution behavior.</td>
 </tr>
 </tbody></table>
 
@@ -2661,7 +2665,9 @@ None
 <a id="tocsexchange"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BINANCE"</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-8'>Properties</h3>
+</span></code></pre></div>
+<p>The exchange where to trade the order.</p>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2676,7 +2682,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The exchange where to trade the order.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-4'>Enumerated Values</h4>
@@ -2731,7 +2737,7 @@ None
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"TWAP"</span><span class="w">
 
 </span></code></pre></div>
-<p>An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users</p>
+<p>The execution strategy for the order.</p>
 <h3 id='properties-9'>Properties</h3>
 <table><thead>
 <tr>
@@ -2747,7 +2753,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users</td>
+<td>The execution strategy for the order.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-5'>Enumerated Values</h4>
@@ -2768,14 +2774,6 @@ None
 <tr>
 <td><em>anonymous</em></td>
 <td>ICEBERG</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>MARKET</td>
-</tr>
-<tr>
-<td><em>anonymous</em></td>
-<td>LIMIT</td>
 </tr>
 <tr>
 <td><em>anonymous</em></td>
@@ -2819,70 +2817,70 @@ None
 <td>integer(int64)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The Anboto generated order id</td>
 </tr>
 <tr>
 <td>clientOrderId</td>
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The client provided order id</td>
 </tr>
 <tr>
 <td>symbol</td>
 <td>string</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The order symbol using Anboto symbology</td>
 </tr>
 <tr>
 <td>status</td>
 <td><a href="#schemaorderstatus">OrderStatus</a></td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The order status</td>
 </tr>
 <tr>
 <td>filledQuantity</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The absolute amount of the order quantity filled.</td>
 </tr>
 <tr>
 <td>leavesQuantity</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The absolute amount of the order quantity remaining to be filled.</td>
 </tr>
 <tr>
 <td>side</td>
 <td><a href="#schemaside">Side</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The side of the book to trade.</td>
 </tr>
 <tr>
 <td>lastQuantity</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The last qty received in a fill from the exchange</td>
 </tr>
 <tr>
 <td>lastPrice</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The last price executed on the exchange</td>
 </tr>
 <tr>
 <td>averagePrice</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The average execution price of the order</td>
 </tr>
 </tbody></table>
 
@@ -2926,7 +2924,7 @@ None
 <td>[<a href="#schemaorderdetails">OrderDetails</a>]</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The list of order details for separate orders.</td>
 </tr>
 </tbody></table>
 
@@ -2958,7 +2956,9 @@ None
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-12'>Properties</h3>
+</span></code></pre></div>
+<p>The advanced order parameters to modify the execution behavior.</p>
+<h3 id='properties-12'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2973,42 +2973,42 @@ None
 <td>integer(int64)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The duration of the order in seconds, this is a required field for TWAP and VWAP. e.g. 120</td>
 </tr>
 <tr>
 <td>tradingStyle</td>
 <td><a href="#schematradingstyle">TradingStyle</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>The trading style of the order</td>
+<td>The trading style of the order, the default is HYBRID</td>
 </tr>
 <tr>
 <td>randomizeAmount</td>
 <td>boolean¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Whether to randomize the slice amount.</td>
 </tr>
 <tr>
 <td>would</td>
 <td><a href="#schemawouldinfo">WouldInfo</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Information to instruct how to execute a Would price trigger.</td>
 </tr>
 <tr>
 <td>trigger</td>
 <td><a href="#schematriggerinfo">TriggerInfo</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Information related to how the order should be triggered.</td>
 </tr>
 <tr>
 <td>placementInfos</td>
 <td><a href="#schemaplacementinfo">PlacementInfo</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>How to place an order into the book</td>
 </tr>
 </tbody></table>
 
@@ -3022,7 +3022,9 @@ None
 <a id="tocsorderstatus"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"PENDING_NEW"</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-13'>Properties</h3>
+</span></code></pre></div>
+<p>The order status</p>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3037,7 +3039,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The order status</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-6'>Enumerated Values</h4>
@@ -3114,7 +3116,9 @@ None
   </span><span class="nl">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTHER"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-14'>Properties</h3>
+</span></code></pre></div>
+<p>Summarizes the state of the parent order</p>
+<h3 id='properties-14'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3129,42 +3133,42 @@ None
 <td>integer(int64)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The Anboto assigned order identifier, e.g. 23019838281923902992</td>
 </tr>
 <tr>
 <td>clientOrderId</td>
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>A custom string to identify the order, e.g. &quot;ABC-12345^12-10-23&quot;</td>
 </tr>
 <tr>
 <td>status</td>
 <td><a href="#schemaorderstatus">OrderStatus</a></td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The status of the order, e.g. PENDING_NEW</td>
 </tr>
 <tr>
 <td>createdAt</td>
 <td>string(date-time)</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The time in UTC when the order was created, e.g. 2024-01-22T22:05:00Z</td>
 </tr>
 <tr>
 <td>message</td>
 <td>string¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Any additional information, usually if the order was rejected</td>
 </tr>
 <tr>
 <td>errorCode</td>
 <td><a href="#schemaapierrorcode">ApiErrorCode</a>¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The error code if the order was rejected</td>
 </tr>
 </tbody></table>
 
@@ -3204,7 +3208,7 @@ None
 <td>[<a href="#schemaordersummary">OrderSummary</a>]</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The list of order summaries for separate orders.</td>
 </tr>
 </tbody></table>
 
@@ -3222,7 +3226,9 @@ None
   </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-16'>Properties</h3>
+</span></code></pre></div>
+<p>How to place an order into the book</p>
+<h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3237,21 +3243,21 @@ None
 <td><a href="#schemaplacementmode">PlacementMode</a></td>
 <td>true</td>
 <td>none</td>
-<td>The trading style of the order</td>
+<td>The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy</td>
 </tr>
 <tr>
 <td>placement</td>
 <td>integer(int32)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>Where to place new orders in the book, e.g. 2 would slice at the second best observed price.</td>
 </tr>
 <tr>
 <td>cancel</td>
 <td>integer(int32)¦null</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>At what level to cancel an existing order on the book, e.g. 6 would cancel the order when it got to level 6 in the book</td>
 </tr>
 </tbody></table>
 
@@ -3266,7 +3272,7 @@ None
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"DEFAULT"</span><span class="w">
 
 </span></code></pre></div>
-<p>The trading style of the order</p>
+<p>The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy</p>
 <h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
@@ -3282,7 +3288,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>The trading style of the order</td>
+<td>The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-7'>Enumerated Values</h4>
@@ -3316,7 +3322,9 @@ None
 <a id="tocsside"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BUY"</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-18'>Properties</h3>
+</span></code></pre></div>
+<p>The side of the book to trade.</p>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3331,7 +3339,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>none</td>
+<td>The side of the book to trade.</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-8'>Enumerated Values</h4>
@@ -3366,7 +3374,7 @@ None
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"PASSIVE"</span><span class="w">
 
 </span></code></pre></div>
-<p>The trading style of the order</p>
+<p>The trading style of the order, the default is HYBRID</p>
 <h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
@@ -3382,7 +3390,7 @@ None
 <td>string</td>
 <td>false</td>
 <td>none</td>
-<td>The trading style of the order</td>
+<td>The trading style of the order, the default is HYBRID</td>
 </tr>
 </tbody></table>
 <h4 id='enumerated-values-9'>Enumerated Values</h4>
@@ -3466,7 +3474,9 @@ None
   </span><span class="nl">"triggerCondition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABOVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-21'>Properties</h3>
+</span></code></pre></div>
+<p>Information related to how the order should be triggered.</p>
+<h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3481,7 +3491,7 @@ None
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The price to monitor for the trigger</td>
 </tr>
 <tr>
 <td>triggerCondition</td>
@@ -3506,7 +3516,9 @@ None
   </span><span class="nl">"wouldStyle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PASSIVE"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-22'>Properties</h3>
+</span></code></pre></div>
+<p>Information to instruct how to execute a Would price trigger.</p>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3521,21 +3533,21 @@ None
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The price to trigger Would mode</td>
 </tr>
 <tr>
 <td>wouldPct</td>
 <td>number</td>
 <td>true</td>
 <td>none</td>
-<td>none</td>
+<td>The percent of the order to trade when the Would price triggers</td>
 </tr>
 <tr>
 <td>wouldStyle</td>
 <td><a href="#schematradingstyle">TradingStyle</a></td>
 <td>true</td>
 <td>none</td>
-<td>The trading style of the order</td>
+<td>The trading style of the order, the default is HYBRID</td>
 </tr>
 </tbody></table>
 
