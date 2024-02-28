@@ -1701,11 +1701,13 @@ None
 
 ```
 
+The error code used to describe why an order was rejected.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The error code used to describe why an order was rejected.|
 
 #### Enumerated Values
 
@@ -1745,13 +1747,13 @@ None
 
 ```
 
-An asset category for the API so that we do not need to expose AssetClass to the API users
+The Asset category of the order.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|An asset category for the API so that we do not need to expose AssetClass to the API users|
+|*anonymous*|string|false|none|The Asset category of the order.|
 
 #### Enumerated Values
 
@@ -1786,7 +1788,7 @@ Used for cancelling many parent orders at the same time
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orders|[[CancelParentOrderRequest](#schemacancelparentorderrequest)]|true|none|[Used for cancelling a parent order]|
+|orders|[[CancelParentOrderRequest](#schemacancelparentorderrequest)]|true|none|The list of parent cancellation requests|
 
 <h2 id="tocS_CancelParentOrderRequest">CancelParentOrderRequest</h2>
 <!-- backwards compatibility -->
@@ -1809,8 +1811,8 @@ Used for cancelling a parent order
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orderId|integer(int64)¦null|false|none|none|
-|clientOrderId|string¦null|false|none|none|
+|orderId|integer(int64)¦null|false|none|The Anboto generated order id|
+|clientOrderId|string¦null|false|none|The client provided order id|
 
 <h2 id="tocS_ClipSizeType">ClipSizeType</h2>
 <!-- backwards compatibility -->
@@ -1824,11 +1826,13 @@ Used for cancelling a parent order
 
 ```
 
+The clip size for the child orders. The default is AUTOMATIC
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The clip size for the child orders. The default is AUTOMATIC|
 
 #### Enumerated Values
 
@@ -1946,20 +1950,20 @@ Used for creating a parent order.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|clientOrderId|string¦null|false|none|none|
-|exchange|[Exchange](#schemaexchange)|true|none|none|
-|subaccount|string¦null|false|none|none|
-|symbol|string|true|none|none|
-|assetCategory|[AssetCategory](#schemaassetcategory)|true|none|An asset category for the API so that we do not need to expose AssetClass to the API users|
-|side|[Side](#schemaside)|true|none|none|
-|quantity|number|true|none|none|
-|strategy|[ExecutionStrategy](#schemaexecutionstrategy)|true|none|An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users|
-|limitPrice|number¦null|false|none|none|
-|startTime|string(date-time)¦null|false|none|none|
-|endTime|string(date-time)¦null|false|none|none|
-|clipSizeType|[ClipSizeType](#schemaclipsizetype)¦null|false|none|none|
-|clipSizeVal|number¦null|false|none|none|
-|params|[OrderParams](#schemaorderparams)¦null|false|none|none|
+|clientOrderId|string¦null|false|none|A custom string to identify the order, e.g. ABC-12345\^12-10-23|
+|exchange|[Exchange](#schemaexchange)|true|none|The execution exchange, e.g. BINANCE|
+|subaccount|string¦null|false|none|The sub-account under which to trade the order|
+|symbol|string|true|none|The symbol using Anboto symbology, e.g. BTC/USDT|
+|assetCategory|[AssetCategory](#schemaassetcategory)|true|none|The Asset category of the order.|
+|side|[Side](#schemaside)|true|none|The side of the book to trade.|
+|quantity|number|true|none|The quantity to trade as a exchange trade-able decimal value, e.g. 0.015|
+|strategy|[ExecutionStrategy](#schemaexecutionstrategy)|true|none|The execution strategy for the order.|
+|limitPrice|number¦null|false|none|The exchange valid limit price for the order, e.g. 2205.10|
+|startTime|string(date-time)¦null|false|none|The start time in UTC (defaults to NOW), e.g. 2024-01-22T22:05:00Z|
+|endTime|string(date-time)¦null|false|none|The end time in UTC, defaults to 30 days time, this will be rejected if more than 60 days in the future, e.g. 2024-04-22T22:05:00Z|
+|clipSizeType|[ClipSizeType](#schemaclipsizetype)¦null|false|none|The clip size for the child orders. The default is AUTOMATIC|
+|clipSizeVal|number¦null|false|none|The clip size value, required if the type is ABSOLUTE or PERCENTAGE, e.g 0.01|
+|params|[OrderParams](#schemaorderparams)¦null|false|none|The advanced order parameters to modify the execution behavior.|
 
 <h2 id="tocS_Exchange">Exchange</h2>
 <!-- backwards compatibility -->
@@ -1973,11 +1977,13 @@ Used for creating a parent order.
 
 ```
 
+The exchange where to trade the order.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The exchange where to trade the order.|
 
 #### Enumerated Values
 
@@ -2004,13 +2010,13 @@ Used for creating a parent order.
 
 ```
 
-An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users
+The execution strategy for the order.
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|An enum for strategy for the API so that we do not need to expose the Strategy enum to the API users|
+|*anonymous*|string|false|none|The execution strategy for the order.|
 
 #### Enumerated Values
 
@@ -2019,8 +2025,6 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 |*anonymous*|TWAP|
 |*anonymous*|VWAP|
 |*anonymous*|ICEBERG|
-|*anonymous*|MARKET|
-|*anonymous*|LIMIT|
 |*anonymous*|STOP_LOSS|
 
 <h2 id="tocS_OrderDetails">OrderDetails</h2>
@@ -2050,16 +2054,16 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orderId|integer(int64)¦null|false|none|none|
-|clientOrderId|string¦null|false|none|none|
-|symbol|string|true|none|none|
-|status|[OrderStatus](#schemaorderstatus)|true|none|none|
-|filledQuantity|number|true|none|none|
-|leavesQuantity|number|true|none|none|
-|side|[Side](#schemaside)¦null|false|none|none|
-|lastQuantity|number|true|none|none|
-|lastPrice|number|true|none|none|
-|averagePrice|number|true|none|none|
+|orderId|integer(int64)¦null|false|none|The Anboto generated order id|
+|clientOrderId|string¦null|false|none|The client provided order id|
+|symbol|string|true|none|The order symbol using Anboto symbology|
+|status|[OrderStatus](#schemaorderstatus)|true|none|The order status|
+|filledQuantity|number|true|none|The absolute amount of the order quantity filled.|
+|leavesQuantity|number|true|none|The absolute amount of the order quantity remaining to be filled.|
+|side|[Side](#schemaside)¦null|false|none|The side of the book to trade.|
+|lastQuantity|number|true|none|The last qty received in a fill from the exchange|
+|lastPrice|number|true|none|The last price executed on the exchange|
+|averagePrice|number|true|none|The average execution price of the order|
 
 <h2 id="tocS_OrderDetailsList">OrderDetailsList</h2>
 <!-- backwards compatibility -->
@@ -2092,7 +2096,7 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orders|[[OrderDetails](#schemaorderdetails)]|true|none|none|
+|orders|[[OrderDetails](#schemaorderdetails)]|true|none|The list of order details for separate orders.|
 
 <h2 id="tocS_OrderParams">OrderParams</h2>
 <!-- backwards compatibility -->
@@ -2124,16 +2128,18 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 ```
 
+The advanced order parameters to modify the execution behavior.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|durationSeconds|integer(int64)¦null|false|none|none|
-|tradingStyle|[TradingStyle](#schematradingstyle)¦null|false|none|The trading style of the order|
-|randomizeAmount|boolean¦null|false|none|none|
-|would|[WouldInfo](#schemawouldinfo)¦null|false|none|none|
-|trigger|[TriggerInfo](#schematriggerinfo)¦null|false|none|none|
-|placementInfos|[PlacementInfo](#schemaplacementinfo)¦null|false|none|none|
+|durationSeconds|integer(int64)¦null|false|none|The duration of the order in seconds, this is a required field for TWAP and VWAP. e.g. 120|
+|tradingStyle|[TradingStyle](#schematradingstyle)¦null|false|none|The trading style of the order, the default is HYBRID|
+|randomizeAmount|boolean¦null|false|none|Whether to randomize the slice amount.|
+|would|[WouldInfo](#schemawouldinfo)¦null|false|none|Information to instruct how to execute a Would price trigger.|
+|trigger|[TriggerInfo](#schematriggerinfo)¦null|false|none|Information related to how the order should be triggered.|
+|placementInfos|[PlacementInfo](#schemaplacementinfo)¦null|false|none|How to place an order into the book|
 
 <h2 id="tocS_OrderStatus">OrderStatus</h2>
 <!-- backwards compatibility -->
@@ -2147,11 +2153,13 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 ```
 
+The order status
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The order status|
 
 #### Enumerated Values
 
@@ -2189,16 +2197,18 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 ```
 
+Summarizes the state of the parent order
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orderId|integer(int64)¦null|false|none|none|
-|clientOrderId|string¦null|false|none|none|
-|status|[OrderStatus](#schemaorderstatus)|true|none|none|
-|createdAt|string(date-time)|true|none|none|
-|message|string¦null|false|none|none|
-|errorCode|[ApiErrorCode](#schemaapierrorcode)¦null|false|none|none|
+|orderId|integer(int64)¦null|false|none|The Anboto assigned order identifier, e.g. 23019838281923902992|
+|clientOrderId|string¦null|false|none|A custom string to identify the order, e.g. "ABC-12345\^12-10-23"|
+|status|[OrderStatus](#schemaorderstatus)|true|none|The status of the order, e.g. PENDING_NEW|
+|createdAt|string(date-time)|true|none|The time in UTC when the order was created, e.g. 2024-01-22T22:05:00Z|
+|message|string¦null|false|none|Any additional information, usually if the order was rejected|
+|errorCode|[ApiErrorCode](#schemaapierrorcode)¦null|false|none|The error code if the order was rejected|
 
 <h2 id="tocS_OrderSummaryList">OrderSummaryList</h2>
 <!-- backwards compatibility -->
@@ -2227,7 +2237,7 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|orders|[[OrderSummary](#schemaordersummary)]|true|none|none|
+|orders|[[OrderSummary](#schemaordersummary)]|true|none|The list of order summaries for separate orders.|
 
 <h2 id="tocS_PlacementInfo">PlacementInfo</h2>
 <!-- backwards compatibility -->
@@ -2245,13 +2255,15 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 ```
 
+How to place an order into the book
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|placementMode|[PlacementMode](#schemaplacementmode)|true|none|The trading style of the order|
-|placement|integer(int32)¦null|false|none|none|
-|cancel|integer(int32)¦null|false|none|none|
+|placementMode|[PlacementMode](#schemaplacementmode)|true|none|The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy|
+|placement|integer(int32)¦null|false|none|Where to place new orders in the book, e.g. 2 would slice at the second best observed price.|
+|cancel|integer(int32)¦null|false|none|At what level to cancel an existing order on the book, e.g. 6 would cancel the order when it got to level 6 in the book|
 
 <h2 id="tocS_PlacementMode">PlacementMode</h2>
 <!-- backwards compatibility -->
@@ -2265,13 +2277,13 @@ An enum for strategy for the API so that we do not need to expose the Strategy e
 
 ```
 
-The trading style of the order
+The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|The trading style of the order|
+|*anonymous*|string|false|none|The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy|
 
 #### Enumerated Values
 
@@ -2293,11 +2305,13 @@ The trading style of the order
 
 ```
 
+The side of the book to trade.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|none|
+|*anonymous*|string|false|none|The side of the book to trade.|
 
 #### Enumerated Values
 
@@ -2319,13 +2333,13 @@ The trading style of the order
 
 ```
 
-The trading style of the order
+The trading style of the order, the default is HYBRID
 
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|*anonymous*|string|false|none|The trading style of the order|
+|*anonymous*|string|false|none|The trading style of the order, the default is HYBRID|
 
 #### Enumerated Values
 
@@ -2377,11 +2391,13 @@ The trigger condition to start the order
 
 ```
 
+Information related to how the order should be triggered.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|triggerPrice|number|true|none|none|
+|triggerPrice|number|true|none|The price to monitor for the trigger|
 |triggerCondition|[TriggerCondition](#schematriggercondition)|true|none|The trigger condition to start the order|
 
 <h2 id="tocS_WouldInfo">WouldInfo</h2>
@@ -2400,11 +2416,13 @@ The trigger condition to start the order
 
 ```
 
+Information to instruct how to execute a Would price trigger.
+
 ### Properties
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|wouldPrice|number|true|none|none|
-|wouldPct|number|true|none|none|
-|wouldStyle|[TradingStyle](#schematradingstyle)|true|none|The trading style of the order|
+|wouldPrice|number|true|none|The price to trigger Would mode|
+|wouldPct|number|true|none|The percent of the order to trade when the Would price triggers|
+|wouldStyle|[TradingStyle](#schematradingstyle)|true|none|The trading style of the order, the default is HYBRID|
 

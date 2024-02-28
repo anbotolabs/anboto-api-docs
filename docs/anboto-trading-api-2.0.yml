@@ -221,16 +221,6 @@ paths:
                 $ref: '#/components/schemas/OrderDetailsList'
       security:
       - ApiKeyAuth: []
-  /status:
-    get:
-      operationId: home
-      responses:
-        "200":
-          description: home 200 response
-          content:
-            application/json:
-              schema:
-                type: string
   /status/ping:
     get:
       operationId: status
@@ -245,6 +235,7 @@ components:
   schemas:
     ApiErrorCode:
       type: string
+      description: The error code used to describe why an order was rejected.
       enum:
       - OTHER
       - QUANTITY_EXCEED
@@ -269,8 +260,7 @@ components:
       - INVALID_REQUEST
     AssetCategory:
       type: string
-      description: An asset category for the API so that we do not need to expose
-        AssetClass to the API users
+      description: The Asset category of the order.
       enum:
       - SPOT
       - FUTURE
@@ -282,6 +272,7 @@ components:
       properties:
         orders:
           type: array
+          description: The list of parent cancellation requests
           items:
             $ref: '#/components/schemas/CancelParentOrderRequest'
       description: Used for cancelling many parent orders at the same time
@@ -290,14 +281,17 @@ components:
       properties:
         orderId:
           type: integer
+          description: The Anboto generated order id
           format: int64
           nullable: true
         clientOrderId:
           type: string
+          description: The client provided order id
           nullable: true
       description: Used for cancelling a parent order
     ClipSizeType:
       type: string
+      description: The clip size for the child orders. The default is AUTOMATIC
       enum:
       - ABSOLUTE
       - PERCENTAGE
@@ -324,31 +318,42 @@ components:
       properties:
         clientOrderId:
           type: string
+          description: "A custom string to identify the order, e.g. ABC-12345\\^12-10-23"
           nullable: true
         exchange:
-          $ref: '#/components/schemas/Exchange'
+          description: "The execution exchange, e.g. BINANCE"
+          allOf:
+          - $ref: '#/components/schemas/Exchange'
         subaccount:
           type: string
+          description: The sub-account under which to trade the order
           nullable: true
         symbol:
           type: string
+          description: "The symbol using Anboto symbology, e.g. BTC/USDT"
         assetCategory:
           $ref: '#/components/schemas/AssetCategory'
         side:
           $ref: '#/components/schemas/Side'
         quantity:
           type: number
+          description: "The quantity to trade as a exchange trade-able decimal value,\
+            \ e.g. 0.015"
         strategy:
           $ref: '#/components/schemas/ExecutionStrategy'
         limitPrice:
           type: number
+          description: "The exchange valid limit price for the order, e.g. 2205.10"
           nullable: true
         startTime:
           type: string
+          description: "The start time in UTC (defaults to NOW), e.g. 2024-01-22T22:05:00Z"
           format: date-time
           nullable: true
         endTime:
           type: string
+          description: "The end time in UTC, defaults to 30 days time, this will be\
+            \ rejected if more than 60 days in the future, e.g. 2024-04-22T22:05:00Z"
           format: date-time
           nullable: true
         clipSizeType:
@@ -357,6 +362,8 @@ components:
           - $ref: '#/components/schemas/ClipSizeType'
         clipSizeVal:
           type: number
+          description: "The clip size value, required if the type is ABSOLUTE or PERCENTAGE,\
+            \ e.g 0.01"
           nullable: true
         params:
           nullable: true
@@ -365,6 +372,7 @@ components:
       description: Used for creating a parent order.
     Exchange:
       type: string
+      description: The exchange where to trade the order.
       enum:
       - BINANCE
       - HUOBI
@@ -376,14 +384,11 @@ components:
       - BITGET
     ExecutionStrategy:
       type: string
-      description: An enum for strategy for the API so that we do not need to expose
-        the Strategy enum to the API users
+      description: The execution strategy for the order.
       enum:
       - TWAP
       - VWAP
       - ICEBERG
-      - MARKET
-      - LIMIT
       - STOP_LOSS
     OrderDetails:
       required:
@@ -398,29 +403,37 @@ components:
       properties:
         orderId:
           type: integer
+          description: The Anboto generated order id
           format: int64
           nullable: true
         clientOrderId:
           type: string
+          description: The client provided order id
           nullable: true
         symbol:
           type: string
+          description: The order symbol using Anboto symbology
         status:
           $ref: '#/components/schemas/OrderStatus'
         filledQuantity:
           type: number
+          description: The absolute amount of the order quantity filled.
         leavesQuantity:
           type: number
+          description: The absolute amount of the order quantity remaining to be filled.
         side:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/Side'
         lastQuantity:
           type: number
+          description: The last qty received in a fill from the exchange
         lastPrice:
           type: number
+          description: The last price executed on the exchange
         averagePrice:
           type: number
+          description: The average execution price of the order
     OrderDetailsList:
       required:
       - orders
@@ -428,6 +441,7 @@ components:
       properties:
         orders:
           type: array
+          description: The list of order details for separate orders.
           items:
             $ref: '#/components/schemas/OrderDetails'
     OrderParams:
@@ -435,6 +449,8 @@ components:
       properties:
         durationSeconds:
           type: integer
+          description: "The duration of the order in seconds, this is a required field\
+            \ for TWAP and VWAP. e.g. 120"
           format: int64
           nullable: true
         tradingStyle:
@@ -443,6 +459,7 @@ components:
           - $ref: '#/components/schemas/TradingStyle'
         randomizeAmount:
           type: boolean
+          description: Whether to randomize the slice amount.
           nullable: true
         would:
           nullable: true
@@ -456,8 +473,10 @@ components:
           nullable: true
           allOf:
           - $ref: '#/components/schemas/PlacementInfo'
+      description: The advanced order parameters to modify the execution behavior.
     OrderStatus:
       type: string
+      description: The order status
       enum:
       - PENDING_NEW
       - ACCEPTED
@@ -479,23 +498,32 @@ components:
       properties:
         orderId:
           type: integer
+          description: "The Anboto assigned order identifier, e.g. 23019838281923902992"
           format: int64
           nullable: true
         clientOrderId:
           type: string
+          description: "A custom string to identify the order, e.g. \"ABC-12345\\\
+            ^12-10-23\""
           nullable: true
         status:
-          $ref: '#/components/schemas/OrderStatus'
+          description: "The status of the order, e.g. PENDING_NEW"
+          allOf:
+          - $ref: '#/components/schemas/OrderStatus'
         createdAt:
           type: string
+          description: "The time in UTC when the order was created, e.g. 2024-01-22T22:05:00Z"
           format: date-time
         message:
           type: string
+          description: "Any additional information, usually if the order was rejected"
           nullable: true
         errorCode:
+          description: The error code if the order was rejected
           nullable: true
           allOf:
           - $ref: '#/components/schemas/ApiErrorCode'
+      description: Summarizes the state of the parent order
     OrderSummaryList:
       required:
       - orders
@@ -503,6 +531,7 @@ components:
       properties:
         orders:
           type: array
+          description: The list of order summaries for separate orders.
           items:
             $ref: '#/components/schemas/OrderSummary'
     PlacementInfo:
@@ -514,28 +543,35 @@ components:
           $ref: '#/components/schemas/PlacementMode'
         placement:
           type: integer
+          description: "Where to place new orders in the book, e.g. 2 would slice\
+            \ at the second best observed price."
           format: int32
           nullable: true
         cancel:
           type: integer
+          description: "At what level to cancel an existing order on the book, e.g.\
+            \ 6 would cancel the order when it got to level 6 in the book"
           format: int32
           nullable: true
+      description: How to place an order into the book
     PlacementMode:
       type: string
-      description: The trading style of the order
+      description: The style used to place an order in the book. DEFAULT is the default
+        and will be at the discretion of the trading strategy
       enum:
       - DEFAULT
       - TIGHT
       - CUSTOM
     Side:
       type: string
+      description: The side of the book to trade.
       enum:
       - BUY
       - SELL
       - SHORT_SELL
     TradingStyle:
       type: string
-      description: The trading style of the order
+      description: "The trading style of the order, the default is HYBRID"
       enum:
       - PASSIVE
       - AGGRESSIVE
@@ -554,8 +590,10 @@ components:
       properties:
         triggerPrice:
           type: number
+          description: The price to monitor for the trigger
         triggerCondition:
           $ref: '#/components/schemas/TriggerCondition'
+      description: Information related to how the order should be triggered.
     WouldInfo:
       required:
       - wouldPct
@@ -565,7 +603,10 @@ components:
       properties:
         wouldPrice:
           type: number
+          description: The price to trigger Would mode
         wouldPct:
           type: number
+          description: The percent of the order to trade when the Would price triggers
         wouldStyle:
           $ref: '#/components/schemas/TradingStyle'
+      description: Information to instruct how to execute a Would price trigger.
