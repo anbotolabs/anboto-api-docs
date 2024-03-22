@@ -22,15 +22,15 @@ jobs:
           path: |
             ~/.npm
             node_modules
-          key: node-${{ runner.os }}-${NODE_VERSION}-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
+          key: node-${{ runner.os }}-${{ env.NODE_VERSION }}-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}
           restore-keys: |
-            node-${{ runner.os }}-${NODE_VERSION}-
+            node-${{ runner.os }}-${{ env.NODE_VERSION }}-
             node-${{ runner.os }}-
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: $NODE_VERSION
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install Widdershins
         run: npm install -g widdershins
@@ -41,15 +41,15 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: vendor/bundle
-          key: gems-${{ runner.os }}-${RUBY_VERSION}-${{ hashFiles('**/Gemfile.lock') }}
+          key: gems-${{ runner.os }}-${{ env.RUBY_VERSION }}-${{ hashFiles('**/Gemfile.lock') }}
           restore-keys: |
-            gems-${{ runner.os }}-${RUBY_VERSION}-
+            gems-${{ runner.os }}-${{ env.RUBY_VERSION }}-
             gems-${{ runner.os }}-
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: ${RUBY_VERSION}
+          ruby-version: ${{ env.RUBY_VERSION }}
 
       - run: gem update --system
 
