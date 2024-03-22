@@ -957,7 +957,7 @@ Accept: application/json
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -1169,7 +1169,7 @@ Accept: application/json
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -1228,30 +1228,30 @@ Accept: application/json
   "symbol": "string",
   "asset_category": "SPOT",
   "side": "BUY",
-  "quantity": 0,
+  "quantity": "string",
   "strategy": "TWAP",
-  "limit_price": 2205.1,
+  "limit_price": "2205.10",
   "start_time": "2024-01-22T22:05:00Z",
   "end_time": "2024-04-22T22:05:00Z",
   "clip_size_type": "AUTOMATIC",
-  "clip_size_val": 0.01,
+  "clip_size_val": "0.01",
   "params": {
-    "duration_seconds": 120,
+    "duration_seconds": "120",
     "trading_style": "string",
     "randomize_amount": true,
     "would": {
-      "would_price": 0,
-      "would_pct": 0,
+      "would_price": "string",
+      "would_pct": "string",
       "would_style": "string"
     },
     "trigger": {
-      "trigger_price": 0,
+      "trigger_price": "string",
       "trigger_condition": "string"
     },
     "placement_infos": {
       "placement_mode": "string",
-      "placement": 0,
-      "cancel": 0
+      "placement": "string",
+      "cancel": "string"
     },
     "reduce_only": true
   }
@@ -1380,30 +1380,30 @@ Accept: application/json
   </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"asset_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TWAP"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">2205.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2205.10"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-22T22:05:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"clip_size_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTOMATIC"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"placement_infos"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"reduce_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -1435,7 +1435,7 @@ Accept: application/json
 <p>201 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -1496,30 +1496,30 @@ Accept: application/json
       "symbol": "string",
       "asset_category": "SPOT",
       "side": "BUY",
-      "quantity": 0,
+      "quantity": "string",
       "strategy": "TWAP",
-      "limit_price": 2205.1,
+      "limit_price": "2205.10",
       "start_time": "2024-01-22T22:05:00Z",
       "end_time": "2024-04-22T22:05:00Z",
       "clip_size_type": "AUTOMATIC",
-      "clip_size_val": 0.01,
+      "clip_size_val": "0.01",
       "params": {
-        "duration_seconds": 120,
+        "duration_seconds": "120",
         "trading_style": "string",
         "randomize_amount": true,
         "would": {
-          "would_price": 0,
-          "would_pct": 0,
+          "would_price": "string",
+          "would_pct": "string",
           "would_style": "string"
         },
         "trigger": {
-          "trigger_price": 0,
+          "trigger_price": "string",
           "trigger_condition": "string"
         },
         "placement_infos": {
           "placement_mode": "string",
-          "placement": 0,
-          "cancel": 0
+          "placement": "string",
+          "cancel": "string"
         },
         "reduce_only": true
       }
@@ -1652,30 +1652,30 @@ Accept: application/json
       </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"asset_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TWAP"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">2205.1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2205.10"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-22T22:05:00Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"clip_size_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTOMATIC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"placement_infos"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"reduce_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -1711,7 +1711,7 @@ Accept: application/json
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -2235,6 +2235,50 @@ ApiKeyAuth
 </tr>
 <tr>
 <td><em>anonymous</em></td>
+<td>INVALID_QUANTITY</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_END_TIME</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_TRADE_TIME</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_FEE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_SYMBOL</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_TRADE_STRATEGY</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_LIMIT_PRICE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_WOULD_PRICE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_TRIGGER_PRICE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_PARAM</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>INVALID_EXCHANGE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
 <td>INVALID_SIGNATURE</td>
 </tr>
 <tr>
@@ -2457,30 +2501,30 @@ ApiKeyAuth
       </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"asset_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TWAP"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">2205.1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2205.10"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-22T22:05:00Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"clip_size_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTOMATIC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"placement_infos"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="nl">"reduce_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
       </span><span class="p">}</span><span class="w">
@@ -2524,30 +2568,30 @@ ApiKeyAuth
   </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"asset_category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPOT"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"strategy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TWAP"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="mf">2205.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"limit_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2205.10"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-04-22T22:05:00Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"clip_size_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AUTOMATIC"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clip_size_val"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.01"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"placement_infos"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">},</span><span class="w">
     </span><span class="nl">"reduce_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
   </span><span class="p">}</span><span class="w">
@@ -2662,7 +2706,7 @@ ApiKeyAuth
 </tr>
 <tr>
 <td>quantity</td>
-<td>number</td>
+<td>string</td>
 <td>true</td>
 <td>none</td>
 <td>The quantity to trade as a exchange trade-able decimal value, e.g. 0.015</td>
@@ -2676,7 +2720,7 @@ ApiKeyAuth
 </tr>
 <tr>
 <td>limit_price</td>
-<td>number¦null</td>
+<td>string¦null</td>
 <td>false</td>
 <td>none</td>
 <td>The exchange valid limit price for the order</td>
@@ -2757,7 +2801,7 @@ ApiKeyAuth
 </thead><tbody>
 <tr>
 <td>clip_size_val</td>
-<td>number¦null</td>
+<td>string¦null</td>
 <td>false</td>
 <td>none</td>
 <td>The clip size value, required if the type is ABSOLUTE or PERCENTAGE</td>
@@ -2840,6 +2884,14 @@ ApiKeyAuth
 <td><em>anonymous</em></td>
 <td>BITGET</td>
 </tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>WOO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MEXC</td>
+</tr>
 </tbody></table>
 
 <h2 id="tocS_ExecutionStrategy">ExecutionStrategy</h2>
@@ -2893,7 +2945,19 @@ ApiKeyAuth
 </tr>
 <tr>
 <td><em>anonymous</em></td>
-<td>STOP_LOSS</td>
+<td>POV</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MARKET</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>LIMIT</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>IS</td>
 </tr>
 </tbody></table>
 
@@ -3053,22 +3117,22 @@ ApiKeyAuth
 <a id="tocSorderparams"></a>
 <a id="tocsorderparams"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="mi">120</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"trigger"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"placement_infos"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
   </span><span class="p">},</span><span class="w">
   </span><span class="nl">"reduce_only"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -3087,7 +3151,7 @@ ApiKeyAuth
 </thead><tbody>
 <tr>
 <td>duration_seconds</td>
-<td>integer(int32)¦null</td>
+<td>string¦null</td>
 <td>false</td>
 <td>none</td>
 <td>The duration of the order in seconds, this is a required field for TWAP and VWAP.</td>
@@ -3338,7 +3402,7 @@ ApiKeyAuth
 <a id="tocSordersummary"></a>
 <a id="tocsordersummary"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -3374,14 +3438,14 @@ ApiKeyAuth
 </tr>
 <tr>
 <td>status</td>
-<td><a href="#schemaorderstatus">OrderStatus</a></td>
-<td>true</td>
+<td><a href="#schemaorderstatus">OrderStatus</a>¦null</td>
+<td>false</td>
 <td>none</td>
 <td>The status of the order, e.g. PENDING_NEW</td>
 </tr>
 <tr>
 <td>created_at</td>
-<td>string(date-time)</td>
+<td>string(date-time)¦null</td>
 <td>true</td>
 <td>none</td>
 <td>The time in UTC when the order was created</td>
@@ -3453,7 +3517,7 @@ ApiKeyAuth
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ABC-12345^12-10-23"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2024-01-22T22:05:00Z"</span><span class="p">,</span><span class="w">
@@ -3492,8 +3556,8 @@ ApiKeyAuth
 <a id="tocsplacementinfo"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"placement_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="nl">"placement"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cancel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -3570,14 +3634,14 @@ ApiKeyAuth
 </thead><tbody>
 <tr>
 <td>placement</td>
-<td>integer(int32)¦null</td>
+<td>string¦null</td>
 <td>false</td>
 <td>none</td>
 <td>Where to place new orders in the book, e.g. 2 would slice at the second best observed price.</td>
 </tr>
 <tr>
 <td>cancel</td>
-<td>integer(int32)¦null</td>
+<td>string¦null</td>
 <td>false</td>
 <td>none</td>
 <td>At what level to cancel an existing order on the book, e.g. 6 would cancel the order when it got to level 6 in the book</td>
@@ -3793,7 +3857,7 @@ ApiKeyAuth
 <a id="tocStriggerinfo"></a>
 <a id="tocstriggerinfo"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"trigger_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"trigger_condition"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -3811,7 +3875,7 @@ ApiKeyAuth
 </thead><tbody>
 <tr>
 <td>trigger_price</td>
-<td>number</td>
+<td>string</td>
 <td>true</td>
 <td>none</td>
 <td>The price to monitor for the trigger</td>
@@ -3874,8 +3938,8 @@ ApiKeyAuth
 <a id="tocSwouldinfo"></a>
 <a id="tocswouldinfo"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"would_pct"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"would_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
@@ -3893,14 +3957,14 @@ ApiKeyAuth
 </thead><tbody>
 <tr>
 <td>would_price</td>
-<td>number</td>
+<td>string</td>
 <td>true</td>
 <td>none</td>
 <td>The price to trigger Would mode</td>
 </tr>
 <tr>
 <td>would_pct</td>
-<td>number</td>
+<td>string</td>
 <td>true</td>
 <td>none</td>
 <td>The percent of the order to trade when the Would price triggers</td>
