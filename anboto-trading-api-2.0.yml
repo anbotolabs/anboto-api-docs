@@ -260,6 +260,17 @@ components:
       - MAX_FEE_PER_GAS_IS_TOO_LOW
       - PARENT_ORDER_WAS_TERMINATED
       - MAX_PRIORITY_FEE_PER_GAS_IS_TOO_LOW
+      - INVALID_QUANTITY
+      - INVALID_END_TIME
+      - INVALID_TRADE_TIME
+      - INVALID_FEE
+      - INVALID_SYMBOL
+      - INVALID_TRADE_STRATEGY
+      - INVALID_LIMIT_PRICE
+      - INVALID_WOULD_PRICE
+      - INVALID_TRIGGER_PRICE
+      - INVALID_PARAM
+      - INVALID_EXCHANGE
       - INVALID_SIGNATURE
       - INVALID_API_KEY
       - INVALID_TIMESTAMP
@@ -351,16 +362,16 @@ components:
         side:
           $ref: '#/components/schemas/Side'
         quantity:
-          type: number
+          type: string
           description: "The quantity to trade as a exchange trade-able decimal value,\
             \ e.g. 0.015"
         strategy:
           $ref: '#/components/schemas/ExecutionStrategy'
         limit_price:
-          type: number
+          type: string
           description: The exchange valid limit price for the order
           nullable: true
-          example: 2205.1
+          example: "2205.10"
         start_time:
           type: string
           description: The start time in UTC
@@ -381,10 +392,10 @@ components:
             default: AUTOMATIC
           default: AUTOMATIC
         clip_size_val:
-          type: number
+          type: string
           description: "The clip size value, required if the type is ABSOLUTE or PERCENTAGE"
           nullable: true
-          example: 0.01
+          example: "0.01"
         params:
           nullable: true
           allOf:
@@ -402,6 +413,8 @@ components:
       - OKX
       - BYBIT
       - BITGET
+      - WOO
+      - MEXC
     ExecutionStrategy:
       type: string
       description: The execution strategy for the order.
@@ -409,7 +422,10 @@ components:
       - TWAP
       - VWAP
       - ICEBERG
-      - STOP_LOSS
+      - POV
+      - MARKET
+      - LIMIT
+      - IS
     OrderDetails:
       required:
       - average_price
@@ -475,12 +491,11 @@ components:
       type: object
       properties:
         duration_seconds:
-          type: integer
+          type: string
           description: "The duration of the order in seconds, this is a required field\
             \ for TWAP and VWAP."
-          format: int32
           nullable: true
-          example: 120
+          example: "120"
         trading_style:
           nullable: true
           allOf:
@@ -528,7 +543,6 @@ components:
     OrderSummary:
       required:
       - created_at
-      - status
       type: object
       properties:
         order_id:
@@ -536,7 +550,6 @@ components:
           description: The Anboto assigned order identifier
           format: int64
           nullable: true
-          example: 123456
         client_order_id:
           type: string
           description: A custom string to identify the order
@@ -544,12 +557,14 @@ components:
           example: ABC-12345^12-10-23
         status:
           description: "The status of the order, e.g. PENDING_NEW"
+          nullable: true
           allOf:
           - $ref: '#/components/schemas/OrderStatus'
         created_at:
           type: string
           description: The time in UTC when the order was created
           format: date-time
+          nullable: true
           example: 2024-01-22T22:05:00Z
         message:
           type: string
@@ -585,16 +600,14 @@ components:
           - type: string
             description: How to place an order into the book
         placement:
-          type: integer
+          type: string
           description: "Where to place new orders in the book, e.g. 2 would slice\
             \ at the second best observed price."
-          format: int32
           nullable: true
         cancel:
-          type: integer
+          type: string
           description: "At what level to cancel an existing order on the book, e.g.\
             \ 6 would cancel the order when it got to level 6 in the book"
-          format: int32
           nullable: true
       description: How to place an order into the book
     PlacementMode:
@@ -632,7 +645,7 @@ components:
       type: object
       properties:
         trigger_price:
-          type: number
+          type: string
           description: The price to monitor for the trigger
         trigger_condition:
           allOf:
@@ -648,10 +661,10 @@ components:
       type: object
       properties:
         would_price:
-          type: number
+          type: string
           description: The price to trigger Would mode
         would_pct:
-          type: number
+          type: string
           description: The percent of the order to trade when the Would price triggers
         would_style:
           allOf:

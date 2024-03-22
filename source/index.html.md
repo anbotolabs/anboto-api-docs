@@ -557,7 +557,7 @@ This will initiate a cancellation request and set the order state to pending can
 
 ```json
 {
-  "order_id": 123456,
+  "order_id": 0,
   "client_order_id": "ABC-12345^12-10-23",
   "status": "PENDING_NEW",
   "created_at": "2024-01-22T22:05:00Z",
@@ -764,7 +764,7 @@ This will initiate the order cancellations and set the status of all orders to p
 
 ```json
 {
-  "order_id": 123456,
+  "order_id": 0,
   "client_order_id": "ABC-12345^12-10-23",
   "status": "PENDING_NEW",
   "created_at": "2024-01-22T22:05:00Z",
@@ -815,30 +815,30 @@ const inputBody = '{
   "symbol": "string",
   "asset_category": "SPOT",
   "side": "BUY",
-  "quantity": 0,
+  "quantity": "string",
   "strategy": "TWAP",
-  "limit_price": 2205.1,
+  "limit_price": "2205.10",
   "start_time": "2024-01-22T22:05:00Z",
   "end_time": "2024-04-22T22:05:00Z",
   "clip_size_type": "AUTOMATIC",
-  "clip_size_val": 0.01,
+  "clip_size_val": "0.01",
   "params": {
-    "duration_seconds": 120,
+    "duration_seconds": "120",
     "trading_style": "string",
     "randomize_amount": true,
     "would": {
-      "would_price": 0,
-      "would_pct": 0,
+      "would_price": "string",
+      "would_pct": "string",
       "would_style": "string"
     },
     "trigger": {
-      "trigger_price": 0,
+      "trigger_price": "string",
       "trigger_condition": "string"
     },
     "placement_infos": {
       "placement_mode": "string",
-      "placement": 0,
-      "cancel": 0
+      "placement": "string",
+      "cancel": "string"
     },
     "reduce_only": true
   }
@@ -983,30 +983,30 @@ Process a new order request and return order response
   "symbol": "string",
   "asset_category": "SPOT",
   "side": "BUY",
-  "quantity": 0,
+  "quantity": "string",
   "strategy": "TWAP",
-  "limit_price": 2205.1,
+  "limit_price": "2205.10",
   "start_time": "2024-01-22T22:05:00Z",
   "end_time": "2024-04-22T22:05:00Z",
   "clip_size_type": "AUTOMATIC",
-  "clip_size_val": 0.01,
+  "clip_size_val": "0.01",
   "params": {
-    "duration_seconds": 120,
+    "duration_seconds": "120",
     "trading_style": "string",
     "randomize_amount": true,
     "would": {
-      "would_price": 0,
-      "would_pct": 0,
+      "would_price": "string",
+      "would_pct": "string",
       "would_style": "string"
     },
     "trigger": {
-      "trigger_price": 0,
+      "trigger_price": "string",
       "trigger_condition": "string"
     },
     "placement_infos": {
       "placement_mode": "string",
-      "placement": 0,
-      "cancel": 0
+      "placement": "string",
+      "cancel": "string"
     },
     "reduce_only": true
   }
@@ -1025,7 +1025,7 @@ Process a new order request and return order response
 
 ```json
 {
-  "order_id": 123456,
+  "order_id": 0,
   "client_order_id": "ABC-12345^12-10-23",
   "status": "PENDING_NEW",
   "created_at": "2024-01-22T22:05:00Z",
@@ -1078,30 +1078,30 @@ const inputBody = '{
       "symbol": "string",
       "asset_category": "SPOT",
       "side": "BUY",
-      "quantity": 0,
+      "quantity": "string",
       "strategy": "TWAP",
-      "limit_price": 2205.1,
+      "limit_price": "2205.10",
       "start_time": "2024-01-22T22:05:00Z",
       "end_time": "2024-04-22T22:05:00Z",
       "clip_size_type": "AUTOMATIC",
-      "clip_size_val": 0.01,
+      "clip_size_val": "0.01",
       "params": {
-        "duration_seconds": 120,
+        "duration_seconds": "120",
         "trading_style": "string",
         "randomize_amount": true,
         "would": {
-          "would_price": 0,
-          "would_pct": 0,
+          "would_price": "string",
+          "would_pct": "string",
           "would_style": "string"
         },
         "trigger": {
-          "trigger_price": 0,
+          "trigger_price": "string",
           "trigger_condition": "string"
         },
         "placement_infos": {
           "placement_mode": "string",
-          "placement": 0,
-          "cancel": 0
+          "placement": "string",
+          "cancel": "string"
         },
         "reduce_only": true
       }
@@ -1250,30 +1250,30 @@ Process a set of new order request and returns a summary for each order, the ord
       "symbol": "string",
       "asset_category": "SPOT",
       "side": "BUY",
-      "quantity": 0,
+      "quantity": "string",
       "strategy": "TWAP",
-      "limit_price": 2205.1,
+      "limit_price": "2205.10",
       "start_time": "2024-01-22T22:05:00Z",
       "end_time": "2024-04-22T22:05:00Z",
       "clip_size_type": "AUTOMATIC",
-      "clip_size_val": 0.01,
+      "clip_size_val": "0.01",
       "params": {
-        "duration_seconds": 120,
+        "duration_seconds": "120",
         "trading_style": "string",
         "randomize_amount": true,
         "would": {
-          "would_price": 0,
-          "would_pct": 0,
+          "would_price": "string",
+          "would_pct": "string",
           "would_style": "string"
         },
         "trigger": {
-          "trigger_price": 0,
+          "trigger_price": "string",
           "trigger_condition": "string"
         },
         "placement_infos": {
           "placement_mode": "string",
-          "placement": 0,
-          "cancel": 0
+          "placement": "string",
+          "cancel": "string"
         },
         "reduce_only": true
       }
@@ -1296,7 +1296,7 @@ Process a set of new order request and returns a summary for each order, the ord
 {
   "orders": [
     {
-      "order_id": 123456,
+      "order_id": 0,
       "client_order_id": "ABC-12345^12-10-23",
       "status": "PENDING_NEW",
       "created_at": "2024-01-22T22:05:00Z",
@@ -1733,6 +1733,17 @@ The error code used to describe why an order was rejected.
 |*anonymous*|MAX_FEE_PER_GAS_IS_TOO_LOW|
 |*anonymous*|PARENT_ORDER_WAS_TERMINATED|
 |*anonymous*|MAX_PRIORITY_FEE_PER_GAS_IS_TOO_LOW|
+|*anonymous*|INVALID_QUANTITY|
+|*anonymous*|INVALID_END_TIME|
+|*anonymous*|INVALID_TRADE_TIME|
+|*anonymous*|INVALID_FEE|
+|*anonymous*|INVALID_SYMBOL|
+|*anonymous*|INVALID_TRADE_STRATEGY|
+|*anonymous*|INVALID_LIMIT_PRICE|
+|*anonymous*|INVALID_WOULD_PRICE|
+|*anonymous*|INVALID_TRIGGER_PRICE|
+|*anonymous*|INVALID_PARAM|
+|*anonymous*|INVALID_EXCHANGE|
 |*anonymous*|INVALID_SIGNATURE|
 |*anonymous*|INVALID_API_KEY|
 |*anonymous*|INVALID_TIMESTAMP|
@@ -1864,30 +1875,30 @@ The clip size for the child orders. The default is AUTOMATIC
       "symbol": "string",
       "asset_category": "SPOT",
       "side": "BUY",
-      "quantity": 0,
+      "quantity": "string",
       "strategy": "TWAP",
-      "limit_price": 2205.1,
+      "limit_price": "2205.10",
       "start_time": "2024-01-22T22:05:00Z",
       "end_time": "2024-04-22T22:05:00Z",
       "clip_size_type": "AUTOMATIC",
-      "clip_size_val": 0.01,
+      "clip_size_val": "0.01",
       "params": {
-        "duration_seconds": 120,
+        "duration_seconds": "120",
         "trading_style": "string",
         "randomize_amount": true,
         "would": {
-          "would_price": 0,
-          "would_pct": 0,
+          "would_price": "string",
+          "would_pct": "string",
           "would_style": "string"
         },
         "trigger": {
-          "trigger_price": 0,
+          "trigger_price": "string",
           "trigger_condition": "string"
         },
         "placement_infos": {
           "placement_mode": "string",
-          "placement": 0,
-          "cancel": 0
+          "placement": "string",
+          "cancel": "string"
         },
         "reduce_only": true
       }
@@ -1920,30 +1931,30 @@ A request to create many parent orders in a single request.
   "symbol": "string",
   "asset_category": "SPOT",
   "side": "BUY",
-  "quantity": 0,
+  "quantity": "string",
   "strategy": "TWAP",
-  "limit_price": 2205.1,
+  "limit_price": "2205.10",
   "start_time": "2024-01-22T22:05:00Z",
   "end_time": "2024-04-22T22:05:00Z",
   "clip_size_type": "AUTOMATIC",
-  "clip_size_val": 0.01,
+  "clip_size_val": "0.01",
   "params": {
-    "duration_seconds": 120,
+    "duration_seconds": "120",
     "trading_style": "string",
     "randomize_amount": true,
     "would": {
-      "would_price": 0,
-      "would_pct": 0,
+      "would_price": "string",
+      "would_pct": "string",
       "would_style": "string"
     },
     "trigger": {
-      "trigger_price": 0,
+      "trigger_price": "string",
       "trigger_condition": "string"
     },
     "placement_infos": {
       "placement_mode": "string",
-      "placement": 0,
-      "cancel": 0
+      "placement": "string",
+      "cancel": "string"
     },
     "reduce_only": true
   }
@@ -1980,9 +1991,9 @@ continued
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |side|[Side](#schemaside)|true|none|The side of the book to trade.|
-|quantity|number|true|none|The quantity to trade as a exchange trade-able decimal value, e.g. 0.015|
+|quantity|string|true|none|The quantity to trade as a exchange trade-able decimal value, e.g. 0.015|
 |strategy|[ExecutionStrategy](#schemaexecutionstrategy)|true|none|The execution strategy for the order.|
-|limit_price|number¦null|false|none|The exchange valid limit price for the order|
+|limit_price|string¦null|false|none|The exchange valid limit price for the order|
 |start_time|string¦null|false|none|The start time in UTC|
 |end_time|string¦null|false|none|The end time in UTC|
 |clip_size_type|any|false|none|none|
@@ -2003,7 +2014,7 @@ continued
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|clip_size_val|number¦null|false|none|The clip size value, required if the type is ABSOLUTE or PERCENTAGE|
+|clip_size_val|string¦null|false|none|The clip size value, required if the type is ABSOLUTE or PERCENTAGE|
 |params|[OrderParams](#schemaorderparams)¦null|false|none|The advanced order parameters to modify the execution behavior.|
 
 <h2 id="tocS_Exchange">Exchange</h2>
@@ -2038,6 +2049,8 @@ The exchange where to trade the order.
 |*anonymous*|OKX|
 |*anonymous*|BYBIT|
 |*anonymous*|BITGET|
+|*anonymous*|WOO|
+|*anonymous*|MEXC|
 
 <h2 id="tocS_ExecutionStrategy">ExecutionStrategy</h2>
 <!-- backwards compatibility -->
@@ -2066,7 +2079,10 @@ The execution strategy for the order.
 |*anonymous*|TWAP|
 |*anonymous*|VWAP|
 |*anonymous*|ICEBERG|
-|*anonymous*|STOP_LOSS|
+|*anonymous*|POV|
+|*anonymous*|MARKET|
+|*anonymous*|LIMIT|
+|*anonymous*|IS|
 
 <h2 id="tocS_OrderDetails">OrderDetails</h2>
 <!-- backwards compatibility -->
@@ -2148,22 +2164,22 @@ The execution strategy for the order.
 
 ```json
 {
-  "duration_seconds": 120,
+  "duration_seconds": "120",
   "trading_style": "string",
   "randomize_amount": true,
   "would": {
-    "would_price": 0,
-    "would_pct": 0,
+    "would_price": "string",
+    "would_pct": "string",
     "would_style": "string"
   },
   "trigger": {
-    "trigger_price": 0,
+    "trigger_price": "string",
     "trigger_condition": "string"
   },
   "placement_infos": {
     "placement_mode": "string",
-    "placement": 0,
-    "cancel": 0
+    "placement": "string",
+    "cancel": "string"
   },
   "reduce_only": true
 }
@@ -2176,7 +2192,7 @@ The advanced order parameters to modify the execution behavior.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|duration_seconds|integer(int32)¦null|false|none|The duration of the order in seconds, this is a required field for TWAP and VWAP.|
+|duration_seconds|string¦null|false|none|The duration of the order in seconds, this is a required field for TWAP and VWAP.|
 |trading_style|any|false|none|none|
 
 allOf
@@ -2264,7 +2280,7 @@ The order status
 
 ```json
 {
-  "order_id": 123456,
+  "order_id": 0,
   "client_order_id": "ABC-12345^12-10-23",
   "status": "PENDING_NEW",
   "created_at": "2024-01-22T22:05:00Z",
@@ -2282,8 +2298,8 @@ Summarizes the state of the parent order
 |---|---|---|---|---|
 |order_id|integer(int64)¦null|false|none|The Anboto assigned order identifier|
 |client_order_id|string¦null|false|none|A custom string to identify the order|
-|status|[OrderStatus](#schemaorderstatus)|true|none|The status of the order, e.g. PENDING_NEW|
-|created_at|string(date-time)|true|none|The time in UTC when the order was created|
+|status|[OrderStatus](#schemaorderstatus)¦null|false|none|The status of the order, e.g. PENDING_NEW|
+|created_at|string(date-time)¦null|true|none|The time in UTC when the order was created|
 |message|string¦null|false|none|Any additional information, usually if the order was rejected|
 |error_code|any|false|none|The error code if the order was rejected|
 
@@ -2310,7 +2326,7 @@ and
 {
   "orders": [
     {
-      "order_id": 123456,
+      "order_id": 0,
       "client_order_id": "ABC-12345^12-10-23",
       "status": "PENDING_NEW",
       "created_at": "2024-01-22T22:05:00Z",
@@ -2338,8 +2354,8 @@ and
 ```json
 {
   "placement_mode": "string",
-  "placement": 0,
-  "cancel": 0
+  "placement": "string",
+  "cancel": "string"
 }
 
 ```
@@ -2368,8 +2384,8 @@ continued
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|placement|integer(int32)¦null|false|none|Where to place new orders in the book, e.g. 2 would slice at the second best observed price.|
-|cancel|integer(int32)¦null|false|none|At what level to cancel an existing order on the book, e.g. 6 would cancel the order when it got to level 6 in the book|
+|placement|string¦null|false|none|Where to place new orders in the book, e.g. 2 would slice at the second best observed price.|
+|cancel|string¦null|false|none|At what level to cancel an existing order on the book, e.g. 6 would cancel the order when it got to level 6 in the book|
 
 <h2 id="tocS_PlacementMode">PlacementMode</h2>
 <!-- backwards compatibility -->
@@ -2491,7 +2507,7 @@ The trigger condition to start the order
 
 ```json
 {
-  "trigger_price": 0,
+  "trigger_price": "string",
   "trigger_condition": "string"
 }
 
@@ -2503,7 +2519,7 @@ Information related to how the order should be triggered.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|trigger_price|number|true|none|The price to monitor for the trigger|
+|trigger_price|string|true|none|The price to monitor for the trigger|
 |trigger_condition|any|true|none|none|
 
 allOf
@@ -2527,8 +2543,8 @@ and
 
 ```json
 {
-  "would_price": 0,
-  "would_pct": 0,
+  "would_price": "string",
+  "would_pct": "string",
   "would_style": "string"
 }
 
@@ -2540,8 +2556,8 @@ Information to instruct how to execute a Would price trigger.
 
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
-|would_price|number|true|none|The price to trigger Would mode|
-|would_pct|number|true|none|The percent of the order to trade when the Would price triggers|
+|would_price|string|true|none|The price to trigger Would mode|
+|would_pct|string|true|none|The percent of the order to trade when the Would price triggers|
 |would_style|any|true|none|none|
 
 allOf
