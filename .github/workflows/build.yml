@@ -62,11 +62,11 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - name: Build docs
-        run: bundle exec middleman build --build-dir ./docs
-
       - name: Fix ApiKeyAuth
         run: sed -i '/^None$/s//ApiKeyAuth/' ./source/index.html.md
+
+      - name: Build docs
+        run: bundle exec middleman build --build-dir ./docs
 
       - name: Upload
         uses: actions/upload-artifact@v4
@@ -116,5 +116,6 @@ jobs:
         run: |
           git add docs/
           git commit -m "[Automated] Update generated docs" || echo "No changes to commit"
+          git show
           git push
         if: steps.check_changes.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
