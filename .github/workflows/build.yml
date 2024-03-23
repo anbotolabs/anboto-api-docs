@@ -65,6 +65,9 @@ jobs:
       - name: Build docs
         run: bundle exec middleman build --build-dir ./docs
 
+      - name: Fix ApiKeyAuth
+        run: sed -i '/^None$/s//ApiKeyAuth/' ./source/index.html.md
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
