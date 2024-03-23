@@ -360,7 +360,7 @@ components:
           $ref: "#/components/schemas/Side"
         quantity:
           type: string
-          description: The quantity to trade as a exchange trade-able decimal value, e.g. 0.015"
+          description: The quantity to trade as a exchange trade-able decimal value, e.g. 0.015
         strategy:
           $ref: "#/components/schemas/ExecutionStrategy"
         limit_price:
