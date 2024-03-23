@@ -4,6 +4,9 @@ name: Build
 on:
   pull_request:
 
+permissions:
+  contents: write
+
 env:
   NODE_VERSION: 16
   RUBY_VERSION: 3.3
