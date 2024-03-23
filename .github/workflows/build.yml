@@ -9,7 +9,7 @@ env:
   RUBY_VERSION: 3.3
 
 jobs:
-  test:
+  generate-docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,7 +50,8 @@ jobs:
         with:
           ruby-version: ${{ env.RUBY_VERSION }}
 
-      - run: gem update --system
+      - name: Update gems
+        run: gem update --system
 
       - run: bundle config set deployment 'true'
       - name: bundle install
@@ -58,4 +59,52 @@ jobs:
           bundle config path vendor/bundle
           bundle install --jobs 4 --retry 3
 
-      - run: bundle exec middleman build --build-dir ./docs
+      - name: Build docs
+        run: bundle exec middleman build --build-dir ./docs
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: docs/
+
+  push-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: docs
+          path: docs/
+
+      - name: Check for changes in docs/ folder
+        id: check_changes
+        run: |
+          # Check for modified or deleted files in the docs/ folder
+          if ! git diff --quiet HEAD -- docs/; then
+            echo "::set-output name=changes_detected::true"
+            echo "Changes detected in the 'docs/' folder."
+          # Check for untracked new files in the docs/ folder
+          elif git ls-files --others --exclude-standard | grep '^docs/'; then
+            echo "::set-output name=changes_detected::true"
+            echo "New files detected in the 'docs/' folder."
+          else
+            echo "::set-output name=changes_detected::false"
+            echo "No changes or new files detected in the 'docs/' folder."
+          fi
+        if: github.event_name == 'pull_request'
+
+      - name: Configure Git
+        run: |
+          git config --global user.name github-actions[bot]
+          git config --global user.email 41898282+github-actions[bot]@users.noreply.github.com
+        if: steps.check_changes.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
+
+      - name: Commit and push changes to docs/
+        run: |
+          git add docs/
+          git commit -m "[Automated] Update generated docs" || echo "No changes to commit"
+          git push
+        if: steps.check_changes.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
