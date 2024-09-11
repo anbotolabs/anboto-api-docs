@@ -94,6 +94,24 @@ paths:
                 $ref: '#/components/schemas/OrderSummary'
       security:
       - ApiKeyAuth: []
+  /api/v2/trading/order/cancelAll:
+    get:
+      tags:
+      - Rest API
+      summary: Cancels all open orders
+      description: All orders that are not in a terminal state will be cancelled
+      operationId: cancelAllOpenOrders
+      responses:
+        "401":
+          description: "Unauthorized, Invalid Signature"
+        "200":
+          description: The list of open orders that will be cancelled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsList'
+      security:
+      - ApiKeyAuth: []
   /api/v2/trading/order/cancelMany:
     post:
       tags:
