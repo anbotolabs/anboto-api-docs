@@ -260,6 +260,7 @@ components:
   schemas:
     ApiErrorCode:
       type: string
+      description: The error code used to describe why an order was rejected.
       enum:
       - OTHER
       - QUANTITY_EXCEED
@@ -296,6 +297,7 @@ components:
       - INVALID_REQUEST
     AssetCategory:
       type: string
+      description: The Asset category of the order.
       enum:
       - SPOT
       - FUTURE
@@ -328,6 +330,7 @@ components:
       description: Used for cancelling a parent order
     ClipSizeType:
       type: string
+      description: The clip size for the child orders. The default is AUTOMATIC
       enum:
       - ABSOLUTE
       - PERCENTAGE
@@ -418,6 +421,7 @@ components:
       description: Used for creating a parent order.
     Exchange:
       type: string
+      description: The exchange where to trade the order.
       enum:
       - BINANCE
       - HUOBI
@@ -432,6 +436,7 @@ components:
       - B2C2
     ExecutionStrategy:
       type: string
+      description: The execution strategy for the order.
       enum:
       - TWAP
       - VWAP
@@ -540,6 +545,7 @@ components:
       description: The advanced order parameters to modify the execution behavior.
     OrderStatus:
       type: string
+      description: The order status
       enum:
       - PENDING_NEW
       - ACCEPTED
@@ -625,24 +631,29 @@ components:
       description: How to place an order into the book
     PlacementMode:
       type: string
+      description: The style used to place an order in the book. DEFAULT is the default
+        and will be at the discretion of the trading strategy
       enum:
       - DEFAULT
       - TIGHT
       - CUSTOM
     Side:
       type: string
+      description: The side of the book to trade.
       enum:
       - BUY
       - SELL
       - SHORT_SELL
     TradingStyle:
       type: string
+      description: "The trading style of the order, the default is HYBRID"
       enum:
       - PASSIVE
       - AGGRESSIVE
       - HYBRID
     TriggerCondition:
       type: string
+      description: The trigger condition to start the order
       enum:
       - ABOVE
       - BELOW
