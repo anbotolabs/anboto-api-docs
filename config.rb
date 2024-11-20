@@ -51,6 +51,8 @@ configure :build do
   # out the following two lines has been known to help
   activate :minify_css
   activate :minify_javascript
+  # Copy the openapi.yml file to the build directory
+  copy_file 'anboto-trading-api-2.0.yml', 'docs/anboto-trading-api-2.0.yml'
   # activate :gzip
 end
 
