@@ -1,3 +1,5 @@
+require 'fileutils'
+
 # Unique header generation
 require './lib/unique_head.rb'
 
@@ -51,9 +53,12 @@ configure :build do
   # out the following two lines has been known to help
   activate :minify_css
   activate :minify_javascript
-  # Copy the openapi.yml file to the build directory
-  copy_file 'anboto-trading-api-2.0.yml', 'docs/anboto-trading-api-2.0.yml'
   # activate :gzip
+end
+
+# Copy the openapi.yml file to the build directory
+after_build do |builder|
+  FileUtils.cp 'anboto-trading-api-2.0.yml', 'docs/anboto-trading-api-2.0.yml'
 end
 
 # Deploy Configuration
