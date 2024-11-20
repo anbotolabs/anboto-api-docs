@@ -1,3 +1,5 @@
+require 'fileutils'
+
 # Unique header generation
 require './lib/unique_head.rb'
 
@@ -52,6 +54,11 @@ configure :build do
   activate :minify_css
   activate :minify_javascript
   # activate :gzip
+end
+
+# Copy the openapi.yml file to the build directory
+after_build do |builder|
+  FileUtils.cp 'anboto-trading-api-2.0.yml', 'docs/anboto-trading-api-2.0.yml'
 end
 
 # Deploy Configuration
