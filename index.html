@@ -419,6 +419,9 @@
                     <a href="#tocS_TriggerInfo" class="toc-h2 toc-link" data-title="TriggerInfo">TriggerInfo</a>
                   </li>
                   <li>
+                    <a href="#tocS_Urgency" class="toc-h2 toc-link" data-title="Urgency">Urgency</a>
+                  </li>
+                  <li>
                     <a href="#tocS_WouldInfo" class="toc-h2 toc-link" data-title="WouldInfo">WouldInfo</a>
                   </li>
               </ul>
@@ -1415,6 +1418,7 @@ Accept: application/json
   "params": {
     "duration_seconds": "120",
     "trading_style": "string",
+    "urgency": "string",
     "randomize_amount": true,
     "would": {
       "would_price": "string",
@@ -1567,6 +1571,7 @@ Accept: application/json
   </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"urgency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -1683,6 +1688,7 @@ Accept: application/json
       "params": {
         "duration_seconds": "120",
         "trading_style": "string",
+        "urgency": "string",
         "randomize_amount": true,
         "would": {
           "would_price": "string",
@@ -1839,6 +1845,7 @@ Accept: application/json
       </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"urgency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2688,6 +2695,7 @@ ApiKeyAuth
       </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"urgency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
         </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
         </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
           </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -2755,6 +2763,7 @@ ApiKeyAuth
   </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"urgency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -3071,6 +3080,10 @@ ApiKeyAuth
 </tr>
 <tr>
 <td><em>anonymous</em></td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
 <td>B2C2</td>
 </tr>
 </tbody></table>
@@ -3300,6 +3313,7 @@ ApiKeyAuth
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"duration_seconds"</span><span class="p">:</span><span class="w"> </span><span class="s2">"120"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"trading_style"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"urgency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"randomize_amount"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"would"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"would_price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -3383,6 +3397,66 @@ ApiKeyAuth
 <td>false</td>
 <td>none</td>
 <td>The trading style to use for the order</td>
+</tr>
+</tbody></table>
+
+<p>continued</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>urgency</td>
+<td>any</td>
+<td>false</td>
+<td>none</td>
+<td>IS strategy</td>
+</tr>
+</tbody></table>
+
+<p>allOf</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
+<td><a href="#schemaurgency">Urgency</a></td>
+<td>false</td>
+<td>none</td>
+<td>The Urgency or Risk Aversion of the IS strategy, the default is MEDIUM. The parameter is not case-sensitive. Each risk aversion levels correspond to a lambda value, &quot;that is, how much we penalize variance relative to expected cost&quot; Low : 0.2e-6 Medium: 1e-6 High: 5e-6 Based on the paper from Almgren Chriss https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf</td>
+</tr>
+</tbody></table>
+
+<p>and</p>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>» <em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The urgency level to use for the IS strategy. Default: MEDIUM</td>
 </tr>
 </tbody></table>
 
@@ -4110,6 +4184,57 @@ ApiKeyAuth
 </tr>
 </tbody></table>
 
+<h2 id="tocS_Urgency">Urgency</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaurgency"></a>
+<a id="schema_Urgency"></a>
+<a id="tocSurgency"></a>
+<a id="tocsurgency"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"LOW"</span><span class="w">
+
+</span></code></pre></div>
+<p>The Urgency or Risk Aversion of the IS strategy, the default is MEDIUM. The parameter is not case-sensitive. Each risk aversion levels correspond to a lambda value, &quot;that is, how much we penalize variance relative to expected cost&quot; Low : 0.2e-6 Medium: 1e-6 High: 5e-6 Based on the paper from Almgren Chriss https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf</p>
+<h3 id='properties-22'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The Urgency or Risk Aversion of the IS strategy, the default is MEDIUM. The parameter is not case-sensitive. Each risk aversion levels correspond to a lambda value, &quot;that is, how much we penalize variance relative to expected cost&quot; Low : 0.2e-6 Medium: 1e-6 High: 5e-6 Based on the paper from Almgren Chriss https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-11'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>LOW</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>HIGH</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocS_WouldInfo">WouldInfo</h2>
 
 <!-- backwards compatibility -->
@@ -4126,7 +4251,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Information to instruct how to execute a Would price trigger.</p>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
