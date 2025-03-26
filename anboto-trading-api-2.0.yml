@@ -682,7 +682,6 @@ components:
       enum:
       - BUY
       - SELL
-      - SHORT_SELL
     TradingStyle:
       type: string
       description: "The trading style of the order, the default is HYBRID"
