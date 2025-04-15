@@ -157,6 +157,12 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/Exchange_2'
+      - name: subaccount
+        in: query
+        description: Sub-account
+        schema:
+          type: string
+          nullable: true
       responses:
         "200":
           description: The list of asset balance > 0
@@ -396,6 +402,12 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/Exchange_3'
+      - name: subaccount
+        in: query
+        description: Sub-account
+        schema:
+          type: string
+          nullable: true
       responses:
         "200":
           description: The list of matching orders.
@@ -462,7 +474,6 @@ components:
       enum:
       - SPOT
       - FUTURE
-      - OPTION
     AssetClass:
       type: string
       enum:
