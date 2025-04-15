@@ -32,6 +32,86 @@ info:
     >https://anbotolabs.github.io/anboto-api-docs/anboto-trading-api-2.0.yml</a>"
   version: "2.0"
 paths:
+  /api/v2/data/exchanges:
+    get:
+      tags:
+      - Data Rest API
+      summary: Returns a list of exchanges supported
+      description: Return a list of exchanges availablel to trade
+      operationId: exchanges
+      responses:
+        "200":
+          description: The exchanges.
+          content:
+            application/json:
+              schema:
+                type: string
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
+  /api/v2/data/fundingRateHistory:
+    get:
+      tags:
+      - Data Rest API
+      summary: Returns funding rates histroy
+      description: Return all funding rates history based on filter parameters
+      operationId: fundingRateHistory
+      parameters:
+      - name: exchange
+        in: query
+        description: Return last funding rates on this exchange for each asset
+        schema:
+          type: string
+          nullable: true
+      - name: symbol
+        in: query
+        description: Return last funding rates for this asset on each exchange
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: The last funding rates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingRate'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
+  /api/v2/data/instruments:
+    get:
+      tags:
+      - Data Rest API
+      summary: Returns list of instruments
+      description: Return all instruments based on filter parameters
+      operationId: instruments
+      parameters:
+      - name: exchange
+        in: query
+        description: Return all instruments on this exchange for each asset
+        schema:
+          type: string
+          nullable: true
+      - name: symbol
+        in: query
+        description: Return instrument with this symbol
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: The instruments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instrument'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
   /api/v2/data/lastFundingRates:
     get:
       tags:
@@ -55,6 +135,37 @@ paths:
       responses:
         "200":
           description: The last funding rates.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FundingRate'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
+  /api/v2/trading/balance:
+    get:
+      tags:
+      - Rest API
+      summary: Returns the balance of assets in an exchange on default account
+      description: shows the asset balance > 0
+      operationId: getBalance
+      parameters:
+      - name: exchange
+        in: query
+        description: The exchange
+        required: true
+        schema:
+          $ref: '#/components/schemas/Exchange_2'
+      - name: subaccount
+        in: query
+        description: Sub-account
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: The list of asset balance > 0
           content:
             application/json:
               schema:
@@ -277,6 +388,37 @@ paths:
           description: "Unauthorized, Invalid Signature"
       security:
       - ApiKeyAuth: []
+  /api/v2/trading/position:
+    get:
+      tags:
+      - Rest API
+      summary: Returns the position of assets in an exchange on default account
+      description: shows the asset position != 0
+      operationId: getPosition
+      parameters:
+      - name: exchange
+        in: query
+        description: The exchange
+        required: true
+        schema:
+          $ref: '#/components/schemas/Exchange_3'
+      - name: subaccount
+        in: query
+        description: Sub-account
+        schema:
+          type: string
+          nullable: true
+      responses:
+        "200":
+          description: The list of matching orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsList'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
   /status/ping:
     get:
       operationId: status
@@ -332,7 +474,14 @@ components:
       enum:
       - SPOT
       - FUTURE
+    AssetClass:
+      type: string
+      enum:
+      - UNDEFINED
+      - SPOT
+      - FUTURE
       - OPTION
+      - CFD
     CancelManyParentOrdersRequest:
       required:
       - orders
@@ -394,7 +543,7 @@ components:
         exchange:
           description: "The execution exchange, e.g. BINANCE"
           allOf:
-          - $ref: '#/components/schemas/Exchange'
+          - $ref: '#/components/schemas/Exchange_1'
         subaccount:
           type: string
           description: The sub-account under which to trade the order
@@ -452,6 +601,57 @@ components:
       description: Used for creating a parent order.
     Exchange:
       type: string
+      enum:
+      - BINANCE
+      - HUOBI
+      - COINBASE
+      - GATEIO
+      - KRAKEN
+      - KUCOIN
+      - OKX
+      - BYBIT
+      - WOO
+      - MEXC
+      - BITGET
+      - BULLISH
+      - B2C2
+      - HYPERLIQUID
+      - COINBASEPRIME
+      - COINBASEINTL
+    Exchange_1:
+      type: string
+      description: The exchange where to trade the order.
+      enum:
+      - BINANCE
+      - HUOBI
+      - GATEIO
+      - KRAKEN
+      - KUCOIN
+      - OKX
+      - BYBIT
+      - BITGET
+      - WOO
+      - MEXC
+      - BULLISH
+      - B2C2
+    Exchange_2:
+      type: string
+      description: The exchange where to trade the order.
+      enum:
+      - BINANCE
+      - HUOBI
+      - GATEIO
+      - KRAKEN
+      - KUCOIN
+      - OKX
+      - BYBIT
+      - BITGET
+      - WOO
+      - MEXC
+      - BULLISH
+      - B2C2
+    Exchange_3:
+      type: string
       description: The exchange where to trade the order.
       enum:
       - BINANCE
@@ -477,6 +677,112 @@ components:
       - MARKET
       - LIMIT
       - IS
+    FundingRate:
+      required:
+      - exchange
+      - nextTime
+      - rate
+      - symbol
+      - time
+      type: object
+      properties:
+        exchange:
+          type: string
+        symbol:
+          type: string
+        time:
+          type: string
+          format: date-time
+        nextTime:
+          type: string
+          format: date-time
+        rate:
+          type: number
+          format: double
+        nextRate:
+          type: number
+          format: double
+          nullable: true
+        markPrice:
+          type: number
+          format: double
+          nullable: true
+    Instrument:
+      required:
+      - assetClass
+      - baseAsset
+      - enabled
+      - exchange
+      - exchangeAssetClass
+      - exchangeSymbol
+      - quoteAsset
+      - symbol
+      - timestamp
+      type: object
+      properties:
+        exchange:
+          $ref: '#/components/schemas/Exchange'
+        symbol:
+          type: string
+        baseAsset:
+          type: string
+        quoteAsset:
+          type: string
+        exchangeSymbol:
+          type: string
+        exchangeAssetClass:
+          type: string
+        assetClass:
+          $ref: '#/components/schemas/AssetClass'
+        quantityPrecision:
+          type: integer
+          format: int32
+          nullable: true
+        pricePrecision:
+          type: integer
+          format: int32
+          nullable: true
+        maxQuantityLimit:
+          type: number
+          format: double
+          nullable: true
+        minQuantityLimit:
+          type: number
+          format: double
+          nullable: true
+        minCostLimit:
+          type: number
+          format: double
+          nullable: true
+        maxCostLimit:
+          type: number
+          format: double
+          nullable: true
+        contractSize:
+          type: number
+          format: double
+          nullable: true
+        minMarketLimit:
+          type: number
+          format: double
+          nullable: true
+        maxMarketLimit:
+          type: number
+          format: double
+          nullable: true
+        minPriceLimit:
+          type: number
+          format: double
+          nullable: true
+        maxPriceLimit:
+          type: number
+          format: double
+          nullable: true
+        enabled:
+          type: boolean
+        timestamp:
+          type: string
+          format: date-time
     OrderDetails:
       required:
       - average_price
