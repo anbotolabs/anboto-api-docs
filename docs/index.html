@@ -327,6 +327,15 @@
             <a href="#anboto-trading-api-data-rest-api" class="toc-h1 toc-link" data-title="Data Rest API">Data Rest API</a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#exchanges" class="toc-h2 toc-link" data-title="exchanges">exchanges</a>
+                  </li>
+                  <li>
+                    <a href="#fundingratehistory" class="toc-h2 toc-link" data-title="fundingRateHistory">fundingRateHistory</a>
+                  </li>
+                  <li>
+                    <a href="#instruments" class="toc-h2 toc-link" data-title="instruments">instruments</a>
+                  </li>
+                  <li>
                     <a href="#lastfundingrates" class="toc-h2 toc-link" data-title="lastFundingRates">lastFundingRates</a>
                   </li>
               </ul>
@@ -334,6 +343,9 @@
           <li>
             <a href="#anboto-trading-api-rest-api" class="toc-h1 toc-link" data-title="Rest API">Rest API</a>
               <ul class="toc-list-h2">
+                  <li>
+                    <a href="#getbalance" class="toc-h2 toc-link" data-title="getBalance">getBalance</a>
+                  </li>
                   <li>
                     <a href="#getorders" class="toc-h2 toc-link" data-title="getOrders">getOrders</a>
                   </li>
@@ -358,6 +370,9 @@
                   <li>
                     <a href="#getopenorders" class="toc-h2 toc-link" data-title="getOpenOrders">getOpenOrders</a>
                   </li>
+                  <li>
+                    <a href="#getposition" class="toc-h2 toc-link" data-title="getPosition">getPosition</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -368,6 +383,9 @@
                   </li>
                   <li>
                     <a href="#tocS_AssetCategory" class="toc-h2 toc-link" data-title="AssetCategory">AssetCategory</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_AssetClass" class="toc-h2 toc-link" data-title="AssetClass">AssetClass</a>
                   </li>
                   <li>
                     <a href="#tocS_CancelManyParentOrdersRequest" class="toc-h2 toc-link" data-title="CancelManyParentOrdersRequest">CancelManyParentOrdersRequest</a>
@@ -388,7 +406,22 @@
                     <a href="#tocS_Exchange" class="toc-h2 toc-link" data-title="Exchange">Exchange</a>
                   </li>
                   <li>
+                    <a href="#tocS_Exchange_1" class="toc-h2 toc-link" data-title="Exchange_1">Exchange_1</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_Exchange_2" class="toc-h2 toc-link" data-title="Exchange_2">Exchange_2</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_Exchange_3" class="toc-h2 toc-link" data-title="Exchange_3">Exchange_3</a>
+                  </li>
+                  <li>
                     <a href="#tocS_ExecutionStrategy" class="toc-h2 toc-link" data-title="ExecutionStrategy">ExecutionStrategy</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_FundingRate" class="toc-h2 toc-link" data-title="FundingRate">FundingRate</a>
+                  </li>
+                  <li>
+                    <a href="#tocS_Instrument" class="toc-h2 toc-link" data-title="Instrument">Instrument</a>
                   </li>
                   <li>
                     <a href="#tocS_OrderDetails" class="toc-h2 toc-link" data-title="OrderDetails">OrderDetails</a>
@@ -602,6 +635,566 @@ This operation does not require authentication
 </aside>
 
 <h1 id="anboto-trading-api-data-rest-api">Data Rest API</h1>
+<h2 id='exchanges'>exchanges</h2>
+<p><a id="opIdexchanges"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /api/v2/data/exchanges <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">/api/v2/data/exchanges</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v2/data/exchanges</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/api/v2/data/exchanges'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/api/v2/data/exchanges'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/api/v2/data/exchanges'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="no">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"/api/v2/data/exchanges"</span><span class="o">);</span>
+<span class="nc">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="nc">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/api/v2/data/exchanges"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /api/v2/data/exchanges</code></p>
+
+<p><em>Returns a list of exchanges supported</em></p>
+
+<p>Return a list of exchanges availablel to trade</p>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"string"</span><span class="w">
+</span></code></pre></div>
+<h3 id="exchanges-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The exchanges.</td>
+<td>string</td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized, Invalid Signature</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
+<h2 id='fundingratehistory'>fundingRateHistory</h2>
+<p><a id="opIdfundingRateHistory"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /api/v2/data/fundingRateHistory <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">/api/v2/data/fundingRateHistory</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v2/data/fundingRateHistory</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/api/v2/data/fundingRateHistory'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/api/v2/data/fundingRateHistory'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/api/v2/data/fundingRateHistory'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="no">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"/api/v2/data/fundingRateHistory"</span><span class="o">);</span>
+<span class="nc">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="nc">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/api/v2/data/fundingRateHistory"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /api/v2/data/fundingRateHistory</code></p>
+
+<p><em>Returns funding rates histroy</em></p>
+
+<p>Return all funding rates history based on filter parameters</p>
+
+<h3 id="fundingratehistory-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Return last funding rates on this exchange for each asset</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Return last funding rates for this asset on each exchange</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="fundingratehistory-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The last funding rates.</td>
+<td><a href="#schemafundingrate">FundingRate</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized, Invalid Signature</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
+<h2 id='instruments'>instruments</h2>
+<p><a id="opIdinstruments"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /api/v2/data/instruments <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">/api/v2/data/instruments</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v2/data/instruments</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/api/v2/data/instruments'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/api/v2/data/instruments'</span><span class="p">,</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/api/v2/data/instruments'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="no">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"/api/v2/data/instruments"</span><span class="o">);</span>
+<span class="nc">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="nc">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/api/v2/data/instruments"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /api/v2/data/instruments</code></p>
+
+<p><em>Returns list of instruments</em></p>
+
+<p>Return all instruments based on filter parameters</p>
+
+<h3 id="instruments-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Return all instruments on this exchange for each asset</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Return instrument with this symbol</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BINANCE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"baseAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quoteAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exchangeSymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exchangeAssetClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"assetClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNDEFINED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quantityPrecision"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pricePrecision"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxQuantityLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minQuantityLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minCostLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxCostLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contractSize"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minMarketLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxMarketLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minPriceLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxPriceLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="instruments-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The instruments</td>
+<td><a href="#schemainstrument">Instrument</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized, Invalid Signature</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
 <h2 id='lastfundingrates'>lastFundingRates</h2>
 <p><a id="opIdlastFundingRates"></a></p>
 
@@ -759,20 +1352,13 @@ Accept: application/json
 <p>200 Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-yyy-zzz"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"filled_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"leaves_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"average_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">]</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <h3 id="lastfundingrates-responses">Responses</h3>
@@ -789,7 +1375,7 @@ Accept: application/json
 <td>200</td>
 <td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
 <td>The last funding rates.</td>
-<td><a href="#schemaorderdetailslist">OrderDetailsList</a></td>
+<td><a href="#schemafundingrate">FundingRate</a></td>
 </tr>
 <tr>
 <td>401</td>
@@ -805,6 +1391,266 @@ ApiKeyAuth
 </aside>
 
 <h1 id="anboto-trading-api-rest-api">Rest API</h1>
+<h2 id='getbalance'>getBalance</h2>
+<p><a id="opIdgetBalance"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /api/v2/trading/balance?exchange<span class="o">=</span>BINANCE <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">/api/v2/trading/balance?exchange=BINANCE</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v2/trading/balance?exchange=BINANCE</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/api/v2/trading/balance'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="s1">'exchange'</span> <span class="o">=&gt;</span> <span class="s1">'[Exchange_2](#schemaexchange_2)'</span>
+<span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/api/v2/trading/balance'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+  <span class="s">'exchange'</span><span class="p">:</span> <span class="s">'BINANCE'</span>
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/api/v2/trading/balance'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="no">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"/api/v2/trading/balance?exchange=BINANCE"</span><span class="o">);</span>
+<span class="nc">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="nc">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/api/v2/trading/balance"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /api/v2/trading/balance</code></p>
+
+<p><em>Returns the balance of assets in an exchange on default account</em></p>
+
+<p>shows the asset balance &gt; 0</p>
+
+<h3 id="getbalance-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>query</td>
+<td><a href="#schemaexchange_2">Exchange_2</a></td>
+<td>true</td>
+<td>The exchange</td>
+</tr>
+<tr>
+<td>subaccount</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Sub-account</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>BINANCE</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>HUOBI</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>GATEIO</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>KRAKEN</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>KUCOIN</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>OKX</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BYBIT</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BITGET</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>WOO</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>MEXC</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>B2C2</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-yyy-zzz"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filled_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"leaves_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"average_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="getbalance-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The list of asset balance &gt; 0</td>
+<td><a href="#schemaorderdetailslist">OrderDetailsList</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized, Invalid Signature</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
 <h2 id='getorders'>getOrders</h2>
 <p><a id="opIdgetOrders"></a></p>
 
@@ -2526,6 +3372,266 @@ Accept: application/json
 To perform this operation, you must be authenticated by means of one of the following methods:
 ApiKeyAuth
 </aside>
+<h2 id='getposition'>getPosition</h2>
+<p><a id="opIdgetPosition"></a></p>
+
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># You can also use wget</span>
+curl <span class="nt">-X</span> GET /api/v2/trading/position?exchange<span class="o">=</span>BINANCE <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s1">'Accept: application/json'</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight http tab-http"><code><span class="nf">GET</span> <span class="nn">/api/v2/trading/position?exchange=BINANCE</span> <span class="k">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+Accept: application/json
+
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code>
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Accept</span><span class="dl">'</span><span class="p">:</span><span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">};</span>
+
+<span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v2/trading/position?exchange=BINANCE</span><span class="dl">'</span><span class="p">,</span>
+<span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+
+  <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">body</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">body</span><span class="p">);</span>
+<span class="p">});</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'rest-client'</span>
+<span class="nb">require</span> <span class="s1">'json'</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="no">RestClient</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/api/v2/trading/position'</span><span class="p">,</span>
+  <span class="ss">params: </span><span class="p">{</span>
+  <span class="s1">'exchange'</span> <span class="o">=&gt;</span> <span class="s1">'[Exchange_3](#schemaexchange_3)'</span>
+<span class="p">},</span> <span class="ss">headers: </span><span class="n">headers</span>
+
+<span class="nb">p</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s">'Accept'</span><span class="p">:</span> <span class="s">'application/json'</span>
+<span class="p">}</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">'/api/v2/trading/position'</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+  <span class="s">'exchange'</span><span class="p">:</span> <span class="s">'BINANCE'</span>
+<span class="p">},</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">headers</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">.</span><span class="n">json</span><span class="p">())</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight php tab-php"><code><span class="cp">&lt;?php</span>
+
+<span class="k">require</span> <span class="s1">'vendor/autoload.php'</span><span class="p">;</span>
+
+<span class="nv">$headers</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'Accept'</span> <span class="o">=&gt;</span> <span class="s1">'application/json'</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$client</span> <span class="o">=</span> <span class="k">new</span> <span class="err">\</span><span class="nf">GuzzleHttp\Client</span><span class="p">();</span>
+
+<span class="c1">// Define array of request body.</span>
+<span class="nv">$request_body</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$response</span> <span class="o">=</span> <span class="nv">$client</span><span class="o">-&gt;</span><span class="nf">request</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,</span><span class="s1">'/api/v2/trading/position'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">'headers'</span> <span class="o">=&gt;</span> <span class="nv">$headers</span><span class="p">,</span>
+        <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="nv">$request_body</span><span class="p">,</span>
+       <span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$response</span><span class="o">-&gt;</span><span class="nf">getBody</span><span class="p">()</span><span class="o">-&gt;</span><span class="nf">getContents</span><span class="p">());</span>
+ <span class="p">}</span>
+ <span class="k">catch</span> <span class="p">(</span><span class="err">\</span><span class="nc">GuzzleHttp\Exception\BadResponseException</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// handle exception or api errors.</span>
+    <span class="nb">print_r</span><span class="p">(</span><span class="nv">$e</span><span class="o">-&gt;</span><span class="nf">getMessage</span><span class="p">());</span>
+ <span class="p">}</span>
+
+ <span class="c1">// ...</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight java tab-java"><code><span class="no">URL</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="s">"/api/v2/trading/position?exchange=BINANCE"</span><span class="o">);</span>
+<span class="nc">HttpURLConnection</span> <span class="n">con</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpURLConnection</span><span class="o">)</span> <span class="n">obj</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+<span class="n">con</span><span class="o">.</span><span class="na">setRequestMethod</span><span class="o">(</span><span class="s">"GET"</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">responseCode</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span>
+    <span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">con</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+<span class="nc">String</span> <span class="n">inputLine</span><span class="o">;</span>
+<span class="nc">StringBuffer</span> <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+<span class="k">while</span> <span class="o">((</span><span class="n">inputLine</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">response</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">inputLine</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+</code></pre></div><div class="highlight"><pre class="highlight go tab-go"><code><span class="k">package</span> <span class="n">main</span>
+
+<span class="k">import</span> <span class="p">(</span>
+       <span class="s">"bytes"</span>
+       <span class="s">"net/http"</span>
+<span class="p">)</span>
+
+<span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="n">headers</span> <span class="o">:=</span> <span class="k">map</span><span class="p">[</span><span class="kt">string</span><span class="p">][]</span><span class="kt">string</span><span class="p">{</span>
+        <span class="s">"Accept"</span><span class="o">:</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">"application/json"</span><span class="p">},</span>
+    <span class="p">}</span>
+
+    <span class="n">data</span> <span class="o">:=</span> <span class="n">bytes</span><span class="o">.</span><span class="n">NewBuffer</span><span class="p">([]</span><span class="kt">byte</span><span class="p">{</span><span class="n">jsonReq</span><span class="p">})</span>
+    <span class="n">req</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">http</span><span class="o">.</span><span class="n">NewRequest</span><span class="p">(</span><span class="s">"GET"</span><span class="p">,</span> <span class="s">"/api/v2/trading/position"</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="n">req</span><span class="o">.</span><span class="n">Header</span> <span class="o">=</span> <span class="n">headers</span>
+
+    <span class="n">client</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">http</span><span class="o">.</span><span class="n">Client</span><span class="p">{}</span>
+    <span class="n">resp</span><span class="p">,</span> <span class="n">err</span> <span class="o">:=</span> <span class="n">client</span><span class="o">.</span><span class="n">Do</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="c">// ...</span>
+<span class="p">}</span>
+
+</code></pre></div>
+<p><code>GET /api/v2/trading/position</code></p>
+
+<p><em>Returns the position of assets in an exchange on default account</em></p>
+
+<p>shows the asset position != 0</p>
+
+<h3 id="getposition-parameters">Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>query</td>
+<td><a href="#schemaexchange_3">Exchange_3</a></td>
+<td>true</td>
+<td>The exchange</td>
+</tr>
+<tr>
+<td>subaccount</td>
+<td>query</td>
+<td>string</td>
+<td>false</td>
+<td>Sub-account</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>BINANCE</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>HUOBI</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>GATEIO</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>KRAKEN</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>KUCOIN</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>OKX</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BYBIT</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BITGET</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>WOO</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>MEXC</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>B2C2</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Example responses</p>
+
+<p>200 Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"orders"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"order_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">123456</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"xxx-yyy-zzz"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_NEW"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filled_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"leaves_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"side"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BUY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"last_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"average_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<h3 id="getposition-responses">Responses</h3>
+
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>The list of matching orders.</td>
+<td><a href="#schemaorderdetailslist">OrderDetailsList</a></td>
+</tr>
+<tr>
+<td>401</td>
+<td><a href="https://tools.ietf.org/html/rfc7235#section-3.1">Unauthorized</a></td>
+<td>Unauthorized, Invalid Signature</td>
+<td>None</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+ApiKeyAuth
+</aside>
 <h1 id='schemas'>Schemas</h1>
 <h2 id="tocS_ApiErrorCode">ApiErrorCode</h2>
 
@@ -2557,7 +3663,7 @@ ApiKeyAuth
 <td>The error code used to describe why an order was rejected.</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values'>Enumerated Values</h4>
+<h4 id='enumerated-values-3'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2728,7 +3834,7 @@ ApiKeyAuth
 <td>The Asset category of the order.</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-2'>Enumerated Values</h4>
+<h4 id='enumerated-values-4'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2743,9 +3849,62 @@ ApiKeyAuth
 <td><em>anonymous</em></td>
 <td>FUTURE</td>
 </tr>
+</tbody></table>
+
+<h2 id="tocS_AssetClass">AssetClass</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaassetclass"></a>
+<a id="schema_AssetClass"></a>
+<a id="tocSassetclass"></a>
+<a id="tocsassetclass"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"UNDEFINED"</span><span class="w">
+
+</span></code></pre></div><h3 id='properties-3'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>UNDEFINED</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>SPOT</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>FUTURE</td>
+</tr>
 <tr>
 <td><em>anonymous</em></td>
 <td>OPTION</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>CFD</td>
 </tr>
 </tbody></table>
 
@@ -2768,7 +3927,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Used for cancelling many parent orders at the same time</p>
-<h3 id='properties-3'>Properties</h3>
+<h3 id='properties-4'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2802,7 +3961,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Used for cancelling a parent order</p>
-<h3 id='properties-4'>Properties</h3>
+<h3 id='properties-5'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2840,7 +3999,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The clip size for the child orders. The default is AUTOMATIC</p>
-<h3 id='properties-5'>Properties</h3>
+<h3 id='properties-6'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2858,7 +4017,7 @@ ApiKeyAuth
 <td>The clip size for the child orders. The default is AUTOMATIC</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-3'>Enumerated Values</h4>
+<h4 id='enumerated-values-6'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -2930,7 +4089,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>A request to create many parent orders in a single request.</p>
-<h3 id='properties-6'>Properties</h3>
+<h3 id='properties-7'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -2996,7 +4155,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Used for creating a parent order.</p>
-<h3 id='properties-7'>Properties</h3>
+<h3 id='properties-8'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3015,7 +4174,7 @@ ApiKeyAuth
 </tr>
 <tr>
 <td>exchange</td>
-<td><a href="#schemaexchange">Exchange</a></td>
+<td><a href="#schemaexchange_1">Exchange_1</a></td>
 <td>true</td>
 <td>none</td>
 <td>The execution exchange, e.g. BINANCE</td>
@@ -3222,9 +4381,110 @@ ApiKeyAuth
 <a id="tocsexchange"></a></p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BINANCE"</span><span class="w">
 
+</span></code></pre></div><h3 id='properties-9'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-7'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>BINANCE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>HUOBI</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>COINBASE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>GATEIO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KRAKEN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KUCOIN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>OKX</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BYBIT</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>WOO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MEXC</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BITGET</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>B2C2</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>HYPERLIQUID</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>COINBASEPRIME</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>COINBASEINTL</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocS_Exchange_1">Exchange_1</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaexchange_1"></a>
+<a id="schema_Exchange_1"></a>
+<a id="tocSexchange_1"></a>
+<a id="tocsexchange_1"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BINANCE"</span><span class="w">
+
 </span></code></pre></div>
 <p>The exchange where to trade the order.</p>
-<h3 id='properties-8'>Properties</h3>
+<h3 id='properties-10'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3242,7 +4502,181 @@ ApiKeyAuth
 <td>The exchange where to trade the order.</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-4'>Enumerated Values</h4>
+<h4 id='enumerated-values-8'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>BINANCE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>HUOBI</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>GATEIO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KRAKEN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KUCOIN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>OKX</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BYBIT</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BITGET</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>WOO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MEXC</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>B2C2</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocS_Exchange_2">Exchange_2</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaexchange_2"></a>
+<a id="schema_Exchange_2"></a>
+<a id="tocSexchange_2"></a>
+<a id="tocsexchange_2"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BINANCE"</span><span class="w">
+
+</span></code></pre></div>
+<p>The exchange where to trade the order.</p>
+<h3 id='properties-11'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The exchange where to trade the order.</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-9'>Enumerated Values</h4>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>BINANCE</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>HUOBI</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>GATEIO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KRAKEN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>KUCOIN</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>OKX</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BYBIT</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BITGET</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>WOO</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>MEXC</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>BULLISH</td>
+</tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>B2C2</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocS_Exchange_3">Exchange_3</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemaexchange_3"></a>
+<a id="schema_Exchange_3"></a>
+<a id="tocSexchange_3"></a>
+<a id="tocsexchange_3"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="s2">"BINANCE"</span><span class="w">
+
+</span></code></pre></div>
+<p>The exchange where to trade the order.</p>
+<h3 id='properties-12'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><em>anonymous</em></td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>The exchange where to trade the order.</td>
+</tr>
+</tbody></table>
+<h4 id='enumerated-values-10'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3311,7 +4745,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The execution strategy for the order.</p>
-<h3 id='properties-9'>Properties</h3>
+<h3 id='properties-13'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3329,7 +4763,7 @@ ApiKeyAuth
 <td>The execution strategy for the order.</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-5'>Enumerated Values</h4>
+<h4 id='enumerated-values-11'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3366,6 +4800,268 @@ ApiKeyAuth
 </tr>
 </tbody></table>
 
+<h2 id="tocS_FundingRate">FundingRate</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemafundingrate"></a>
+<a id="schema_FundingRate"></a>
+<a id="tocSfundingrate"></a>
+<a id="tocsfundingrate"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nextRate"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"markPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='properties-14'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>time</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>nextTime</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>rate</td>
+<td>number(double)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>nextRate</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>markPrice</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
+<h2 id="tocS_Instrument">Instrument</h2>
+
+<!-- backwards compatibility -->
+
+<p><a id="schemainstrument"></a>
+<a id="schema_Instrument"></a>
+<a id="tocSinstrument"></a>
+<a id="tocsinstrument"></a></p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BINANCE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"baseAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quoteAsset"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exchangeSymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exchangeAssetClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"assetClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNDEFINED"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"quantityPrecision"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pricePrecision"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxQuantityLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minQuantityLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minCostLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxCostLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"contractSize"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minMarketLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxMarketLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minPriceLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"maxPriceLimit"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"enabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div><h3 id='properties-15'>Properties</h3>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>exchange</td>
+<td><a href="#schemaexchange">Exchange</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>baseAsset</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>quoteAsset</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>exchangeSymbol</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>exchangeAssetClass</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>assetClass</td>
+<td><a href="#schemaassetclass">AssetClass</a></td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>quantityPrecision</td>
+<td>integer(int32)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>pricePrecision</td>
+<td>integer(int32)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>maxQuantityLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>minQuantityLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>minCostLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>maxCostLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>contractSize</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>minMarketLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>maxMarketLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>minPriceLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>maxPriceLimit</td>
+<td>number(double)¦null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>enabled</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>string(date-time)</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody></table>
+
 <h2 id="tocS_OrderDetails">OrderDetails</h2>
 
 <!-- backwards compatibility -->
@@ -3387,7 +5083,7 @@ ApiKeyAuth
   </span><span class="nl">"average_price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-10'>Properties</h3>
+</span></code></pre></div><h3 id='properties-16'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3494,7 +5190,7 @@ ApiKeyAuth
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-11'>Properties</h3>
+</span></code></pre></div><h3 id='properties-17'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3545,7 +5241,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The advanced order parameters to modify the execution behavior.</p>
-<h3 id='properties-12'>Properties</h3>
+<h3 id='properties-18'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3784,7 +5480,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The order status</p>
-<h3 id='properties-13'>Properties</h3>
+<h3 id='properties-19'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3802,7 +5498,7 @@ ApiKeyAuth
 <td>The order status</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-6'>Enumerated Values</h4>
+<h4 id='enumerated-values-12'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -3878,7 +5574,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Summarizes the state of the parent order</p>
-<h3 id='properties-14'>Properties</h3>
+<h3 id='properties-20'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -3993,7 +5689,7 @@ ApiKeyAuth
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
-</span></code></pre></div><h3 id='properties-15'>Properties</h3>
+</span></code></pre></div><h3 id='properties-21'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4028,7 +5724,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>How to place an order into the book</p>
-<h3 id='properties-16'>Properties</h3>
+<h3 id='properties-22'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4126,7 +5822,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy</p>
-<h3 id='properties-17'>Properties</h3>
+<h3 id='properties-23'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4144,7 +5840,7 @@ ApiKeyAuth
 <td>The style used to place an order in the book. DEFAULT is the default and will be at the discretion of the trading strategy</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-7'>Enumerated Values</h4>
+<h4 id='enumerated-values-13'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4177,7 +5873,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The side of the book to trade.</p>
-<h3 id='properties-18'>Properties</h3>
+<h3 id='properties-24'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4195,7 +5891,7 @@ ApiKeyAuth
 <td>The side of the book to trade.</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-8'>Enumerated Values</h4>
+<h4 id='enumerated-values-14'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4224,7 +5920,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The trading style of the order, the default is HYBRID</p>
-<h3 id='properties-19'>Properties</h3>
+<h3 id='properties-25'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4242,7 +5938,7 @@ ApiKeyAuth
 <td>The trading style of the order, the default is HYBRID</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-9'>Enumerated Values</h4>
+<h4 id='enumerated-values-15'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4275,7 +5971,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The trigger condition to start the order</p>
-<h3 id='properties-20'>Properties</h3>
+<h3 id='properties-26'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4293,7 +5989,7 @@ ApiKeyAuth
 <td>The trigger condition to start the order</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-10'>Enumerated Values</h4>
+<h4 id='enumerated-values-16'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4325,7 +6021,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Information related to how the order should be triggered.</p>
-<h3 id='properties-21'>Properties</h3>
+<h3 id='properties-27'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4403,7 +6099,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>The Urgency or Risk Aversion of the IS strategy, the default is MEDIUM. The parameter is not case-sensitive. Each risk aversion levels correspond to a lambda value, &quot;that is, how much we penalize variance relative to expected cost&quot; Low : 0.2e-6 Medium: 1e-6 High: 5e-6 Based on the paper from Almgren Chriss https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf</p>
-<h3 id='properties-22'>Properties</h3>
+<h3 id='properties-28'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
@@ -4421,7 +6117,7 @@ ApiKeyAuth
 <td>The Urgency or Risk Aversion of the IS strategy, the default is MEDIUM. The parameter is not case-sensitive. Each risk aversion levels correspond to a lambda value, &quot;that is, how much we penalize variance relative to expected cost&quot; Low : 0.2e-6 Medium: 1e-6 High: 5e-6 Based on the paper from Almgren Chriss https://www.smallake.kr/wp-content/uploads/2016/03/optliq.pdf</td>
 </tr>
 </tbody></table>
-<h4 id='enumerated-values-11'>Enumerated Values</h4>
+<h4 id='enumerated-values-17'>Enumerated Values</h4>
 <table><thead>
 <tr>
 <th>Property</th>
@@ -4458,7 +6154,7 @@ ApiKeyAuth
 
 </span></code></pre></div>
 <p>Information to instruct how to execute a Would price trigger.</p>
-<h3 id='properties-23'>Properties</h3>
+<h3 id='properties-29'>Properties</h3>
 <table><thead>
 <tr>
 <th>Name</th>
