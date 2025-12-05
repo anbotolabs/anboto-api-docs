@@ -156,7 +156,7 @@ paths:
         description: The exchange
         required: true
         schema:
-          $ref: '#/components/schemas/Exchange_3'
+          $ref: '#/components/schemas/Exchange'
       - name: subaccount
         in: query
         description: Sub-account
@@ -179,8 +179,7 @@ paths:
       tags:
       - Rest API
       summary: Returns the order details for all matching orders
-      description: Both the orderIds and clientOrderIds parameters will be used in
-        the lookup
+      description: Either orderIds or clientOrderIds has to be provided for matching
       operationId: getOrders
       parameters:
       - name: orderIds
@@ -202,7 +201,7 @@ paths:
             type: string
       responses:
         "200":
-          description: The list of matching orders.
+          description: return a list of matching orders
           content:
             application/json:
               schema:
@@ -384,8 +383,7 @@ paths:
       tags:
       - Rest API
       summary: Returns the order details for all matching orders
-      description: Both the orderIds and clientOrderIds parameters will be used in
-        the lookup
+      description: Only matched order within 3 days will be return
       operationId: findOrders
       parameters:
       - name: startMs
@@ -451,7 +449,7 @@ paths:
         description: The exchange
         required: true
         schema:
-          $ref: '#/components/schemas/Exchange_4'
+          $ref: '#/components/schemas/Exchange'
       - name: subaccount
         in: query
         description: Sub-account
@@ -461,6 +459,55 @@ paths:
       responses:
         "200":
           description: The list of matching orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetailsList'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
+  /api/v2/trading/userTrades:
+    get:
+      tags:
+      - Rest API
+      summary: Returns the trades of orders in an exchange on default account by a
+        list of order Ids/client order Ids
+      description: Either orderIds or clientOrderIds has to be provided for matching
+      operationId: getUserTrades
+      parameters:
+      - name: exchange
+        in: query
+        description: The exchange
+        required: true
+        schema:
+          $ref: '#/components/schemas/Exchange'
+      - name: subaccount
+        in: query
+        description: Sub-account
+        schema:
+          type: string
+          nullable: true
+      - name: orderIds
+        in: query
+        description: The list of anboto generated order ids
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: integer
+            format: int64
+      - name: clientOrderIds
+        in: query
+        description: The list of client generated order ids
+        schema:
+          type: array
+          nullable: true
+          items:
+            type: string
+      responses:
+        "200":
+          description: A list of matching trades.
           content:
             application/json:
               schema:
@@ -639,7 +686,7 @@ components:
         exchange:
           description: "The execution exchange, e.g. BINANCE"
           allOf:
-          - $ref: '#/components/schemas/Exchange_2'
+          - $ref: '#/components/schemas/Exchange'
         symbol:
           type: string
           description: "The symbol using Anboto symbology, e.g. BTC/USDT"
@@ -703,7 +750,7 @@ components:
         exchange:
           description: "The execution exchange, e.g. BINANCE"
           allOf:
-          - $ref: '#/components/schemas/Exchange_1'
+          - $ref: '#/components/schemas/Exchange'
         subaccount:
           type: string
           description: The sub-account under which to trade the order
@@ -761,6 +808,7 @@ components:
       description: Used for creating a parent order.
     Exchange:
       type: string
+      description: The exchange where to trade the order.
       enum:
       - BINANCE
       - HUOBI
@@ -778,82 +826,7 @@ components:
       - HYPERLIQUID
       - COINBASE_PRIME
       - COINBASE_INTL
-    Exchange_1:
-      type: string
-      description: The exchange where to trade the order.
-      enum:
-      - BINANCE
-      - HUOBI
-      - GATEIO
-      - KRAKEN
-      - KUCOIN
-      - OKX
-      - BYBIT
-      - BITGET
-      - WOO
-      - MEXC
-      - BULLISH
-      - B2C2
-      - COINBASE_ADV
-      - COINBASE_PRIME
-      - COINBASE_INTL
-    Exchange_2:
-      type: string
-      description: The exchange where to trade the order.
-      enum:
-      - BINANCE
-      - HUOBI
-      - GATEIO
-      - KRAKEN
-      - KUCOIN
-      - OKX
-      - BYBIT
-      - BITGET
-      - WOO
-      - MEXC
-      - BULLISH
-      - B2C2
-      - COINBASE_ADV
-      - COINBASE_PRIME
-      - COINBASE_INTL
-    Exchange_3:
-      type: string
-      description: The exchange where to trade the order.
-      enum:
-      - BINANCE
-      - HUOBI
-      - GATEIO
-      - KRAKEN
-      - KUCOIN
-      - OKX
-      - BYBIT
-      - BITGET
-      - WOO
-      - MEXC
-      - BULLISH
-      - B2C2
-      - COINBASE_ADV
-      - COINBASE_PRIME
-      - COINBASE_INTL
-    Exchange_4:
-      type: string
-      description: The exchange where to trade the order.
-      enum:
-      - BINANCE
-      - HUOBI
-      - GATEIO
-      - KRAKEN
-      - KUCOIN
-      - OKX
-      - BYBIT
-      - BITGET
-      - WOO
-      - MEXC
-      - BULLISH
-      - B2C2
-      - COINBASE_ADV
-      - COINBASE_PRIME
-      - COINBASE_INTL
+      - EXTENDED
     ExecutionStrategy:
       type: string
       description: The execution strategy for the order.
