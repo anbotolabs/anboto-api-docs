@@ -1,9 +1,12 @@
+---
 openapi: 3.0.1
 info:
   title: Anboto Trading API
   description: "Anboto Trading API <BR><BR> <B>Authentication</B><BR>Please visit\
     \ Anboto's website to generate an API key<BR>   Mainnet:<BR>        - <a href=\"\
-    https://api.trade.anboto.xyz\">https://api.trade.anboto.xyz</a><BR>   Testnet:<BR>\
+    https://api.trade.anboto.xyz\">https://api.trade.anboto.xyz</a><BR>   Pro:<BR>        - <a href=\"\
+    https://api.pro.anboto.xyz\">https://api.pro.anboto.xyz</a> (<a href=\"https://pro.anboto.xyz/settings/api\"\
+    >Settings API</a>)<BR>   Testnet:<BR>\
     \        - <a href=\"https://api.testnet.anboto.xyz\">https://api.testnet.anboto.xyz</a><BR>\
     \          <I>(All trades are simulated on testnet and will not trade on any real\
     \ exchange)</I><BR><BR>Select Your API Key Type<BR>     1) <B>System-generated</B>\
@@ -22,10 +25,12 @@ info:
     \ steps:</B><BR>1. The string to sign should be a concatenation of 'timestamp\
     \ + API key + (recv_window) + (queryString | jsonBodyString)' The queryString\
     \ should be assembled in alphabetical order.<BR>2. Take your secret key and decode\
-    \ from Base664 into a byte array and then use the HMAC_SHA256 (for system generated\
-    \ keys) or RSA_SHA256 algorithm to sign the string in step 1.<BR>3. Convert the\
-    \ signed value to a hex string (HMAC_SHA256) / base64 (RSA_SHA256) to obtain the\
-    \ sign parameter.<BR>4. Append the sign parameter to request header, and send\
+    \ from Base64 into a byte array (standard Base64 if the secret contains +, /, or\
+    \ ends with =; otherwise URL-safe Base64 with padding). Then use HMAC_SHA256\
+    \ (for system generated keys) or RSA_SHA256 algorithm to sign the string in step\
+    \ 1.<BR>3. For HMAC keys, set X-SIGN to standard Base64 of the digest (not hex).\
+    \ For RSA keys, use Base64 of the signature.<BR>4. Append the sign parameter to\
+    \ request header, and send\
     \ the HTTP request. <BR><BR>Examples can be found here: <a href=\"https://github.com/anbotolabs/examples\"\
     >https://github.com/anbotolabs/examples</a><BR>The OpenAPI spec can be found here:\
     \ <a href=\"https://anbotolabs.github.io/anboto-api-docs/anboto-trading-api-2.0.yml\"\
