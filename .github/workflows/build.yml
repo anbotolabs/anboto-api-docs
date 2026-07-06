@@ -38,7 +38,9 @@ jobs:
         run: npm install -g widdershins
 
       - name: Run Widdershins
-        run: widdershins anboto-trading-api-2.0.yml -o ./source/index.html.md
+        # --includes appends Slate includes (source/includes/_*.md) after the generated
+        # REST sections: the hand-written WebSocket API section stays on the same page.
+        run: widdershins anboto-trading-api-2.0.yml -o ./source/index.html.md --includes websocket
 
       - uses: actions/cache@v4
         with:

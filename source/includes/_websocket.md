@@ -1,0 +1,324 @@
+# WebSocket API
+
+Real-time streams for the Anboto Trading API: order status, child orders, trade executions, positions, position risk and balances. The WebSocket API is **read-only** — orders are placed and cancelled through the REST API above.
+
+|  |  |
+|---|---|
+| Production | `wss://api.trade.anboto.xyz/api/v2/ws` |
+| Testnet | `wss://api.testnet.anboto.xyz/api/v2/ws` |
+
+## Authentication (listenKey)
+
+> 1. Request a listenKey (signed like any REST call):
+
+```shell
+curl "https://api.testnet.anboto.xyz/api/v2/trading/listenKey" \
+  -H "X-API-KEY: $API_KEY" \
+  -H "X-TIMESTAMP: $TS" \
+  -H "X-RECV-WINDOW: 5000" \
+  -H "X-SIGN: $SIGN"
+```
+
+```python
+import base64, hashlib, hmac, time, requests
+
+def sign(secret_b64, ts, api_key, rw, query="", body=""):
+    raw = base64.urlsafe_b64decode(secret_b64 + "=" * (-len(secret_b64) % 4))
+    payload = f"{ts}{api_key}{rw}{query}{body}"
+    return base64.b64encode(hmac.new(raw, payload.encode(), hashlib.sha256).digest()).decode()
+
+ts, rw = str(int(time.time() * 1000)), "5000"
+r = requests.get(
+    "https://api.testnet.anboto.xyz/api/v2/trading/listenKey",
+    headers={"X-API-KEY": API_KEY, "X-TIMESTAMP": ts,
+             "X-RECV-WINDOW": rw, "X-SIGN": sign(API_SECRET, ts, API_KEY, rw)})
+listen_key = r.text.strip('"')
+```
+
+> 2. Connect with the listenKey as a query parameter:
+
+```shell
+wscat -c "wss://api.testnet.anboto.xyz/api/v2/ws?listenKey=$LISTEN_KEY"
+```
+
+The WebSocket reuses your existing Anboto API key through a short-lived **listenKey**:
+
+1. Call `GET /api/v2/trading/listenKey` on the REST API (same HMAC-SHA256 signature scheme as every other authenticated endpoint). The response body is the listenKey — a JWT valid for **1 hour**.
+2. Connect to `wss://<host>/api/v2/ws?listenKey=<listenKey>`.
+
+An invalid or expired listenKey is rejected at the handshake with **HTTP 401**. The listenKey is checked only at the handshake: an established connection is not dropped when the listenKey expires, but every reconnect needs a fresh one. There is no renewal endpoint.
+
+The listenKey carries your trader and account identity; all streams are automatically scoped to your account. A read-only API key is sufficient.
+
+## Connection & keep-alive
+
+> Server ping (every minute) — reply with pong:
+
+```json
+{"topic":"ping"}
+```
+
+```json
+{"topic":"pong"}
+```
+
+* The server sends `{"topic":"ping"}` every minute. Reply `{"topic":"pong"}`.
+* A session with **no client message for 5 minutes** is closed with WebSocket close code 1001. Any client message (pong included) resets the timer.
+* You may also send `{"topic":"ping"}` yourself; the server answers `{"topic":"pong"}`.
+* Reconnect with backoff on close; request a fresh listenKey on every reconnect and re-subscribe (subscriptions are per-connection).
+
+## Subscribing
+
+> Subscribe / unsubscribe request:
+
+```json
+{"topic": "order", "exchange": "binance", "method": "subscribe"}
+```
+
+```json
+{"topic": "order", "exchange": "binance", "method": "unsubscribe"}
+```
+
+> Acknowledgement:
+
+```json
+{"code": 0, "message": "{\"topic\":\"order\",\"exchange\":\"BINANCE\",\"method\":\"subscribe\"}"}
+```
+
+All messages are JSON text frames.
+
+Parameter | Description
+--------- | -----------
+topic | `order` \| `child_order` \| `trade` \| `position` \| `position_risk` \| `balance` \| `ticker` \| `ohlcv`
+exchange | required; one of the exchanges accepted for trading (see `TradingExchange` schema), case-insensitive
+method | `subscribe` \| `unsubscribe`
+
+One subscription per `(topic, exchange)` pair per connection; a duplicate subscribe is acknowledged but does not create a second stream. Open several connections if you need parallel consumers.
+
+## Errors
+
+> Error response:
+
+```json
+{"code": 8054, "message": "exchange is missing"}
+```
+
+Every subscribe/unsubscribe gets a response with `code` and `message`:
+
+Code | Meaning
+---- | -------
+0 | OK — ack; `message` echoes your request
+8054 | `exchange` missing or invalid
+7002 | invalid request — unparseable message or missing `method`
+7001 | internal error — the subscription stream terminated; re-subscribe
+
+## Topic: order
+
+> Example order update:
+
+```json
+{
+  "order_status": {
+    "source": "oms-1",
+    "order_id": "596990285759373312",
+    "client_order_id": "my-order-1",
+    "exchange_id": 1,
+    "status": "PARTIALLY_FILLED",
+    "created_at": 1783328775705,
+    "filled_quantity": 0.5,
+    "leaves_quantity": 0.5,
+    "side": "BUY",
+    "average_price": 59005.0
+  },
+  "order": {
+    "order_id": "596990285759373312",
+    "client_order_id": "my-order-1",
+    "exchange_id": 1,
+    "exchange_name": "BINANCE",
+    "symbol": "BTC/USDT",
+    "asset_class": "SPOT",
+    "side": "BUY",
+    "quantity": 1.0,
+    "strategy": "TWAP",
+    "order_type": "LIMIT",
+    "created_at": 1783328775000,
+    "start_time": 1783328775000,
+    "end_time": 1783332375000
+  },
+  "order_progress": 0.5
+}
+```
+
+Status changes of your parent and multi-leg orders. Each frame carries the order status, the full order context (symbol, strategy, timing, clip settings) and `order_progress` (0..1). Multi-leg updates additionally carry `mishedge` and the `legs` array. Pushed on every state transition (PENDING_NEW → ACCEPTED → PARTIALLY_FILLED → FILLED / CANCELLED / REJECTED / PAUSED …).
+
+## Topic: child_order
+
+> Example child order update:
+
+```json
+{
+  "order_status": {
+    "source": "oms-1",
+    "order_id": "596990285759373313",
+    "client_order_id": "596990285759373312-1",
+    "exchange_id": 1,
+    "status": "FILLED",
+    "created_at": 1783328776105,
+    "filled_quantity": 0.1,
+    "leaves_quantity": 0.0,
+    "side": "BUY",
+    "average_price": 59004.1
+  },
+  "order": {
+    "order_id": "596990285759373313",
+    "client_order_id": "596990285759373312-1",
+    "parent_order_id": "596990285759373312",
+    "exchange_id": 1,
+    "exchange_name": "BINANCE",
+    "symbol": "BTC/USDT",
+    "asset_class": "SPOT",
+    "side": "BUY",
+    "quantity": 0.1,
+    "order_type": "LIMIT",
+    "created_at": 1783328776000
+  },
+  "order_progress": 0.1
+}
+```
+
+Slice-level status changes of the child orders your algo (TWAP/VWAP/…) places on the exchange, with the child order context and parent order id. Higher frequency than `order`; useful for execution monitoring.
+
+## Topic: trade
+
+> Example trade:
+
+```json
+{
+  "trade_id": "151990408",
+  "order_id": 558547168212975616,
+  "symbol": "KITE/USDT:USDT",
+  "side": "SELL",
+  "taker_or_maker": "MAKER",
+  "price": 0.21735,
+  "amount": 153,
+  "cost": 33.25455,
+  "fee_currency": "BNB",
+  "fee_cost": 0.00000755,
+  "timestamp": 1719224096000,
+  "ext_trade_id": "1204004183",
+  "ext_order_id": "151990408",
+  "client_order_id": "554500941080543232"
+}
+```
+
+Your executions: price, amount, cost, fees, taker/maker flag and exchange identifiers. Pushed once per fill.
+
+## Topic: position
+
+> Example position update:
+
+```json
+{
+  "symbol": "BTC/USDT:USDT",
+  "contracts": 2.0,
+  "entry_price": 59120.5,
+  "mark_price": 59230.0,
+  "leverage": 5.0,
+  "liquidation_price": 48342.1,
+  "unrealized_pnl": 219.0,
+  "margin_mode": "cross",
+  "side": "LONG",
+  "timestamp": 1783328775705
+}
+```
+
+Current position snapshot on subscribe, then live updates: contracts, entry/mark price, leverage, liquidation price, unrealized PnL, margin mode.
+
+## Topic: position_risk
+
+> Example position risk update:
+
+```json
+{
+  "exchange_id": 3,
+  "subaccount": null,
+  "position_risk": {
+    "symbol": "ETH/USDT:USDT",
+    "contracts": 2.0,
+    "unrealized_pnl": -3.5,
+    "leverage": 5.0,
+    "liquidation_price": 900.0,
+    "notional": 5000.0,
+    "mark_price": 2500.0,
+    "entry_price": 2510.0,
+    "initial_margin": 50.0,
+    "maintenance_margin": 25.0,
+    "margin_ratio": 0.05,
+    "margin_mode": "cross",
+    "side": "long",
+    "timestamp": 1783328775705
+  }
+}
+```
+
+Margin and risk telemetry per open position: margin ratio, initial/maintenance margin, liquidation distance, PnL percentage.
+
+## Topic: balance
+
+> Example balance update:
+
+```json
+{
+  "symbol": "USDT",
+  "balance": 10250.42,
+  "free": 8250.42,
+  "timestamp": 1783328775705
+}
+```
+
+Current balance snapshot on subscribe, then live updates per asset.
+
+## Topic: ticker
+
+> Subscribe (symbol required; asset_class optional — defaults to FUTURE when the symbol has a ':' suffix, SPOT otherwise):
+
+```json
+{"topic": "ticker", "exchange": "binance", "symbol": "BTC/USDT", "method": "subscribe"}
+```
+
+> Example ticker update:
+
+```json
+{
+  "symbol": "BTC/USDT",
+  "exchange": 1,
+  "asset_class": 1,
+  "bid": 59004.5,
+  "ask": 59005.0,
+  "bid_qty": 0.8,
+  "ask_qty": 1.2,
+  "timestamp": 1783328775705
+}
+```
+
+Best bid/offer stream for a specific symbol (`exchange` and `asset_class` in frames are the platform integer ids, as returned by `GET /api/v2/data/exchanges`). Requires `symbol`; one subscription per `(topic, exchange, symbol)`. Market data subscriptions are capped per connection (default 20) and the topic family may be disabled on a given environment — you then receive code 7002 with "market data topics are not enabled".
+
+## Topic: ohlcv
+
+> Example candle:
+
+```json
+{
+  "symbol": "BTC/USDT",
+  "exchange": 1,
+  "asset_class": 1,
+  "open": 59000, "high": 59100, "low": 58900, "close": 59050,
+  "volume": 12.5,
+  "last": 59050,
+  "open_time": 1783328700000,
+  "close_time": 1783328760000,
+  "interval": "ONE_MINUTE"
+}
+```
+
+Candlestick stream for a specific symbol (`{"topic":"ohlcv","exchange":"binance","symbol":"BTC/USDT","method":"subscribe"}`). Frames carry the `interval` (1m/5m/15m/30m/1h/6h/1d as available). Derive 24h price change from the ONE_DAY candle (`last` vs `open`). Same symbol requirement and per-connection cap as `ticker`.
