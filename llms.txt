@@ -1,0 +1,29 @@
+# Anboto Trading API
+
+> Anboto is an institutional crypto execution platform: REST + WebSocket API for
+> algo order execution (TWAP, VWAP, POV, Implementation Shortfall, Iceberg,
+> Limit, Market) routed across 14 CEXs and DEXs (Binance, OKX, Bybit, Coinbase
+> Prime, Hyperliquid, ...). Authentication uses API keys with HMAC-SHA256 or
+> RSA-SHA256 request signing. Testnet (all fills simulated) is available at
+> https://api.testnet.anboto.xyz; production at https://api.trade.anboto.xyz.
+
+## Docs
+
+- [Full API reference (single file)](https://anbotolabs.github.io/anboto-api-docs/llms-full.txt): REST endpoints, auth, WebSocket API, error codes
+- [REST API reference (Markdown)](https://anbotolabs.github.io/anboto-api-docs/index.md): endpoints, schemas, code samples
+- [WebSocket API reference (Markdown)](https://anbotolabs.github.io/anboto-api-docs/websocket.md): listenKey auth, topics (order, child_order, trade, position, position_risk, balance), keep-alive
+
+## Specifications
+
+- [OpenAPI 3.0 spec (REST)](https://anbotolabs.github.io/anboto-api-docs/anboto-trading-api-2.0.yml): machine-readable REST API definition
+- [AsyncAPI 3.0 spec (WebSocket)](https://anbotolabs.github.io/anboto-api-docs/asynapi.yml): machine-readable WebSocket API definition
+
+## AI agent tooling
+
+- [anboto-agent-kit (GitHub)](https://github.com/anbotolabs/anboto-agent-kit): official MCP server (@anboto/mcp on npm), TypeScript client (@anboto/core), and the anboto-trading Claude Skill
+- [MCP quickstart](https://anbotolabs.github.io/anboto-api-docs/#for-ai-agents): one-command setup for Claude, Cursor, Codex
+
+## Optional
+
+- [Code examples (GitHub)](https://github.com/anbotolabs/examples): signing and order placement in Python and other languages
+- [Anboto website](https://www.anboto.xyz): account and API key creation

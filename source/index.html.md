@@ -12,6 +12,7 @@ language_tabs:
 toc_footers: []
 includes:
   - websocket
+  - agents
 search: true
 highlight_theme: darkula
 headingLevel: 2

@@ -32,7 +32,11 @@ info:
     >https://anbotolabs.github.io/anboto-api-docs/anboto-trading-api-2.0.yml</a><BR><BR><B>WebSocket\
     \ API</B><BR>Real-time order, trade, position and balance streams are available\
     \ over WebSocket — see the <a href=\"#websocket-api\">WebSocket API</a> section\
-    \ below. Authenticate with a listenKey from GET /api/v2/trading/listenKey."
+    \ below. Authenticate with a listenKey from GET /api/v2/trading/listenKey.<BR><BR><B>AI\
+    \ Agents</B><BR>Official MCP server, TypeScript client and Claude Skill: see the\
+    \ <a href=\"#for-ai-agents\">For AI Agents</a> section and <a href=\"https://github.com/anbotolabs/anboto-agent-kit\"\
+    >anboto-agent-kit</a>. Machine-readable docs index: <a href=\"https://anbotolabs.github.io/anboto-api-docs/llms.txt\"\
+    >llms.txt</a>."
   version: "2.0"
 paths:
   /api/v2/data/exchanges:
@@ -50,7 +54,10 @@ paths:
           content:
             application/json:
               schema:
-                type: string
+                type: array
+                items:
+                  type: string
+                example: ["binance", "okx", "bybit"]
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -84,7 +91,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FundingRate'
+                type: array
+                items:
+                  $ref: '#/components/schemas/FundingRate'
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -117,7 +126,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Instrument'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Instrument'
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -150,7 +161,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FundingRate'
+                type: array
+                items:
+                  $ref: '#/components/schemas/FundingRate'
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -183,7 +196,32 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderDetailsList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/AssetBalance'
+        "401":
+          description: "Unauthorized, Invalid Signature"
+      security:
+      - ApiKeyAuth: []
+  /api/v2/trading/listenKey:
+    get:
+      tags:
+      - Rest API
+      summary: Create a listenKey for the user data WebSocket stream
+      description: "Returns a listenKey (a JWT, valid for 1 hour, no renewal endpoint\
+        \ — request a new one and reconnect) used to authenticate on the WebSocket\
+        \ API: wss://<host>/api/v2/ws?listenKey=<listenKey>. See the WebSocket API\
+        \ section for topics and message formats."
+      operationId: listenKey
+      responses:
+        "429":
+          description: "Rate limit exceeded, retry later"
+        "200":
+          description: The listenKey token (JWT)
+          content:
+            application/json:
+              schema:
+                type: string
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -507,11 +545,13 @@ paths:
         "429":
           description: "Rate limit exceeded, retry later"
         "200":
-          description: The list of matching orders.
+          description: The list of open positions.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderDetailsList'
+                type: array
+                items:
+                  $ref: '#/components/schemas/AccountPosition'
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -562,7 +602,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderDetailsList'
+                $ref: '#/components/schemas/TradeDetailsList'
         "401":
           description: "Unauthorized, Invalid Signature"
       security:
@@ -585,6 +625,71 @@ paths:
                 example: "{status=ok, timestamp=1783329083000}"
 components:
   schemas:
+    AccountPosition:
+      type: object
+      description: An open position on an exchange account
+      required:
+      - symbol
+      - timestamp
+      properties:
+        symbol:
+          type: string
+          description: Trading symbol
+        contracts:
+          type: string
+          description: Number of contracts
+          nullable: true
+        entryPrice:
+          type: string
+          description: Average entry price
+          nullable: true
+        markPrice:
+          type: string
+          description: Current mark price
+          nullable: true
+        notional:
+          type: string
+          description: Notional value of the position
+          nullable: true
+        leverage:
+          type: string
+          description: Position leverage
+          nullable: true
+        liquidationPrice:
+          type: string
+          description: Liquidation price
+          nullable: true
+        collateral:
+          type: string
+          description: Collateral amount for the position
+          nullable: true
+        unrealizedPnl:
+          type: string
+          description: Unrealized profit and loss
+          nullable: true
+        marginMode:
+          type: string
+          description: Margin mode for the position
+          nullable: true
+          enum:
+          - CROSS
+          - ISOLATED
+        side:
+          type: string
+          description: Position side
+          nullable: true
+          enum:
+          - LONG
+          - SHORT
+          - BOTH
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp in milliseconds
+        instrument:
+          nullable: true
+          allOf:
+          - $ref: '#/components/schemas/Instrument'
     ApiErrorCode:
       type: string
       description: The error code used to describe why an order was rejected.
@@ -623,6 +728,28 @@ components:
       - SYSTEM_ERROR
       - INVALID_REQUEST
       - SYSTEM_BUSY
+    AssetBalance:
+      type: object
+      description: The balance of a single asset on an exchange account
+      required:
+      - symbol
+      - timestamp
+      properties:
+        symbol:
+          type: string
+          description: Asset symbol
+        balance:
+          type: string
+          description: Total balance
+          nullable: true
+        free:
+          type: string
+          description: Available balance
+          nullable: true
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp in milliseconds
     AssetCategory:
       type: string
       description: The Asset category of the order.
@@ -1385,6 +1512,16 @@ components:
           type: string
           description: The asset type the fee was charged in
           nullable: true
+    TradeDetailsList:
+      required:
+      - trades
+      type: object
+      properties:
+        trades:
+          type: array
+          description: The list of trade details for the matching orders.
+          items:
+            $ref: '#/components/schemas/TradeDetails'
     TradingExchange:
       type: string
       description: The exchanges available for order placement via the API

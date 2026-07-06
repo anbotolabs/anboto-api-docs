@@ -1,0 +1,1189 @@
+---
+asyncapi: 3.0.0
+info:
+  title: Anboto Trading API WebSocket
+  version: 2.0.0
+  description: >
+    WebSocket API for real-time trading data subscriptions. This API provides
+    access to user account information across multiple exchanges.
+
+    ## Features
+
+    - Real-time position/balance/order status/trade updates
+
+    - Multi-exchange support
+
+    - listenKey authentication reusing your Anboto API key
+
+    - Automatic ping/pong keep-alive mechanism
+
+    ## Authentication (listenKey)
+
+    1. Call `GET /api/v2/trading/listenKey` on the REST API, signed with your
+    Anboto API key (X-API-KEY / X-TIMESTAMP / X-SIGN / X-RECV-WINDOW headers,
+    same HMAC-SHA256 scheme as every other REST call).
+
+    2. The response body is a listenKey (a JWT), valid for 1 hour.
+
+    3. Connect to `wss://<host>/api/v2/ws?listenKey=<listenKey>`.
+
+    4. The listenKey is validated only at the WebSocket handshake; an
+    established connection survives listenKey expiry. There is no renewal
+    endpoint — request a new listenKey and reconnect.
+
+    An invalid or expired listenKey is rejected at the handshake with HTTP 401.
+    WebSocket sessions are read-only (order placement stays on the REST API).
+
+    ## Session Management
+
+    - Sessions expire after 5 minutes of inactivity; any client message
+    (including `{"topic":"pong"}`) resets the timer
+
+    - The server sends a `{"topic":"ping"}` message every minute; reply with
+    `{"topic":"pong"}` to keep the session alive
+
+    - Expired sessions are closed with WebSocket close code 1001 (going away)
+
+    ## Responses and error codes
+
+    Subscribe/unsubscribe requests are acknowledged with
+    `{"code": 0, "message": "<the original request, serialized>"}`.
+    Errors use the same shape with a non-zero code:
+
+    - 8054 — exchange is missing / invalid
+
+    - 7002 — invalid request (unparseable message or missing method)
+
+    - 7001 — internal error, the subscription stream terminated (re-subscribe)
+
+  contact:
+    name: Anboto Trading API Support
+    email: support@anboto.xyz
+  license:
+    name: Proprietary
+servers:
+  production:
+    host: api.trade.anboto.xyz
+    protocol: wss
+    pathname: /api/v2/ws?listenKey=XXXXXXXXXX
+    description: Production WebSocket server
+    security:
+      - $ref: '#/components/securitySchemes/sessionAuth'
+  testnet:
+    host: api.testnet.anboto.xyz
+    protocol: wss
+    pathname: /api/v2/ws?listenKey=XXXXXXXXXX
+    description: Testnet WebSocket server
+    security:
+      - $ref: '#/components/securitySchemes/sessionAuth'
+channels:
+  positionSubscription:
+    address: /api/v2/ws
+    messages:
+      subscribePosition:
+        $ref: '#/components/messages/subscribePosition'
+      unsubscribePosition:
+        $ref: '#/components/messages/unsubscribePosition'
+      positionUpdate:
+        $ref: '#/components/messages/positionUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: >-
+      Channel for subscribing to account position updates for a specific
+      exchange
+  balanceSubscription:
+    address: /api/v2/ws
+    messages:
+      subscribeBalance:
+        $ref: '#/components/messages/subscribeBalance'
+      unsubscribeBalance:
+        $ref: '#/components/messages/unsubscribeBalance'
+      balanceUpdate:
+        $ref: '#/components/messages/balanceUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: Channel for subscribing to asset balance updates for a specific exchange
+  orderSubscription:
+    address: /api/v2/ws
+    messages:
+      subscribeOrder:
+        $ref: '#/components/messages/subscribeOrder'
+      unsubscribeOrder:
+        $ref: '#/components/messages/unsubscribeOrder'
+      orderUpdate:
+        $ref: '#/components/messages/orderUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: Channel for subscribing to order updates for a specific exchange
+  tradeSubscription:
+    address: /api/v2/ws
+    messages:
+      subscribeTrade:
+        $ref: '#/components/messages/subscribeTrade'
+      unsubscribeTrade:
+        $ref: '#/components/messages/unsubscribeTrade'
+      tradeUpdate:
+        $ref: '#/components/messages/tradeUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: Channel for subscribing to order updates for a specific exchange
+  childOrderSubscription:
+    address: /api/v2/ws
+    messages:
+      childOrderUpdate:
+        $ref: '#/components/messages/childOrderUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: >-
+      Channel for subscribing to child-order (slice) updates; subscribe with
+      {"topic":"child_order","exchange":...,"method":"subscribe"}
+  positionRiskSubscription:
+    address: /api/v2/ws
+    messages:
+      positionRiskUpdate:
+        $ref: '#/components/messages/positionRiskUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: >-
+      Channel for subscribing to position risk telemetry; subscribe with
+      {"topic":"position_risk","exchange":...,"method":"subscribe"}
+  tickerSubscription:
+    address: /api/v2/ws
+    messages:
+      tickerUpdate:
+        $ref: '#/components/messages/tickerUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: >-
+      Best bid/offer stream per symbol; subscribe with
+      {"topic":"ticker","exchange":...,"symbol":"BTC/USDT","method":"subscribe"}.
+      Market data subscriptions are capped per connection and may be disabled per environment.
+  ohlcvSubscription:
+    address: /api/v2/ws
+    messages:
+      ohlcvUpdate:
+        $ref: '#/components/messages/ohlcvUpdate'
+      subscriptionAck:
+        $ref: '#/components/messages/subscriptionAck'
+      subscriptionError:
+        $ref: '#/components/messages/subscriptionError'
+    description: >-
+      Candlestick stream per symbol; subscribe with
+      {"topic":"ohlcv","exchange":...,"symbol":"BTC/USDT","method":"subscribe"}
+  keepAlive:
+    address: /api/v2/ws
+    messages:
+      ping:
+        $ref: '#/components/messages/ping'
+      pong:
+        $ref: '#/components/messages/pong'
+    description: Keep-alive channel for maintaining WebSocket connection
+operations:
+  subscribeToPositions:
+    action: send
+    channel:
+      $ref: '#/channels/positionSubscription'
+    messages:
+      - $ref: '#/channels/positionSubscription/messages/subscribePosition'
+    description: Subscribe to position updates for a specific exchange
+  receivePositionUpdates:
+    action: receive
+    channel:
+      $ref: '#/channels/positionSubscription'
+    messages:
+      - $ref: '#/channels/positionSubscription/messages/positionUpdate'
+    description: Receive real-time position updates from the subscribed exchange
+  unsubscribeFromPositions:
+    action: send
+    channel:
+      $ref: '#/channels/positionSubscription'
+    messages:
+      - $ref: '#/channels/positionSubscription/messages/unsubscribePosition'
+    description: Unsubscribe from position updates
+  subscribeToBalances:
+    action: send
+    channel:
+      $ref: '#/channels/balanceSubscription'
+    messages:
+      - $ref: '#/channels/balanceSubscription/messages/subscribeBalance'
+    description: Subscribe to balance updates for a specific exchange
+  receiveBalanceUpdates:
+    action: receive
+    channel:
+      $ref: '#/channels/balanceSubscription'
+    messages:
+      - $ref: '#/channels/balanceSubscription/messages/balanceUpdate'
+    description: Receive real-time balance updates from the subscribed exchange
+  unsubscribeFromBalances:
+    action: send
+    channel:
+      $ref: '#/channels/balanceSubscription'
+    messages:
+      - $ref: '#/channels/balanceSubscription/messages/unsubscribeBalance'
+    description: Unsubscribe from balance updates
+  subscribeToOrderUpdates:
+    action: send
+    channel:
+      $ref: '#/channels/orderSubscription'
+    messages:
+      - $ref: '#/channels/orderSubscription/messages/subscribeOrder'
+    description: Subscribe to order updates for a specific exchange
+  receiveOrderUpdates:
+    action: receive
+    channel:
+      $ref: '#/channels/orderSubscription'
+    messages:
+      - $ref: '#/channels/orderSubscription/messages/orderUpdate'
+    description: Receive real-time order updates from the subscribed exchange
+  unsubscribeFromOrders:
+    action: send
+    channel:
+      $ref: '#/channels/orderSubscription'
+    messages:
+      - $ref: '#/channels/orderSubscription/messages/unsubscribeOrder'
+    description: Unsubscribe from order updates
+  subscribeToTradeUpdates:
+    action: send
+    channel:
+      $ref: '#/channels/tradeSubscription'
+    messages:
+      - $ref: '#/channels/tradeSubscription/messages/subscribeTrade'
+    description: Subscribe to order updates for a specific exchange
+  receiveTradeUpdates:
+    action: receive
+    channel:
+      $ref: '#/channels/tradeSubscription'
+    messages:
+      - $ref: '#/channels/tradeSubscription/messages/tradeUpdate'
+    description: Receive real-time trade updates from the subscribed exchange
+  unsubscribeFromTrades:
+    action: send
+    channel:
+      $ref: '#/channels/tradeSubscription'
+    messages:
+      - $ref: '#/channels/tradeSubscription/messages/unsubscribeTrade'
+    description: Unsubscribe from trade updates
+  sendPing:
+    action: send
+    channel:
+      $ref: '#/channels/keepAlive'
+    messages:
+      - $ref: '#/channels/keepAlive/messages/ping'
+    description: Send ping message to keep connection alive
+  receivePing:
+    action: receive
+    channel:
+      $ref: '#/channels/keepAlive'
+    messages:
+      - $ref: '#/channels/keepAlive/messages/ping'
+    description: Receive ping message from server (sent every minute)
+  sendPong:
+    action: send
+    channel:
+      $ref: '#/channels/keepAlive'
+    messages:
+      - $ref: '#/channels/keepAlive/messages/pong'
+    description: Send pong response to server ping
+  receivePong:
+    action: receive
+    channel:
+      $ref: '#/channels/keepAlive'
+    messages:
+      - $ref: '#/channels/keepAlive/messages/pong'
+    description: Receive pong response from client
+components:
+  messages:
+    subscribePosition:
+      name: SubscribePosition
+      title: Subscribe to Position Updates
+      summary: Subscribe to real-time position updates for a specific exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: subscribeToBinancePositions
+          summary: Subscribe to Binance position updates
+          payload:
+            topic: position
+            exchange: BINANCE
+            method: subscribe
+    unsubscribePosition:
+      name: UnsubscribePosition
+      title: Unsubscribe from Position Updates
+      summary: Unsubscribe from position updates
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: unsubscribeFromBinancePositions
+          summary: Unsubscribe from Binance position updates
+          payload:
+            topic: position
+            exchange: BINANCE
+            method: unsubscribe
+    positionUpdate:
+      name: PositionUpdate
+      title: Position Update
+      summary: Real-time position update from the exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AccountPosition'
+      examples:
+        - name: btcPositionUpdate
+          summary: Example BTC position update
+          payload:
+            collateral: '50000.00'
+            contracts: '2.5'
+            entryPrice: '45000.00'
+            leverage: '10.0'
+            liquidationPrice: '40500.00'
+            marginMode: CROSS
+            markPrice: '46000.00'
+            notional: '115000.00'
+            side: LONG
+            symbol: BTC-USDT
+            timestamp: 1708840800000
+            unrealizedPnl: '2500.00'
+            instrument:
+              assetClass: FUTURE
+              symbol: BTC-USDT
+              baseAsset: BTC
+              quoteAsset: USDT
+    subscribeBalance:
+      name: SubscribeBalance
+      title: Subscribe to Balance Updates
+      summary: Subscribe to real-time balance updates for a specific exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: subscribeToOkxBalances
+          summary: Subscribe to OKX balance updates
+          payload:
+            topic: balance
+            exchange: OKX
+            method: subscribe
+    unsubscribeBalance:
+      name: UnsubscribeBalance
+      title: Unsubscribe from Balance Updates
+      summary: Unsubscribe from balance updates
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: unsubscribeFromOkxBalances
+          summary: Unsubscribe from OKX balance updates
+          payload:
+            topic: balance
+            exchange: OKX
+            method: unsubscribe
+    balanceUpdate:
+      name: BalanceUpdate
+      title: Balance Update
+      summary: Real-time balance update from the exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AssetBalance'
+      examples:
+        - name: usdtBalanceUpdate
+          summary: Example USDT balance update
+          payload:
+            balance: '100000.00'
+            free: '95000.00'
+            symbol: USDT
+            timestamp: 1708840800000
+    subscribeOrder:
+      name: SubscribeOrder
+      title: Subscribe to Order Updates
+      summary: Subscribe to real-time order updates for a specific exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: subscribeToBinanceOrders
+          summary: Subscribe to Binance order updates
+          payload:
+            topic: order
+            exchange: BINANCE
+            method: subscribe
+    unsubscribeOrder:
+      name: UnsubscribeOrder
+      title: Unsubscribe from Order Updates
+      summary: Unsubscribe from order updates
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: unsubscribeFromBinanceOrders
+          summary: Unsubscribe from Binance order updates
+          payload:
+            topic: order
+            exchange: BINANCE
+            method: unsubscribe
+    orderUpdate:
+      name: OrderUpdate
+      title: Order Update
+      summary: >-
+        Real-time order update: status, full order context and progress.
+        Multi-leg updates additionally carry mishedge and the order.legs array.
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          orderStatus:
+            $ref: '#/components/schemas/OrderStatusObj'
+          order:
+            type: object
+            description: >-
+              The order context: orderId, clientOrderId, exchangeId, exchangeName,
+              subaccount, symbol, assetClass, side, quantity, limitPrice, strategy,
+              orderType, tif, createdAt, startTime, endTime, clipSizeType,
+              clipSizeVal, targetValue, feeUrgency, params, source, linkId.
+              Multi-leg orders carry algo and legs[] instead of the single-symbol fields.
+          orderProgress:
+            type: number
+            description: Execution progress of the parent order, 0..1
+          mishedge:
+            type: number
+            description: Multi-leg only — current mishedge between the legs
+      examples:
+        - name: simpleOrderUpdate
+          summary: Example simple order update
+          payload:
+            orderStatus:
+              clientOrderId: '554500941080543232'
+              createdAt: 1773198526482
+              filledQuantity: 0
+              leavesQuantity: 0
+              orderId: '554500941080543233'
+              side: 'BUY'
+              source: 'ods-764fc58e30'
+              status: 'PENDING_NEW'
+            order:
+              orderId: '554500941080543233'
+              clientOrderId: '554500941080543232'
+              exchangeId: 1
+              exchangeName: 'BINANCE'
+              symbol: 'BTC/USDT'
+              assetClass: 'SPOT'
+              side: 'BUY'
+              quantity: 1.0
+              strategy: 'TWAP'
+              orderType: 'LIMIT'
+              createdAt: 1773198526000
+              startTime: 1773198526000
+              endTime: 1773202126000
+            orderProgress: 0
+    subscribeTrade:
+      name: SubscribeTrade
+      title: Subscribe to trade executed from exchange
+      summary: Subscribe to real-time trade for a specific exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: subscribeToBinanceTrades
+          summary: Subscribe to Binance trade updates
+          payload:
+            topic: trade
+            exchange: BINANCE
+            method: subscribe
+    unsubscribeTrade:
+      name: UnsubscribeTrade
+      title: Unsubscribe from Trade Updates
+      summary: Unsubscribe from trade updates
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SubscriptionMessage'
+      examples:
+        - name: unsubscribeFromBinanceTrade
+          summary: Unsubscribe from Binance trade updates
+          payload:
+            topic: order
+            exchange: BINANCE
+            method: unsubscribe
+    tradeUpdate:
+      name: TradeUpdate
+      title: trade Update
+      summary: Real-time trade update from the exchange
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/Trade'
+      examples:
+        - name: tradeUpdate
+          summary: Example trade update
+          payload:
+            tradeId: 151990408
+            orderId: '558547168212975616'
+            symbol: 'KITE/USDT:USDT'
+            side: 'SELL'
+            takerOrMaker: 'MAKER'
+            price: 0.21735
+            amount: 153
+            cost: 33.25455
+            feeCurrency: 'BNB'
+            feeCost: 0.00000755
+            timestamp:
+            extTradeId: 1204004183
+            extOrderId: 151990408
+            clientOrderId: '554500941080543232'
+    childOrderUpdate:
+      name: ChildOrderUpdate
+      title: Child Order Update
+      summary: Real-time status update of a child (slice) order placed by an algo
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          orderStatus:
+            $ref: '#/components/schemas/OrderStatusObj'
+          order:
+            type: object
+            description: >-
+              Child order context: orderId, clientOrderId, parentOrderId,
+              exchangeId, exchangeName, symbol, assetClass, side, quantity,
+              limitPrice, tif, expiryTime, createdAt, orderType.
+          orderProgress:
+            type: number
+            description: Execution progress of the parent order, 0..1
+    positionRiskUpdate:
+      name: PositionRiskUpdate
+      title: Position Risk Update
+      summary: Margin / risk telemetry for an open position
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          exchangeId:
+            type: integer
+          subaccount:
+            type: string
+          error:
+            type: string
+          positionRisk:
+            type: object
+            properties:
+              symbol: { type: string }
+              contracts: { type: number }
+              contractSize: { type: number }
+              unrealizedPnl: { type: number }
+              leverage: { type: number }
+              liquidationPrice: { type: number }
+              collateral: { type: number }
+              notional: { type: number }
+              markPrice: { type: number }
+              entryPrice: { type: number }
+              timestamp: { type: integer, format: int64 }
+              initialMargin: { type: number }
+              initialMarginPercentage: { type: number }
+              maintenanceMargin: { type: number }
+              maintenanceMarginPercentage: { type: number }
+              marginRatio: { type: number }
+              marginMode: { type: string }
+              side: { type: string }
+              hedged: { type: boolean }
+              percentage: { type: number }
+              stopLossPrice: { type: number }
+              takeProfitPrice: { type: number }
+    tickerUpdate:
+      name: TickerUpdate
+      title: Ticker (BBO) Update
+      summary: Best bid/offer for a subscribed symbol
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          symbol: { type: string }
+          exchange: { type: string }
+          assetClass: { type: string }
+          bid: { type: number }
+          ask: { type: number }
+          bidQty: { type: number }
+          askQty: { type: number }
+          timestamp: { type: integer, format: int64 }
+    ohlcvUpdate:
+      name: OhlcvUpdate
+      title: OHLCV Candle
+      summary: Candlestick update for a subscribed symbol
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          symbol: { type: string }
+          exchange: { type: string }
+          assetClass: { type: string }
+          open: { type: number }
+          high: { type: number }
+          low: { type: number }
+          close: { type: number }
+          volume: { type: number }
+          last: { type: number }
+          openTime: { type: integer, format: int64 }
+          closeTime: { type: integer, format: int64 }
+          interval:
+            type: string
+            enum: [ONE_MINUTE, FIVE_MINUTE, FIFTEEN_MINUTE, THIRTY_MINUTE, ONE_HOUR, SIX_HOUR, ONE_DAY]
+    openInterestUpdate:
+      name: OpenInterestUpdate
+      title: Open Interest Update
+      summary: Open interest for a subscribed derivatives symbol (currently OKX)
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          symbol: { type: string }
+          exchange: { type: string }
+          assetClass: { type: string }
+          openInterest: { type: number, description: contracts/base units as reported by the exchange }
+          openInterestValue: { type: number, description: quote currency value when available }
+          timestamp: { type: integer, format: int64 }
+    ping:
+      name: Ping
+      title: Ping Message
+      summary: Keep-alive ping message
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          topic:
+            type: string
+            const: ping
+        required:
+          - topic
+      examples:
+        - name: pingMessage
+          payload:
+            topic: ping
+    pong:
+      name: Pong
+      title: Pong Message
+      summary: Keep-alive pong response
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          topic:
+            type: string
+            const: pong
+        required:
+          - topic
+      examples:
+        - name: pongMessage
+          payload:
+            topic: pong
+    subscriptionAck:
+      name: SubscriptionAcknowledgment
+      title: Subscription Acknowledgment
+      summary: Acknowledgment of successful subscription
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: Response code (0 for success)
+            example: 0
+          message:
+            type: string
+            description: Serialized subscription message
+        required:
+          - code
+          - message
+    subscriptionError:
+      name: SubscriptionError
+      title: Subscription Error
+      summary: Error response for failed subscription
+      contentType: application/json
+      payload:
+        type: object
+        properties:
+          code:
+            type: integer
+            description: >-
+              Error code: 8054 invalid/missing exchange, 7002 invalid request,
+              7001 subscription stream terminated
+            example: 8054
+          message:
+            type: string
+            description: Error message
+            example: exchange is missing
+        required:
+          - code
+          - message
+  schemas:
+    SubscriptionMessage:
+      type: object
+      description: Message format for subscribing/unsubscribing to topics
+      properties:
+        topic:
+          type: string
+          enum:
+            - order
+            - child_order
+            - trade
+            - position
+            - position_risk
+            - balance
+            - ticker
+            - ohlcv
+            - open_interest
+            - ping
+            - pong
+          description: The topic to subscribe/unsubscribe from
+        exchange:
+          $ref: '#/components/schemas/Exchange'
+        method:
+          type: string
+          enum:
+            - subscribe
+            - unsubscribe
+          description: The subscription method
+        symbol:
+          type: string
+          description: Market data topics (ticker, ohlcv) only — the symbol to stream, e.g. BTC/USDT
+        asset_class:
+          type: string
+          description: >-
+            Market data topics only — SPOT/FUTURE/OPTION/CFD; defaults to FUTURE when the
+            symbol has a ':' suffix, SPOT otherwise
+        params:
+          type: array
+          items:
+            type: object
+          description: Optional parameters for the subscription
+      required:
+        - topic
+      examples:
+        - topic: position
+          exchange: BINANCE
+          method: subscribe
+    Exchange:
+      type: string
+      enum:
+        - BINANCE
+        - HUOBI
+        - GATEIO
+        - KUCOIN
+        - OKX
+        - BYBIT
+        - BITGET
+        - WOO
+        - MEXC
+        - BULLISH
+        - B2C2
+        - COINBASE_PRIME
+        - COINBASE_INTL
+        - HYPERLIQUID
+      description: Supported exchange identifiers
+    OrderStatus:
+      type: string
+      enum:
+        - PENDING_NEW
+        - ACCEPTED
+        - REJECTED
+        - PARTIALLY_FILLED
+        - FILLED
+        - PENDING_CANCEL
+        - CANCELLED
+        - PENDING_PAUSE
+        - PAUSED
+        - PENDING_UNPAUSE
+        - EXPIRED
+        - CANCEL_REJECTED
+      description: Order Status
+    AccountPosition:
+      type: object
+      description: Account position data for a trading instrument
+      properties:
+        collateral:
+          type: string
+          format: decimal
+          description: Collateral amount for the position
+        contracts:
+          type: string
+          format: decimal
+          description: Number of contracts
+        entryPrice:
+          type: string
+          format: decimal
+          description: Average entry price
+        leverage:
+          type: string
+          format: decimal
+          description: Position leverage
+        liquidationPrice:
+          type: string
+          format: decimal
+          description: Liquidation price
+        marginMode:
+          type: string
+          enum:
+            - CROSS
+            - ISOLATED
+          description: Margin mode for the position
+        markPrice:
+          type: string
+          format: decimal
+          description: Current mark price
+        notional:
+          type: string
+          format: decimal
+          description: Notional value of the position
+        side:
+          type: string
+          enum:
+            - LONG
+            - SHORT
+            - BOTH
+          description: Position side
+        symbol:
+          type: string
+          description: Trading symbol
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp in milliseconds
+        unrealizedPnl:
+          type: string
+          format: decimal
+          description: Unrealized profit and loss
+        instrument:
+          $ref: '#/components/schemas/Instrument'
+      required:
+        - symbol
+        - timestamp
+    AssetBalance:
+      type: object
+      description: Asset balance information
+      properties:
+        balance:
+          type: string
+          format: decimal
+          description: Total balance
+        free:
+          type: string
+          format: decimal
+          description: Available balance
+        symbol:
+          type: string
+          description: Asset symbol
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp in milliseconds
+      required:
+        - symbol
+        - timestamp
+    OrderUpdate:
+      type: object
+      description: Order Updates
+      properties:
+        orderStatus:
+          $ref: '#/components/schemas/OrderStatus'
+    OrderStatusObj:
+      type: object
+      description: Order Status
+      properties:
+        source:
+          type: string
+          description: Component sending the status
+        orderId:
+          type: string
+          format: int64
+          description: Anboto's order Id
+        clientOrderId:
+          type: string
+          description: Client referenced order Id
+        extId:
+          type: string
+          description: Order Id from exchange
+        exchangeId:
+          type: integer
+          format: int64
+          description: Exchange Id
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+        createdAt:
+          type: integer
+          format: int64
+          description: Unix timestamp of this status change in milliseconds
+        filledQuantity:
+          type: integer
+          format: int64
+          description: filled quantity of the order
+        leavesQuantity:
+          type: integer
+          format: int64
+          description: leave quantity of the order
+        side:
+          type: string
+          enum:
+            - BUY
+            - SELL
+          description: order side
+        averagePrice:
+          type: string
+          format: decimal
+          description: average price of the fills
+        message:
+          type: string
+          description: Status message
+        errorCode:
+          type: string
+          description: Error code
+    Trade:
+      type: object
+      description: trade
+      properties:
+        tradeId:
+          type: string
+          description: Anboto's trade Id
+        orderId:
+          type: integer
+          format: int64
+          description: Order where the trade belong
+        symbol:
+          type: string
+          description: the symbol of the trade
+          side:
+            type: string
+            enum:
+              - BUY
+              - SELL
+            description: trade side
+        takerOrMaker:
+          type: string
+          enum:
+            - MAKER
+            - TAKER
+          description: maker or taker of the trade
+        price:
+          type: string
+          format: decimal
+          description: the price of the trade
+        amount:
+          type: string
+          format: decimal
+          description: the quantity of the trade
+        cost:
+          type: string
+          format: decimal
+          description: the notional of the trade
+        feeCurrency:
+          type: string
+          description: fee currency
+        feeCost:
+          type: string
+          format: decimal
+          description: the fee of the trade
+        timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp of this status change in milliseconds
+        extTradeId:
+          type: string
+          description: trade Id from exchange
+        extOrderId:
+          type: string
+          description: order Id of the trade from exchnage
+    Instrument:
+      type: object
+      description: Trading instrument details
+      properties:
+        assetClass:
+          type: string
+          enum:
+            - UNDEFINED
+            - SPOT
+            - FUTURE
+            - OPTION
+            - CFD
+          description: Asset class of the instrument
+        assetId:
+          type: string
+          description: Unique asset identifier
+        baseAsset:
+          type: string
+          description: Base asset symbol
+        contractSize:
+          type: number
+          format: float
+          description: Contract size
+        enabled:
+          type: boolean
+          description: Whether the instrument is enabled for trading
+        exchangeAssetClass:
+          type: string
+          description: Exchange-specific asset class
+        exchangeSymbol:
+          type: string
+          description: Symbol as used on the exchange
+        maxCostLimit:
+          type: number
+          format: float
+          description: Maximum cost limit
+        maxMarketLimit:
+          type: number
+          format: float
+          description: Maximum market order limit
+        maxPriceLimit:
+          type: number
+          format: float
+          description: Maximum price limit
+        maxQuantityLimit:
+          type: number
+          format: float
+          description: Maximum quantity limit
+        minCostLimit:
+          type: number
+          format: float
+          description: Minimum cost limit
+        minMarketLimit:
+          type: number
+          format: float
+          description: Minimum market order limit
+        minPriceLimit:
+          type: number
+          format: float
+          description: Minimum price limit
+        minQuantityLimit:
+          type: number
+          format: float
+          description: Minimum quantity limit
+        pricePrecision:
+          type: integer
+          description: Price decimal precision
+        priceSignificantFigure:
+          type: integer
+          description: Price significant figures
+        quantityPrecision:
+          type: integer
+          description: Quantity decimal precision
+        quantitySignificantFigure:
+          type: integer
+          description: Quantity significant figures
+        quoteAsset:
+          type: string
+          description: Quote asset symbol
+        symbol:
+          type: string
+          description: Instrument symbol
+        timestamp:
+          type: string
+          format: date-time
+          description: Last update timestamp
+      required:
+        - enabled
+    PositionSide:
+      type: string
+      enum:
+        - LONG
+        - SHORT
+        - BOTH
+      description: Position side indicator
+    MarginMode:
+      type: string
+      enum:
+        - CROSS
+        - ISOLATED
+      description: Margin mode for positions
+    AssetClass:
+      type: string
+      enum:
+        - UNDEFINED
+        - SPOT
+        - FUTURE
+        - OPTION
+        - CFD
+      description: Asset class classification
+  securitySchemes:
+    sessionAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >
+        Session-based authentication using JWT tokens. The token should be attached as the query paremeter when connect to the server.
+        The token can be obtained through our REST API.
+
+        Please refer to our REST API documentation https://anbotolabs.github.io/anboto-api-docs/#listenKey for more information
+
+x-ods-graphql-subscriptions:
+  description: >
+    This WebSocket API forwards subscription requests to the ODS (Order Data
+    Service)
+
+    GraphQL server at the following path:
+
+    /Users/jasperanboto.xyz/IdeaProjects/Anboto2/components/anboto-kotlin/ods
+  subscriptions:
+    accountPositions:
+      graphqlOperation: >
+        subscription AccountPositions($exchangeId: Int!, $traderId: Long,
+        $accountId: Long) {
+          accountPositions(exchangeId: $exchangeId, traderId: $traderId, accountId: $accountId) {
+            collateral
+            contracts
+            entryPrice
+            leverage
+            liquidationPrice
+            marginMode
+            markPrice
+            notional
+            side
+            symbol
+            timestamp
+            unrealizedPnl
+            instrument {
+              assetClass
+              assetId
+              baseAsset
+              contractSize
+              enabled
+              exchangeAssetClass
+              exchangeSymbol
+              symbol
+              quoteAsset
+              pricePrecision
+              quantityPrecision
+            }
+          }
+        }
+    assetBalances:
+      graphqlOperation: >
+        subscription AssetBalances($exchangeId: Int!, $traderId: Long,
+        $accountId: Long) {
+          assetBalances(exchangeId: $exchangeId, traderId: $traderId, accountId: $accountId) {
+            balance
+            free
+            symbol
+            timestamp
+          }
+        }
+x-session-management:
+  sessionExpiryMs: 300000
+  pingIntervalSeconds: 60
+  description: >
+    Sessions expire after 5 minutes (300000ms) of inactivity by default
+    (configurable via
+
+    websocket.session-expiry-ms property). The server sends ping messages every
+    minute to
+
+    maintain active connections. Each incoming message from the client resets
+    the session
+
+    expiry timer.
