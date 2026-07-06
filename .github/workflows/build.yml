@@ -70,6 +70,16 @@ jobs:
       - name: Build docs
         run: bundle exec middleman build --build-dir ./docs
 
+      - name: Generate machine-readable docs
+        # published next to the site: raw markdown + llms.txt for AI agents
+        run: |
+          sed '1,/^---$/d' source/index.html.md | sed '1,/^---$/d' > docs/index.md
+          cp source/includes/_websocket.md docs/websocket.md
+          cp source/includes/_agents.md docs/agents.md
+          cat docs/index.md docs/websocket.md docs/agents.md > docs/llms-full.txt
+          cp source/llms.txt docs/llms.txt
+          cp source/asynapi.yml docs/asynapi.yml
+
       - name: Upload
         uses: actions/upload-artifact@v4
         with:

@@ -530,6 +530,23 @@
                   <li>
                     <a href="#topic-ohlcv" class="toc-h2 toc-link" data-title="Topic: ohlcv">Topic: ohlcv</a>
                   </li>
+                  <li>
+                    <a href="#topic-open_interest" class="toc-h2 toc-link" data-title="Topic: open_interest">Topic: open_interest</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#for-ai-agents" class="toc-h1 toc-link" data-title="For AI Agents">For AI Agents</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#quickstart-claude-code" class="toc-h2 toc-link" data-title="Quickstart (Claude Code)">Quickstart (Claude Code)</a>
+                  </li>
+                  <li>
+                    <a href="#guardrails" class="toc-h2 toc-link" data-title="Guardrails">Guardrails</a>
+                  </li>
+                  <li>
+                    <a href="#machine-readable-docs" class="toc-h2 toc-link" data-title="Machine-readable docs">Machine-readable docs</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -8918,6 +8935,96 @@ This operation does not require authentication
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Candlestick stream for a specific symbol (<code>{&quot;topic&quot;:&quot;ohlcv&quot;,&quot;exchange&quot;:&quot;binance&quot;,&quot;symbol&quot;:&quot;BTC/USDT&quot;,&quot;method&quot;:&quot;subscribe&quot;}</code>). Frames carry the <code>interval</code> (1m/5m/15m/30m/1h/6h/1d as available). Derive 24h price change from the ONE_DAY candle (<code>last</code> vs <code>open</code>). Same symbol requirement and per-connection cap as <code>ticker</code>.</p>
+<h2 id='topic-open_interest'>Topic: open_interest</h2>
+<blockquote>
+<p>Example open interest update:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"symbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC/USDT:USDT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"asset_class"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"open_interest"</span><span class="p">:</span><span class="w"> </span><span class="mf">123456.5</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"open_interest_value"</span><span class="p">:</span><span class="w"> </span><span class="mf">7500000000.0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="mi">1783328775705</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Open interest stream for a derivatives symbol (<code>{&quot;topic&quot;:&quot;open_interest&quot;,&quot;exchange&quot;:&quot;okx&quot;,&quot;symbol&quot;:&quot;BTC/USDT:USDT&quot;,&quot;method&quot;:&quot;subscribe&quot;}</code>). <code>open_interest</code> is in contracts/base units as reported by the exchange; <code>open_interest_value</code> is the quote-currency value when the exchange provides it. Currently collected for <strong>OKX</strong> (native stream); other exchanges reject the subscription. Same symbol requirement and per-connection cap as the other market data topics.</p>
+<h1 id="for-ai-agents">For AI Agents</h1>
+
+<p>Anboto ships first-party tooling that connects AI agents (Claude, Cursor,
+Codex, or any MCP-compatible client) to the Trading API — including the
+execution algos (TWAP, VWAP, POV, IS, ICEBERG) that make Anboto an execution
+desk rather than an order button.</p>
+
+<p><strong>Everything lives in the open-source
+<a href="https://github.com/anbotolabs/anboto-agent-kit">anboto-agent-kit</a></strong> (MIT):</p>
+
+<ul>
+<li><code>@anboto/mcp</code> — MCP server (stdio) with 22 tools: order creation and
+monitoring, portfolio, market data, preflight validation and guardrails</li>
+<li><code>@anboto/core</code> — typed TypeScript client (HMAC/RSA signing included)</li>
+<li><code>anboto-trading</code> — a Claude Skill teaching agents algo selection,
+execution monitoring and TCA</li>
+</ul>
+<h2 id='quickstart-claude-code'>Quickstart (Claude Code)</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>claude mcp add anboto <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">ANBOTO_API_KEY</span><span class="o">=</span>your-key <span class="se">\</span>
+  <span class="nt">-e</span> <span class="nv">ANBOTO_API_SECRET</span><span class="o">=</span>your-base64-secret <span class="se">\</span>
+  <span class="nt">--</span> npx <span class="nt">-y</span> @anboto/mcp <span class="nt">--testnet</span>
+</code></pre></div>
+<p>Claude Desktop / Cursor (JSON config):</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"mcpServers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"anboto"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"command"</span><span class="p">:</span><span class="w"> </span><span class="s2">"npx"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"args"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"-y"</span><span class="p">,</span><span class="w"> </span><span class="s2">"@anboto/mcp"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--testnet"</span><span class="p">],</span><span class="w">
+      </span><span class="nl">"env"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"ANBOTO_API_KEY"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-key"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"ANBOTO_API_SECRET"</span><span class="p">:</span><span class="w"> </span><span class="s2">"your-base64-secret"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Then ask the agent: <em>&quot;On testnet, buy 0.001 BTC on Binance via TWAP over 5
+minutes, monitor to completion, and give me an execution report.&quot;</em></p>
+<h2 id='guardrails'>Guardrails</h2>
+<p>API keys stay on your machine (env vars only — never in the model context).
+Optional flags, all fail-closed:</p>
+
+<table><thead>
+<tr>
+<th>Flag</th>
+<th>Effect</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><code>--testnet</code></td>
+<td>Simulated environment (recommended to start)</td>
+</tr>
+<tr>
+<td><code>--read-only</code></td>
+<td>Trading tools are not registered at all</td>
+</tr>
+<tr>
+<td><code>--max-order-notional=50000</code></td>
+<td>Reject orders above an estimated notional</td>
+</tr>
+<tr>
+<td><code>--allowed-exchanges=BINANCE,OKX</code></td>
+<td>Exchange allowlist</td>
+</tr>
+<tr>
+<td><code>--allowed-symbols=BTC/USDT</code></td>
+<td>Symbol allowlist</td>
+</tr>
+</tbody></table>
+<h2 id='machine-readable-docs'>Machine-readable docs</h2>
+<ul>
+<li>llms.txt index: <a href="llms.txt">/llms.txt</a> · full docs as one file: <a href="llms-full.txt">/llms-full.txt</a></li>
+<li>OpenAPI (REST): <a href="anboto-trading-api-2.0.yml">anboto-trading-api-2.0.yml</a></li>
+<li>AsyncAPI (WebSocket): <a href="asynapi.yml">asynapi.yml</a></li>
+<li>Raw Markdown of this site: <a href="index.md">index.md</a>, <a href="websocket.md">websocket.md</a></li>
+</ul>
 
       </div>
       <div class="dark-box">
