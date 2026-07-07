@@ -1566,6 +1566,10 @@ Accept: application/json
 <td>exchange</td>
 <td>HYPERLIQUID</td>
 </tr>
+<tr>
+<td>exchange</td>
+<td>LIGHTER</td>
+</tr>
 </tbody></table>
 
 <blockquote>
@@ -4355,6 +4359,10 @@ Accept: application/json
 <td>exchange</td>
 <td>HYPERLIQUID</td>
 </tr>
+<tr>
+<td>exchange</td>
+<td>LIGHTER</td>
+</tr>
 </tbody></table>
 
 <blockquote>
@@ -4666,6 +4674,10 @@ Accept: application/json
 <tr>
 <td>exchange</td>
 <td>HYPERLIQUID</td>
+</tr>
+<tr>
+<td>exchange</td>
+<td>LIGHTER</td>
 </tr>
 </tbody></table>
 
@@ -8253,6 +8265,10 @@ This operation does not require authentication
 <td><em>anonymous</em></td>
 <td>HYPERLIQUID</td>
 </tr>
+<tr>
+<td><em>anonymous</em></td>
+<td>LIGHTER</td>
+</tr>
 </tbody></table>
 
 <h2 id="tocS_TradingStyle">TradingStyle</h2>
@@ -8642,7 +8658,7 @@ This operation does not require authentication
 
 <ol>
 <li>Call <code>GET /api/v2/trading/listenKey</code> on the REST API (same HMAC-SHA256 signature scheme as every other authenticated endpoint). The response body is the listenKey — a JWT valid for <strong>1 hour</strong>.</li>
-<li>Connect to <code>wss://&lt;host&gt;/api/v2/ws?listenKey=&lt;listenKey&gt;</code>.</li>
+<li>Connect to <code>wss://&lt;host&gt;/api/v2/ws?listenKey=&lt;listenKey&gt;</code> — or, preferably for non-browser clients, send the listenKey as an <code>Authorization: Bearer &lt;listenKey&gt;</code> handshake header instead of the query parameter (keeps the token out of proxy/access logs).</li>
 </ol>
 
 <p>An invalid or expired listenKey is rejected at the handshake with <strong>HTTP 401</strong>. The listenKey is checked only at the handshake: an established connection is not dropped when the listenKey expires, but every reconnect needs a fresh one. There is no renewal endpoint.</p>
@@ -8818,7 +8834,7 @@ This operation does not require authentication
   </span><span class="nl">"client_order_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"554500941080543232"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Your executions: price, amount, cost, fees, taker/maker flag and exchange identifiers. Pushed once per fill.</p>
+<p>Your executions: price, amount, cost, fees, taker/maker flag and exchange identifiers. Pushed once per fill. Note: trades are delivered account-wide (all exchanges); the <code>exchange</code> field of the subscription only identifies it for unsubscribe.</p>
 <h2 id='topic-position'>Topic: position</h2>
 <blockquote>
 <p>Example position update:</p>

@@ -1398,6 +1398,7 @@ components:
       - COINBASE_PRIME
       - COINBASE_INTL
       - HYPERLIQUID
+      - LIGHTER
     TradingStyle:
       type: string
       enum:
