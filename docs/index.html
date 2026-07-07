@@ -504,6 +504,9 @@
                     <a href="#subscribing" class="toc-h2 toc-link" data-title="Subscribing">Subscribing</a>
                   </li>
                   <li>
+                    <a href="#rate-limits" class="toc-h2 toc-link" data-title="Rate limits">Rate limits</a>
+                  </li>
+                  <li>
                     <a href="#errors" class="toc-h2 toc-link" data-title="Errors">Errors</a>
                   </li>
                   <li>
@@ -8712,6 +8715,39 @@ This operation does not require authentication
 </tbody></table>
 
 <p>One subscription per <code>(topic, exchange)</code> pair per connection; a duplicate subscribe is acknowledged but does not create a second stream. Open several connections if you need parallel consumers.</p>
+<h2 id='rate-limits'>Rate limits</h2>
+<p>Per connection and per account (defaults; environment-configurable):</p>
+
+<table><thead>
+<tr>
+<th>Limit</th>
+<th>Default</th>
+<th>On breach</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Concurrent connections per account</td>
+<td>5</td>
+<td>handshake closed (1008) with a code-5 error frame</td>
+</tr>
+<tr>
+<td>Messages per second per connection</td>
+<td>10 (burst 20)</td>
+<td>code-5 error frame per dropped message; sustained flooding closes the connection (1008)</td>
+</tr>
+<tr>
+<td>Subscriptions per connection (all topics)</td>
+<td>50</td>
+<td>code-5 error frame</td>
+</tr>
+<tr>
+<td>Market data subscriptions per connection</td>
+<td>20</td>
+<td>error frame (&quot;limit reached&quot;)</td>
+</tr>
+</tbody></table>
+
+<p>Error code <code>5</code> = RATE_LIMIT_EXCEEDED.</p>
 <h2 id='errors'>Errors</h2>
 <blockquote>
 <p>Error response:</p>

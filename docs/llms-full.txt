@@ -95,6 +95,20 @@ method | `subscribe` \| `unsubscribe`
 
 One subscription per `(topic, exchange)` pair per connection; a duplicate subscribe is acknowledged but does not create a second stream. Open several connections if you need parallel consumers.
 
+
+## Rate limits
+
+Per connection and per account (defaults; environment-configurable):
+
+Limit | Default | On breach
+----- | ------- | ---------
+Concurrent connections per account | 5 | handshake closed (1008) with a code-5 error frame
+Messages per second per connection | 10 (burst 20) | code-5 error frame per dropped message; sustained flooding closes the connection (1008)
+Subscriptions per connection (all topics) | 50 | code-5 error frame
+Market data subscriptions per connection | 20 | error frame ("limit reached")
+
+Error code `5` = RATE_LIMIT_EXCEEDED.
+
 ## Errors
 
 > Error response:
