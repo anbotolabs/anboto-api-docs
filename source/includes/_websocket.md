@@ -44,7 +44,7 @@ wscat -c "wss://api.testnet.anboto.xyz/api/v2/ws?listenKey=$LISTEN_KEY"
 The WebSocket reuses your existing Anboto API key through a short-lived **listenKey**:
 
 1. Call `GET /api/v2/trading/listenKey` on the REST API (same HMAC-SHA256 signature scheme as every other authenticated endpoint). The response body is the listenKey — a JWT valid for **1 hour**.
-2. Connect to `wss://<host>/api/v2/ws?listenKey=<listenKey>`.
+2. Connect to `wss://<host>/api/v2/ws?listenKey=<listenKey>` — or, preferably for non-browser clients, send the listenKey as an `Authorization: Bearer <listenKey>` handshake header instead of the query parameter (keeps the token out of proxy/access logs).
 
 An invalid or expired listenKey is rejected at the handshake with **HTTP 401**. The listenKey is checked only at the handshake: an established connection is not dropped when the listenKey expires, but every reconnect needs a fresh one. There is no renewal endpoint.
 
@@ -211,7 +211,7 @@ Slice-level status changes of the child orders your algo (TWAP/VWAP/…) places 
 }
 ```
 
-Your executions: price, amount, cost, fees, taker/maker flag and exchange identifiers. Pushed once per fill.
+Your executions: price, amount, cost, fees, taker/maker flag and exchange identifiers. Pushed once per fill. Note: trades are delivered account-wide (all exchanges); the `exchange` field of the subscription only identifies it for unsubscribe.
 
 ## Topic: position
 
