@@ -6,7 +6,8 @@ repos:
     rev: v4.5.0
     hooks:
       - id: check-added-large-files
-        args: ["--enforce-all"]
+        # the generated single-page site (docs/index.html) exceeds the default 500 KB
+        args: ["--enforce-all", "--maxkb=1500"]
       - id: check-ast
       - id: check-builtin-literals
       - id: check-case-conflict

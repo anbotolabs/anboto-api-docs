@@ -56,9 +56,25 @@ configure :build do
   # activate :gzip
 end
 
-# Copy the openapi.yml file to the build directory
+# Copy machine-readable artifacts to the build directory:
+# API specs, llms.txt index, raw Markdown sources, and a concatenated
+# llms-full.txt so AI agents can ingest the whole documentation in one fetch.
 after_build do |builder|
   FileUtils.cp 'anboto-trading-api-2.0.yml', 'docs/anboto-trading-api-2.0.yml'
+  FileUtils.cp 'asynapi.yml', 'docs/asynapi.yml' if File.exist?('asynapi.yml')
+  FileUtils.cp 'llms.txt', 'docs/llms.txt'
+
+  # Raw Markdown variants of the docs pages (agent-friendly, no HTML shell)
+  FileUtils.cp 'source/index.html.md', 'docs/index.md'
+  FileUtils.cp 'source/includes/_websocket.md', 'docs/websocket.md'
+  FileUtils.cp 'source/includes/_agents.md', 'docs/agents.md' if File.exist?('source/includes/_agents.md')
+
+  # llms-full.txt: all documentation Markdown concatenated, HTML tags stripped
+  sources = ['source/index.html.md', 'source/includes/_websocket.md',
+             'source/includes/_agents.md', 'source/includes/_errors.md']
+  full = sources.select { |f| File.exist?(f) }.map { |f| File.read(f) }.join("\n\n---\n\n")
+  full = full.gsub(/<br\s*\/?>/i, "\n").gsub(/<[^>]+>/, '')
+  File.write('docs/llms-full.txt', full)
 end
 
 # Deploy Configuration

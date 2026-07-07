@@ -1,0 +1,15 @@
+# Anboto Trading API
+
+> Execution platform API: REST (orders, algos, balances, positions, market data) and WebSocket (order/trade/position/balance/market-data streams). HMAC-signed API keys; listenKey auth for WebSocket.
+
+## Docs
+- [Full documentation (single file)](https://anbotolabs.github.io/anboto-api-docs/llms-full.txt)
+- [REST API reference (Markdown)](https://anbotolabs.github.io/anboto-api-docs/index.md)
+- [WebSocket API reference (Markdown)](https://anbotolabs.github.io/anboto-api-docs/websocket.md)
+
+## Specs
+- [OpenAPI 3.0 (REST)](https://anbotolabs.github.io/anboto-api-docs/anboto-trading-api-2.0.yml)
+- [AsyncAPI 3.0 (WebSocket)](https://anbotolabs.github.io/anboto-api-docs/asynapi.yml)
+
+## Tooling
+- [anboto-agent-kit (MCP server, TS client, Claude Skill)](https://github.com/anbotolabs/anboto-agent-kit)
